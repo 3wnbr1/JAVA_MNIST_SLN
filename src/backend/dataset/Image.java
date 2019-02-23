@@ -1,6 +1,6 @@
-package backend;
+package backend.dataset;
 
-
+import backend.prof.ImageNB;
 
 public class Image {
 

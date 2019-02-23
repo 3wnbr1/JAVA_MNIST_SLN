@@ -1,4 +1,4 @@
-package backend;
+package backend.dataset;
 
 public class Gradient {
 	private double angle;

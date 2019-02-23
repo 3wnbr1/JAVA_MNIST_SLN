@@ -1,5 +1,7 @@
 package backend;
 
+import backend.dataset.Dataset;
+import backend.dataset.Image;
 
 public class Perceptron extends Model {
 
