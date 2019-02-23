@@ -1,4 +1,4 @@
-package backend;
+package backend.dataset;
 
 
 public class Features {
@@ -12,6 +12,10 @@ public class Features {
 		return this.array;
 	}
 
+	
+	/*
+	 * Features construction
+	 */
 	public Features(Image image) {
 		this.image = image;
 		this.computeGradient();
@@ -105,6 +109,9 @@ public class Features {
 		return sum / (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
 	}
 
+	/*
+	 * Compute image gradient for later use
+	 */
 	private void computeGradient() {
 		int rows = this.image.image_data.getTailleX();
 		int columns = this.image.image_data.getTailleY();
