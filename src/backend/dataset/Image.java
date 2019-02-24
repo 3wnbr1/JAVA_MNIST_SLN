@@ -1,26 +1,46 @@
 package backend.dataset;
 
+import backend.prof.ImageCalculs;
 import backend.prof.ImageNB;
 
 public class Image {
 
-	Features attribute;
 	protected ImageNB image_data;
 	private Features features;
 	private String label;
+	private String filepath;
 
 	/**
-	 * 
+	 * Construct a new image with only a filepath
 	 * @param filepath
 	 */
 	public Image(String filepath) {
-		// TODO - implement Image.Image
-		throw new UnsupportedOperationException();
+		String[] path = filepath.split("\\\\|/");  // Regex matching windows and unix paths
+		this.image_data = ImageCalculs.buffToImageNB(ImageCalculs.chargerImage(filepath));
+		this.label = path[path.length-1].substring(0, 1);
+		this.filepath = filepath;
+		this.features = new Features(this);
 	}
-
+	
+	/*
+	 * Compute Image Features
+	 */
 	public void computeFeatures() {
-		// TODO - implement Image.computeFeatures
-		throw new UnsupportedOperationException();
+		this.features.compute();
 	}
-
+	
+	/*
+	 * The label of the current image
+	 */
+	public String getLabel() {
+		return this.label;
+	}
+	
+	/*
+	 * toString method used to build backup files
+	 */
+	@Override
+	public String toString() {
+		return this.filepath + "|" + this.label + "|" + this.features.toString();
+	}
 }

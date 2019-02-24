@@ -55,9 +55,9 @@ public class Dataset {
 	private LinkedList<String> datasetImages(double test_proportion) {
 		String[] files = this.folder_reader.getNomFichiers();
 		LinkedList<String> images = new LinkedList<String>();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].toLowerCase().endsWith(".jpg")) {
-				images.add(files[i]);
+		for (String file : files) {
+			if (file.toLowerCase().endsWith(".jpg")) {
+				images.add(file);
 			}
 		}
 		return images;

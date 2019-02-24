@@ -1,5 +1,6 @@
 package backend.dataset;
 
+import java.util.Arrays;
 
 public class Features {
 
@@ -8,11 +9,14 @@ public class Features {
 	private Gradient[][] gradient;
 	private Image image;
 
+	
+	/*
+	 * Array of features
+	 */
 	public double[] getArray() {
 		return this.array;
 	}
 
-	
 	/*
 	 * Features construction
 	 */
@@ -156,6 +160,14 @@ public class Features {
 		}
 		this.gradient = gradient;
 		
+	}
+
+	/*
+	 * toString for features array
+	 */
+	@Override
+	public String toString() {
+		return Arrays.toString(array);
 	}
 
 }
