@@ -8,7 +8,7 @@ public class Image {
 	protected ImageNB image_data;
 	private Features features;
 	private String label;
-	private String filepath;
+	private String filename;
 
 	/**
 	 * Construct a new image with only a filepath
@@ -18,7 +18,7 @@ public class Image {
 		String[] path = filepath.split("\\\\|/");  // Regex matching windows and unix paths
 		this.image_data = ImageCalculs.buffToImageNB(ImageCalculs.chargerImage(filepath));
 		this.label = path[path.length-1].substring(0, 1);
-		this.filepath = filepath;
+		this.filename = path[path.length-1];
 		this.features = new Features(this);
 	}
 	
@@ -41,6 +41,6 @@ public class Image {
 	 */
 	@Override
 	public String toString() {
-		return this.filepath + "|" + this.label + "|" + this.features.toString();
+		return "image:\n\t\tname: " + this.filename + "\n\t\tlabel: " + this.label + "\n\t\tfeatures: " + this.features.toString();
 	}
 }

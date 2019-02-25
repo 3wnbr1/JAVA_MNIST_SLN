@@ -1,8 +1,11 @@
 package backend.dataset;
 
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -19,8 +22,11 @@ public class Dataset {
 	private LinkedList<String> testing_images_paths;
 	private LinkedList<Image> training_images;
 	private LinkedList<Image> testing_images;
-	private String[] features_maping;
 	private LireDossier folder_reader;
+	private FileIO file;
+	
+	
+	private String[] features_maping = {"\"black pixels ratio\"", "\"entropy\"", "\"gradient average angle\"", "\"gradient average norm\""};
 
 	
 	/**
@@ -65,10 +71,24 @@ public class Dataset {
 
 	/**
 	 * Dumps a backup file on disk which we can use later for recreating the Dataset
+	 * @throws IOException 
 	 */
-	public void saveToDisk() {
-
-		throw new UnsupportedOperationException();
+	public void saveToDisk() throws IOException {
+		String writeBuffer = new String();
+		this.file = new FileIO(this.path + "/dataset.yml");
+		writeBuffer.concat("version: 1\n\n" + "dataset: " + this.name + "\n\nfeatures:\n"); // Header
+		for (String feature : this.features_maping) {
+			writeBuffer.concat("\t- " + feature + "\n");
+		}
+		writeBuffer.concat("\ntraining:\n");
+		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) { // Training images
+			writeBuffer.concat("\t" + i.next().toString() + "\n");
+		}
+		writeBuffer.concat("\ntesting:\n");
+		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) { // Testing images
+			writeBuffer.concat("\t" + i.next().toString() + "\n");
+		}
+		this.file.write(writeBuffer);
 	}
 
 	/**
@@ -110,19 +130,31 @@ public class Dataset {
 		}
 	}
 
+	/*
+	 * Return the proportion of test image in Dataset
+	 */
 	public double getTestProportion() {
 		return test_proportion;
 	}
 
+	/*
+	 * Method that can be used to change the proportion of test image in Dataset
+	 */
 	public void setTestProportion(double test_proportion) {
 		this.test_proportion = test_proportion;
 		this.splitDataset();
 	}
 
+	/*
+	 * Returns Dataset Name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/*
+	 * Method that can be used to change Dataset name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

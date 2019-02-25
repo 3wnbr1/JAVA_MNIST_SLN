@@ -55,7 +55,7 @@ public class FileIO {
 	/*
 	 * Read a file and return it
 	 */
-	List<String> readlines() throws IOException {
+	public List<String> readlines() throws IOException {
 		if (!this.file.canRead()) {
 			throw new IOException();
 		}
