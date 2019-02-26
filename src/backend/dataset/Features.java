@@ -1,5 +1,6 @@
 package backend.dataset;
 
+import java.util.Arrays;
 
 public class Features {
 
@@ -8,11 +9,14 @@ public class Features {
 	private Gradient[][] gradient;
 	private Image image;
 
+	
+	/*
+	 * Array of features
+	 */
 	public double[] getArray() {
 		return this.array;
 	}
 
-	
 	/*
 	 * Features construction
 	 */
@@ -50,7 +54,7 @@ public class Features {
 				}
 			}
 		}
-		return counter / (rows * columns);
+		return counter / (double) (rows * columns);
 	}
 	
 	/*
@@ -92,7 +96,7 @@ public class Features {
 				sum += this.gradient[y][x].getAngle();
 			}
 		}
-		return sum / (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
+		return sum / (double) (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
 	}
 	
 	/*
@@ -106,7 +110,7 @@ public class Features {
 				sum += this.gradient[y][x].getNorme();
 			}
 		}
-		return sum / (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
+		return sum / (double) (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
 	}
 
 	/*
@@ -156,6 +160,14 @@ public class Features {
 		}
 		this.gradient = gradient;
 		
+	}
+
+	/*
+	 * toString for features array
+	 */
+	@Override
+	public String toString() {
+		return Arrays.toString(this.getArray());
 	}
 
 }
