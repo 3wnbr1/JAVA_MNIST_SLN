@@ -1,4 +1,4 @@
-package backend.dataset;
+package backend;
 
 
 import java.io.BufferedReader;
@@ -30,9 +30,6 @@ public class FileIO {
 	 * Private method to a file
 	 */
 	private void write(String contents, boolean append) throws IOException {
-		if (!this.file.canWrite()) {
-			throw new IOException();
-		}
 		this.writer = new FileWriter(this.file, append);
 		this.writer.write(contents);
 		this.writer.close();
@@ -56,9 +53,6 @@ public class FileIO {
 	 * Read a file and return it
 	 */
 	public List<String> readlines() throws IOException {
-		if (!this.file.canRead()) {
-			throw new IOException();
-		}
 		this.reader = new FileReader(this.file);
 		this.readBuffer = new BufferedReader(this.reader);
 		Stream<String> lines = this.readBuffer.lines();
@@ -77,9 +71,6 @@ public class FileIO {
 	 * Delete File from FileSystem
 	 */
 	public void delete() throws IOException {
-		if (!this.file.canWrite()) {
-			throw new IOException();
-		}
 		this.file.delete();
 	}
 }

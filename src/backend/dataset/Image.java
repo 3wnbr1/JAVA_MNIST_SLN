@@ -37,10 +37,17 @@ public class Image {
 	}
 	
 	/*
+	 * Return array of images features
+	 */
+	public double[] getFeatures() {
+		return this.features.getArray();
+	}
+	
+	/*
 	 * toString method used to build backup files
 	 */
 	@Override
 	public String toString() {
-		return "image:\n\t\tname: " + this.filename + "\n\t\tlabel: " + this.label + "\n\t\tfeatures: " + this.features.toString();
+		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: " + this.features.toString();
 	}
 }

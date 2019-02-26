@@ -2,13 +2,11 @@ package backend.dataset;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
-
+import backend.FileIO;
 import backend.prof.LireDossier;
 
 
@@ -46,12 +44,13 @@ public class Dataset {
 	/**
 	 * Constructs a dataset from a backup file with features already computed
 	 * @param dataset_file_path
+	 * @throws IOException 
 	 */
 
 	public Dataset(String dataset_file_path) {
 		this.randomizer = new Random();
-		// TODO - implement Dataset.Dataset
-		throw new UnsupportedOperationException();
+		this.file = new FileIO(this.path + "/dataset.yml");
+		
 	}
 
 	/**
@@ -76,17 +75,17 @@ public class Dataset {
 	public void saveToDisk() throws IOException {
 		String writeBuffer = new String();
 		this.file = new FileIO(this.path + "/dataset.yml");
-		writeBuffer.concat("version: 1\n\n" + "dataset: " + this.name + "\n\nfeatures:\n"); // Header
+		writeBuffer = writeBuffer.concat("version: 1\n\n" + "dataset: " + this.name + "\n\nfeatures:\n"); // Header
 		for (String feature : this.features_maping) {
-			writeBuffer.concat("\t- " + feature + "\n");
+			writeBuffer = writeBuffer.concat("  - " + feature + "\n");
 		}
-		writeBuffer.concat("\ntraining:\n");
-		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) { // Training images
-			writeBuffer.concat("\t" + i.next().toString() + "\n");
+		writeBuffer = writeBuffer.concat("\ntraining:\n");
+		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) { // Training images
+			writeBuffer = writeBuffer.concat("  " + i.next().toString() + "\n");
 		}
-		writeBuffer.concat("\ntesting:\n");
-		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) { // Testing images
-			writeBuffer.concat("\t" + i.next().toString() + "\n");
+		writeBuffer = writeBuffer.concat("\ntesting:\n");
+		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) { // Testing images
+			writeBuffer = writeBuffer.concat("  " + i.next().toString() + "\n");
 		}
 		this.file.write(writeBuffer);
 	}
@@ -118,15 +117,27 @@ public class Dataset {
 	 * Create all images in memory
 	 */
 	private void imagesToMemory() {
-		this.training_images.clear();
-		this.testing_images.clear();
+		this.training_images = new LinkedList<Image>();
+		this.testing_images = new LinkedList<Image>();
 		
 		for (Iterator<String> i = this.training_images_paths.iterator(); i.hasNext();) {
-			this.training_images.add(new Image(i.next()));
+			this.training_images.add(new Image(this.path+"/"+i.next()));
 		}
 		
 		for (Iterator<String> i = this.testing_images_paths.iterator(); i.hasNext();) {
-			this.testing_images.add(new Image(i.next()));
+			this.testing_images.add(new Image(this.path+"/"+i.next()));
+		}
+	}
+	
+	/*
+	 * Compute all images features
+	 */
+	public void computeFeatures() {
+		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) {
+			i.next().computeFeatures();
+		}
+		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) {
+			i.next().computeFeatures();
 		}
 	}
 
@@ -157,6 +168,20 @@ public class Dataset {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/*
+	 * Return Training Images
+	 */
+	public LinkedList<Image> getTraining_images() {
+		return training_images;
+	}
+
+	/*
+	 * Return Testing Images
+	 */
+	public LinkedList<Image> getTesting_images() {
+		return testing_images;
 	}
 
 }
