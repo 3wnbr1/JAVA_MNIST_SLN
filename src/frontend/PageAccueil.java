@@ -106,6 +106,7 @@ public class PageAccueil extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setBackground(Color.WHITE);

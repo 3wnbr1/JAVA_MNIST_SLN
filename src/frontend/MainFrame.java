@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
 		panel_25.setLayout(new BorderLayout(0, 0));
 		
 		txtEtape = new JTextField();
+		txtEtape.setEditable(false);
 		panel_25.add(txtEtape);
 		txtEtape.setBackground(Color.decode("#b3e5fc"));
 		txtEtape.setText("ETAPE 1 : choix de l'image");
@@ -110,6 +111,7 @@ public class MainFrame extends JFrame {
 		panneau_lancer_analyse.setLayout(new BorderLayout(0, 0));
 		
 		texte_e2 = new JTextField();
+		texte_e2.setEditable(false);
 		texte_e2.setBackground(Color.decode("#b3e5fc"));
 		texte_e2.setText("ETAPE 2 ");
 		panneau_lancer_analyse.add(texte_e2, BorderLayout.NORTH);
@@ -148,6 +150,7 @@ public class MainFrame extends JFrame {
 		panneau_resultats.setLayout(new BorderLayout(0, 0));
 		
 		txtLeRsultatEst = new JTextField();
+		txtLeRsultatEst.setEditable(false);
 		txtLeRsultatEst.setBackground(Color.decode("#b3e5fc"));
 		txtLeRsultatEst.setText("Le r\u00E9sultat est :");
 		panneau_resultats.add(txtLeRsultatEst, BorderLayout.NORTH);
@@ -261,6 +264,7 @@ public class MainFrame extends JFrame {
 		flowLayout.setVgap(10);
 		
 		nom_application = new JTextField();
+		nom_application.setEditable(false);
 		nom_application.setForeground(new Color(255, 255, 255));
 		nom_application.setBackground(new Color(0, 0, 255));
 		nom_application.setText("Nom Application");
@@ -268,6 +272,7 @@ public class MainFrame extends JFrame {
 		nom_application.setColumns(10);
 		
 		nom_fenetre = new JTextField();
+		nom_fenetre.setEditable(false);
 		nom_fenetre.setBackground(Color.decode("#b3e5fc"));
 		nom_fenetre.setHorizontalAlignment(SwingConstants.CENTER);
 		nom_fenetre.setText("Fen\u00EAtre Principale");

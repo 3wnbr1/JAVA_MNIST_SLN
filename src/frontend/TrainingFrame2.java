@@ -26,6 +26,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JLabel;
 
 public class TrainingFrame2 extends JFrame {
 
@@ -41,17 +42,61 @@ public class TrainingFrame2 extends JFrame {
 	private JPanel principal;
 	private JPanel bord3;
 	private JPanel panneau_choix;
-	private JPanel panel_1;
+	private JPanel panneau_parametres;
 	private JPanel panel_2;
 	private JPanel panel_3;
-	private JRadioButton perceptron;
-	private JRadioButton neuronnes;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JPanel panel;
 	private JPanel panel_4;
 	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
+	private JMenuBar menuPerceptron;
+	private JMenu mnNewMenu;
+	private JCheckBox reg1;
+	private JCheckBox reg2;
+	private JCheckBox reg3;
+	private JRadioButton perceptron;
+	private JRadioButton neuronne;
+	private JTextField parametres;
+	private JPanel panel_1;
+	private JPanel panel_8;
+	private JPanel panel_10;
+	private JPanel panel_12;
+	private JPanel panel_13;
+	private JPanel general;
+	private JPanel panel_9;
+	private JPanel panel_14;
+	private JPanel panel_15;
+	private JTextField choix_type;
+	private JPanel panel_16;
+	private JPanel panel_18;
+	private JPanel panel_19;
+	private JPanel panel_22;
+	private JPanel panel_23;
+	private JPanel panel_24;
+	private JPanel panel_17;
+	private JPanel panel_20;
+	private JPanel panel_21;
+	private JPanel panel_25;
+	private JPanel panel_26;
+	private JPanel panel_27;
+	private JPanel panel_28;
+	private JPanel panel_29;
+	private JPanel panel_30;
+	private JTextField epoc;
+	private JTextField batch_size;
+	private JTextField training_step;
+	private JPanel panel_31;
+	private JPanel panel_32;
+	private JTextField nb_de_passes;
+	private JTextField valeur_nb_images;
+	private JTextField nb_incrementations;
+	private JButton bouton_validation;
+	private JPanel panel_33;
+	private JPanel panel_34;
+	private JPanel panel_35;
+	private JPanel panel_36;
 
 
 
@@ -80,6 +125,7 @@ public class TrainingFrame2 extends JFrame {
 		panneau_titre.setBackground(Color.decode("#01579b"));
 		
 		textField = new JTextField();
+		textField.setEditable(false);
 		textField.setText("Nom Application");
 		textField.setForeground(Color.WHITE);
 		textField.setColumns(10);
@@ -87,6 +133,7 @@ public class TrainingFrame2 extends JFrame {
 		panneau_titre.add(textField);
 		
 		txtFentreRglages = new JTextField();
+		txtFentreRglages.setEditable(false);
 		txtFentreRglages.setText("Fen\u00EAtre R\u00E9glages");
 		txtFentreRglages.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFentreRglages.setColumns(20);
@@ -132,45 +179,262 @@ public class TrainingFrame2 extends JFrame {
 		principal.add(panneau_choix);
 		panneau_choix.setLayout(new BorderLayout(0, 0));
 		
+		general = new JPanel();
+		panneau_choix.add(general);
+		general.setLayout(new GridLayout(0, 1, 0, 0));
+		
 		panel_4 = new JPanel();
+		general.add(panel_4);
 		panel_4.setBackground(Color.decode("#03a9f4"));
-		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
-		panneau_choix.add(panel_4, BorderLayout.NORTH);
+		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		choix_type = new JTextField();
+		choix_type.setBackground(Color.decode("#ffb74d"));
+		choix_type.setHorizontalAlignment(SwingConstants.CENTER);
+		choix_type.setText("Choix du type de mod\u00E8le :");
+		choix_type.setEditable(false);
+		panel_4.add(choix_type);
+		choix_type.setColumns(10);
+		
+		panel_16 = new JPanel();
+		panel_16.setBackground(Color.decode("#03a9f4"));
+		general.add(panel_16);
 		
 		panel = new JPanel();
-		panneau_choix.add(panel, BorderLayout.CENTER);
+		general.add(panel);
+		panel.setBackground(Color.decode("#03a9f4"));
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		panel_6 = new JPanel();
-		panel.add(panel_6, BorderLayout.EAST);
+		panel_6.setBackground(Color.decode("#03a9f4"));
+		panel.add(panel_6, BorderLayout.NORTH);
 		
-		perceptron = new JRadioButton("Choisir le perceptron");
-		panel_6.add(perceptron);
-		perceptron.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonGroup.add(perceptron);
+		neuronne = new JRadioButton("Choisir le r\u00E9seau de neuronnes");
+		neuronne.setBackground(Color.decode("#b3e5fc"));
+		buttonGroup.add(neuronne);
+		neuronne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel_6.add(neuronne);
+		
+			
+		
+		
+			
+		
 		
 		panel_7 = new JPanel();
-		panel.add(panel_7, BorderLayout.WEST);
+		panel_7.setBackground(Color.decode("#03a9f4"));
+		panel.add(panel_7, BorderLayout.CENTER);
 		
-		neuronnes = new JRadioButton("Choisir le r\u00E9seau de neuronnes");
-		panel_7.add(neuronnes);
-		neuronnes.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonGroup.add(neuronnes);
+		perceptron = new JRadioButton("Choisir le Perceptron");
+		perceptron.setBackground(Color.decode("#b3e5fc"));
+		buttonGroup.add(perceptron);
+		panel_7.add(perceptron);
 		
 		panel_5 = new JPanel();
-		panel_5.setBackground(Color.decode("#03a9f4"));
+		general.add(panel_5);
+		panel_5.setBackground(new Color(3, 169, 244));
 		FlowLayout flowLayout_1 = (FlowLayout) panel_5.getLayout();
-		panneau_choix.add(panel_5, BorderLayout.SOUTH);
+		
+		menuPerceptron = new JMenuBar();
+		panel_5.add(menuPerceptron);
+		
+		mnNewMenu = new JMenu("R\u00E9glages Perceptron");
+		mnNewMenu.setBackground(Color.decode("#b3e5fc"));
+		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		menuPerceptron.add(mnNewMenu);
+		
+		reg1 = new JCheckBox("Reglage1");
+		mnNewMenu.add(reg1);
+		
+		reg2 = new JCheckBox("Reglage2");
+		mnNewMenu.add(reg2);
+		
+		reg3 = new JCheckBox("Reglage3");
+		mnNewMenu.add(reg3);
+		
+		panel_34 = new JPanel();
+		panel_34.setBackground(new Color(3, 169, 244));
+		general.add(panel_34);
+		
+		panel_35 = new JPanel();
+		panel_35.setBackground(new Color(3, 169, 244));
+		general.add(panel_35);
+		
+		panel_9 = new JPanel();
+		panel_9.setBackground(Color.decode("#01579b"));
+		panneau_choix.add(panel_9, BorderLayout.NORTH);
+		
+		panel_14 = new JPanel();
+		panel_14.setBackground(Color.decode("#01579b"));
+		panneau_choix.add(panel_14, BorderLayout.SOUTH);
+		
+		panel_15 = new JPanel();
+		panel_15.setBackground(Color.decode("#01579b"));
+		panneau_choix.add(panel_15, BorderLayout.WEST);
 		
 	
+		panneau_parametres = new JPanel();
+		panneau_parametres.setBackground(Color.decode("#03a9f4"));
+		principal.add(panneau_parametres);
+		panneau_parametres.setLayout(new BorderLayout(0, 0));
+		
 		panel_1 = new JPanel();
-		principal.add(panel_1);
+		panneau_parametres.add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		parametres = new JTextField();
+		parametres.setEditable(false);
+		parametres.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(parametres);
+		parametres.setBackground(Color.decode("#ffb74d"));
+		parametres.setText("R\u00E9glage des param\u00E8tres :");
+		parametres.setColumns(10);
+		
+		panel_31 = new JPanel();
+		panel_1.add(panel_31);
+		panel_31.setLayout(new GridLayout(3, 2, 0, 0));
+		
+		epoc = new JTextField();
+		epoc.setBackground(Color.decode("#03a9f4"));
+		epoc.setHorizontalAlignment(SwingConstants.CENTER);
+		epoc.setEditable(false);
+		panel_31.add(epoc);
+		epoc.setText("nombre de passes");
+		epoc.setColumns(10);
+		
+		nb_de_passes = new JTextField();
+		nb_de_passes.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_31.add(nb_de_passes);
+		nb_de_passes.setColumns(10);
+		
+		batch_size = new JTextField();
+		batch_size.setBackground(Color.decode("#03a9f4"));
+		batch_size.setHorizontalAlignment(SwingConstants.CENTER);
+		batch_size.setEditable(false);
+		panel_31.add(batch_size);
+		batch_size.setText("nombre d'images par passe");
+		batch_size.setColumns(10);
+		
+		valeur_nb_images = new JTextField();
+		valeur_nb_images.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_31.add(valeur_nb_images);
+		valeur_nb_images.setColumns(10);
+		
+		training_step = new JTextField();
+		training_step.setBackground(Color.decode("#03a9f4"));
+		training_step.setHorizontalAlignment(SwingConstants.CENTER);
+		training_step.setEditable(false);
+		panel_31.add(training_step);
+		training_step.setText("incr\u00E9mentation");
+		training_step.setColumns(10);
+		
+		nb_incrementations = new JTextField();
+		nb_incrementations.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_31.add(nb_incrementations);
+		nb_incrementations.setColumns(10);
+		
+		panel_32 = new JPanel();
+		panel_1.add(panel_32);
+		panel_32.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		bouton_validation = new JButton("VALIDER MODIFICATION");
+		bouton_validation.setBackground(new Color(255, 0, 51));
+		panel_32.add(bouton_validation);
+		
+		panel_33 = new JPanel();
+		panel_33.setBackground(Color.decode("#03a9f4"));
+		panel_1.add(panel_33);
+		
+		panel_36 = new JPanel();
+		panel_36.setBackground(new Color(3, 169, 244));
+		panel_1.add(panel_36);
+		
+		panel_8 = new JPanel();
+		panel_8.setBackground(Color.decode("#01579b"));
+		panneau_parametres.add(panel_8, BorderLayout.SOUTH);
+		
+		panel_10 = new JPanel();
+		panel_10.setBackground(Color.decode("#01579b"));
+		panneau_parametres.add(panel_10, BorderLayout.NORTH);
+		
+		panel_13 = new JPanel();
+		panel_13.setBackground(Color.decode("#01579b"));
+		panneau_parametres.add(panel_13, BorderLayout.WEST);
+		
+		panel_12 = new JPanel();
+		panel_12.setBackground(Color.decode("#01579b"));
+		panneau_parametres.add(panel_12, BorderLayout.EAST);
 		
 		panel_2 = new JPanel();
+		panel_2.setBackground(Color.decode("#03a9f4"));
 		principal.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		panel_18 = new JPanel();
+		panel_18.setBackground(new Color(1, 87, 155));
+		panel_2.add(panel_18, BorderLayout.SOUTH);
+		
+		panel_19 = new JPanel();
+		panel_19.setBackground(new Color(1, 87, 155));
+		panel_2.add(panel_19, BorderLayout.NORTH);
+		
+		panel_17 = new JPanel();
+		panel_2.add(panel_17, BorderLayout.CENTER);
+		panel_17.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel_20 = new JPanel();
+		panel_17.add(panel_20);
+		panel_20.setLayout(new BorderLayout(0, 0));
+		
+		panel_25 = new JPanel();
+		panel_25.setBackground(Color.decode("#03a9f4"));
+		panel_20.add(panel_25, BorderLayout.CENTER);
+		
+		panel_26 = new JPanel();
+		panel_26.setBackground(Color.decode("#01579b"));
+		panel_20.add(panel_26, BorderLayout.SOUTH);
+		
+		panel_21 = new JPanel();
+		panel_21.setBackground(Color.decode("#03a9f4"));
+		panel_17.add(panel_21);
 		
 		panel_3 = new JPanel();
+		panel_3.setBackground(Color.decode("#03a9f4"));
 		principal.add(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		panel_22 = new JPanel();
+		panel_22.setBackground(new Color(1, 87, 155));
+		panel_3.add(panel_22, BorderLayout.SOUTH);
+		
+		panel_23 = new JPanel();
+		panel_23.setBackground(new Color(1, 87, 155));
+		panel_3.add(panel_23, BorderLayout.NORTH);
+		
+		panel_24 = new JPanel();
+		panel_24.setBackground(new Color(1, 87, 155));
+		panel_3.add(panel_24, BorderLayout.EAST);
+		
+		panel_27 = new JPanel();
+		panel_3.add(panel_27, BorderLayout.CENTER);
+		panel_27.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel_28 = new JPanel();
+		panel_28.setBackground(Color.decode("#03a9f4"));
+		panel_27.add(panel_28);
+		panel_28.setLayout(new BorderLayout(0, 0));
+		
+		panel_30 = new JPanel();
+		panel_30.setBackground(Color.decode("#01579b"));
+		panel_28.add(panel_30, BorderLayout.SOUTH);
+		
+		panel_29 = new JPanel();
+		panel_29.setBackground(Color.decode("#03a9f4"));
+		panel_27.add(panel_29);
 	}
 
+	
 }
