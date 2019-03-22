@@ -54,6 +54,9 @@ public class TrainingFrame extends JFrame {
 	private JTextField valider;
 	private JButton btnNewButton;
 	private JPanel panel_10;
+	private JPanel organisationPanneauTitre;
+	private JPanel panel_11;
+	private JPanel panel_12;
 
 
 
@@ -64,6 +67,7 @@ public class TrainingFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.decode("#01579b"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -71,53 +75,26 @@ public class TrainingFrame extends JFrame {
 		this.setDefaultLookAndFeelDecorated(true);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 		
-		
-		JPanel panneau_titre = new JPanel();
-		panneau_titre.setBackground(Color.BLUE);
-		contentPane.add(panneau_titre, BorderLayout.NORTH);
-		
-		textField = new JTextField();
-		textField.setText("Nom Application");
-		textField.setForeground(Color.WHITE);
-		textField.setColumns(10);
-		textField.setBackground(Color.BLUE);
-		panneau_titre.add(textField);
-		
-		txtFentreRglages = new JTextField();
-		txtFentreRglages.setText("Fen\u00EAtre R\u00E9glages");
-		txtFentreRglages.setHorizontalAlignment(SwingConstants.CENTER);
-		txtFentreRglages.setColumns(20);
-		txtFentreRglages.setBackground(Color.CYAN);
-		panneau_titre.add(txtFentreRglages);
-		
-		retoursMain = new JButton("Retour fen\u00EAtre principale");
-		retoursMain.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				MainFrame frame = new MainFrame();
-				frame.setVisible(true);
-			}
-		});
-		panneau_titre.add(retoursMain);
-		
 		panneau_actions = new JPanel();
 		contentPane.add(panneau_actions, BorderLayout.CENTER);
 		panneau_actions.setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
+		panel.setBackground(Color.decode("#03a9f4"));
 		panneau_actions.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new BorderLayout(0, 0));
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel.add(panel_1);
+		panel.add(panel_1, BorderLayout.WEST);
 		
 		panel_5 = new JPanel();
+		panel_5.setBackground(Color.decode("#03a9f4"));
 		panel_1.add(panel_5);
 		panel_5.setLayout(new GridLayout(10, 0, 0, 0));
 		
 		caracteristiques = new JTextField();
-		caracteristiques.setBackground(Color.LIGHT_GRAY);
+		caracteristiques.setBackground(Color.decode("#b3e5fc"));
 		caracteristiques.setText("Caracteristiques");
 		panel_5.add(caracteristiques);
 		caracteristiques.setColumns(10);
@@ -133,14 +110,15 @@ public class TrainingFrame extends JFrame {
 		
 		panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel.add(panel_2);
+		panel.add(panel_2, BorderLayout.EAST);
 		
 		panel_6 = new JPanel();
+		panel_6.setBackground(Color.decode("#03a9f4"));
 		panel_2.add(panel_6);
 		panel_6.setLayout(new GridLayout(10, 0, 0, 0));
 		
 		parametres = new JTextField();
-		parametres.setBackground(Color.LIGHT_GRAY);
+		parametres.setBackground(Color.decode("#b3e5fc"));
 		parametres.setText("Parametres");
 		parametres.setColumns(10);
 		panel_6.add(parametres);
@@ -154,21 +132,43 @@ public class TrainingFrame extends JFrame {
 		rdbtnParametre_2 = new JRadioButton("parametre 3");
 		panel_6.add(rdbtnParametre_2);
 		
+		panel_12 = new JPanel();
+		panneau_actions.add(panel_12, BorderLayout.EAST);
+		panel_12.setLayout(new BorderLayout(0, 0));
+		
+		panel_4 = new JPanel();
+		panel_12.add(panel_4, BorderLayout.EAST);
+		panel_4.setBackground(Color.WHITE);
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		panel_8 = new JPanel();
+		panel_4.add(panel_8);
+		panel_8.setBackground(Color.decode("#03a9f4"));
+		panel_8.setLayout(new GridLayout(10, 1, 0, 0));
+		
+		charger = new JTextField();
+		charger.setBackground(Color.decode("#b3e5fc"));
+		charger.setText("Charger");
+		charger.setColumns(10);
+		panel_8.add(charger);
+		
 		panel_3 = new JPanel();
+		panel_12.add(panel_3, BorderLayout.WEST);
 		panel_3.setBackground(Color.WHITE);
-		panel.add(panel_3);
 		
 		panel_7 = new JPanel();
+		panel_7.setBackground(Color.decode("#03a9f4"));
 		panel_3.add(panel_7);
 		panel_7.setLayout(new GridLayout(10, 1, 0, 0));
 		
 		sauvegarde = new JTextField();
-		sauvegarde.setBackground(Color.LIGHT_GRAY);
+		sauvegarde.setBackground(Color.decode("#b3e5fc"));
 		sauvegarde.setText("Sauvegarder");
 		panel_7.add(sauvegarde);
 		sauvegarde.setColumns(10);
 		
 		txtEntrezLeNom = new JTextField();
+		txtEntrezLeNom.setBackground(Color.decode("#b3e5fc"));
 		txtEntrezLeNom.setText("Entrez le nom :");
 		panel_7.add(txtEntrezLeNom);
 		txtEntrezLeNom.setColumns(10);
@@ -177,13 +177,15 @@ public class TrainingFrame extends JFrame {
 		panel_7.add(editorPane);
 		
 		panel_9 = new JPanel();
+		panel_9.setBackground(Color.decode("#03a9f4"));
 		panel_7.add(panel_9);
 		
 		panel_10 = new JPanel();
+		panel_10.setBackground(Color.decode("#03a9f4"));
 		panel_7.add(panel_10);
 		
 		valider = new JTextField();
-		valider.setBackground(Color.LIGHT_GRAY);
+		valider.setBackground(Color.decode("#b3e5fc"));
 		valider.setText("Accepter modifications :");
 		panel_7.add(valider);
 		valider.setColumns(10);
@@ -191,19 +193,42 @@ public class TrainingFrame extends JFrame {
 		btnNewButton = new JButton("valider");
 		panel_7.add(btnNewButton);
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(Color.WHITE);
-		panel.add(panel_4);
+		organisationPanneauTitre = new JPanel();
+		contentPane.add(organisationPanneauTitre, BorderLayout.NORTH);
+		organisationPanneauTitre.setLayout(new BorderLayout(0, 0));
 		
-		panel_8 = new JPanel();
-		panel_4.add(panel_8);
-		panel_8.setLayout(new GridLayout(10, 1, 0, 0));
 		
-		charger = new JTextField();
-		charger.setBackground(Color.LIGHT_GRAY);
-		charger.setText("Charger");
-		charger.setColumns(10);
-		panel_8.add(charger);
+		JPanel panneau_titre = new JPanel();
+		organisationPanneauTitre.add(panneau_titre, BorderLayout.NORTH);
+		panneau_titre.setBackground(Color.decode("#01579b"));
+		
+		textField = new JTextField();
+		textField.setText("Nom Application");
+		textField.setForeground(Color.WHITE);
+		textField.setColumns(10);
+		textField.setBackground(Color.BLUE);
+		panneau_titre.add(textField);
+		
+		txtFentreRglages = new JTextField();
+		txtFentreRglages.setText("Fen\u00EAtre R\u00E9glages");
+		txtFentreRglages.setHorizontalAlignment(SwingConstants.CENTER);
+		txtFentreRglages.setColumns(20);
+		txtFentreRglages.setBackground(Color.decode("#b3e5fc"));
+		panneau_titre.add(txtFentreRglages);
+		
+		retoursMain = new JButton("Retour fen\u00EAtre principale");
+		retoursMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				MainFrame frame = new MainFrame();
+				frame.setVisible(true);
+			}
+		});
+		panneau_titre.add(retoursMain);
+		
+		panel_11 = new JPanel();
+		panel_11.setBackground(Color.decode("#03a9f4"));
+		organisationPanneauTitre.add(panel_11, BorderLayout.SOUTH);
 	}
 
 }

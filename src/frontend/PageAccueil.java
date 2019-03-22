@@ -35,7 +35,7 @@ public class PageAccueil extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.CYAN);
+		contentPane.setBackground(Color.decode("#03a9f4"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -44,19 +44,19 @@ public class PageAccueil extends JFrame {
 		this.setExtendedState(this.MAXIMIZED_BOTH);
 		
 		JPanel vide = new JPanel();
-		vide.setBackground(Color.CYAN);
+		vide.setBackground(Color.decode("#03a9f4"));
 		contentPane.add(vide, BorderLayout.NORTH);
 		
 		JPanel vide_1 = new JPanel();
-		vide_1.setBackground(Color.CYAN);
+		vide_1.setBackground(Color.decode("#03a9f4"));
 		contentPane.add(vide_1, BorderLayout.SOUTH);
 		
 		JPanel vide_2 = new JPanel();
-		vide_2.setBackground(Color.CYAN);
+		vide_2.setBackground(Color.decode("#03a9f4"));
 		contentPane.add(vide_2, BorderLayout.WEST);
 		
 		JPanel vide_3 = new JPanel();
-		vide_3.setBackground(Color.CYAN);
+		vide_3.setBackground(Color.decode("#03a9f4"));
 		contentPane.add(vide_3, BorderLayout.EAST);
 		
 		JPanel panneau = new JPanel();
