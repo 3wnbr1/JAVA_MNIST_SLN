@@ -1,15 +1,22 @@
 package backend;
 
+import backend.dataset.Dataset;
 
 public class TrainingEngine extends Engine {
-
+	
+	
+	private Dataset dataset;
+	
+	
+	public TrainingEngine() {
+		
+	}
+	
+	/*
+	 * Save trained model
+	 */
 	public void saveModel() {
 		// TODO - implement TrainingEngine.saveModel
-		throw new UnsupportedOperationException();
-	}
-
-	public void load_dataset() {
-		// TODO - implement TrainingEngine.load_dataset
 		throw new UnsupportedOperationException();
 	}
 
@@ -24,9 +31,18 @@ public class TrainingEngine extends Engine {
 		throw new UnsupportedOperationException();
 	}
 
-	public void preprocess_dataset() {
-		// TODO - implement TrainingEngine.preprocess_dataset
-		throw new UnsupportedOperationException();
+	/*
+	 * Return current dataset
+	 */
+	public Dataset getDataset() {
+		return this.dataset;
+	}
+
+	/*
+	 * Change the dataset used in training
+	 */
+	public void setDataset(Dataset dataset) {
+		this.dataset = dataset;
 	}
 
 }
