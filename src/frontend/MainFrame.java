@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class MainFrame extends JFrame {
 
@@ -267,7 +268,7 @@ public class MainFrame extends JFrame {
 		nom_application.setEditable(false);
 		nom_application.setForeground(new Color(255, 255, 255));
 		nom_application.setBackground(new Color(0, 0, 255));
-		nom_application.setText("Nom Application");
+		nom_application.setText("TERMINOTRON");
 		paneau_titre.add(nom_application);
 		nom_application.setColumns(10);
 		

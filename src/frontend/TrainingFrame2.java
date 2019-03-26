@@ -27,11 +27,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JLabel;
+import java.awt.Scrollbar;
+import javax.swing.JProgressBar;
+import javax.swing.ImageIcon;
 
 public class TrainingFrame2 extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtTerminotron;
 	private JTextField txtFentreRglages;
 	private JPanel panneau_actions;
 	private JButton retoursMain;
@@ -94,9 +97,24 @@ public class TrainingFrame2 extends JFrame {
 	private JTextField nb_incrementations;
 	private JButton bouton_validation;
 	private JPanel panel_33;
-	private JPanel panel_34;
 	private JPanel panel_35;
 	private JPanel panel_36;
+	private JTextField bouton_sauvegarder_modele;
+	private JPanel panel_37;
+	private JPanel panel_34;
+	private JPanel panel_38;
+	private JTextField choix_nom;
+	private JTextField textField_1;
+	private JPanel panel_39;
+	private JPanel panel_40;
+	private JPanel panel_41;
+	private JPanel panel_42;
+	private JButton bouton_chargement;
+	private JButton bouton_validation_chargement;
+	private JButton bouton_valider_sauvegarde;
+	private JButton bouton_lancer_apprentissage;
+	private JProgressBar progressBar;
+	private JButton button;
 
 
 
@@ -124,13 +142,13 @@ public class TrainingFrame2 extends JFrame {
 		organisationPanneauTitre.add(panneau_titre, BorderLayout.NORTH);
 		panneau_titre.setBackground(Color.decode("#01579b"));
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setText("Nom Application");
-		textField.setForeground(Color.WHITE);
-		textField.setColumns(10);
-		textField.setBackground(Color.BLUE);
-		panneau_titre.add(textField);
+		txtTerminotron = new JTextField();
+		txtTerminotron.setEditable(false);
+		txtTerminotron.setText("TERMINOTRON");
+		txtTerminotron.setForeground(Color.WHITE);
+		txtTerminotron.setColumns(10);
+		txtTerminotron.setBackground(Color.BLUE);
+		panneau_titre.add(txtTerminotron);
 		
 		txtFentreRglages = new JTextField();
 		txtFentreRglages.setEditable(false);
@@ -213,7 +231,7 @@ public class TrainingFrame2 extends JFrame {
 		neuronne.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(neuronne);
 		neuronne.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {  //TODO
 			}
 		});
 		panel_6.add(neuronne);
@@ -229,6 +247,10 @@ public class TrainingFrame2 extends JFrame {
 		panel.add(panel_7, BorderLayout.CENTER);
 		
 		perceptron = new JRadioButton("Choisir le Perceptron");
+		perceptron.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // TODO
+			}
+		});
 		perceptron.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(perceptron);
 		panel_7.add(perceptron);
@@ -247,17 +269,25 @@ public class TrainingFrame2 extends JFrame {
 		menuPerceptron.add(mnNewMenu);
 		
 		reg1 = new JCheckBox("Reglage1");
+		reg1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { //TODO
+			}
+		});
 		mnNewMenu.add(reg1);
 		
 		reg2 = new JCheckBox("Reglage2");
+		reg2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  //TODO
+			}
+		});
 		mnNewMenu.add(reg2);
 		
 		reg3 = new JCheckBox("Reglage3");
+		reg3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // TODO
+			}
+		});
 		mnNewMenu.add(reg3);
-		
-		panel_34 = new JPanel();
-		panel_34.setBackground(new Color(3, 169, 244));
-		general.add(panel_34);
 		
 		panel_35 = new JPanel();
 		panel_35.setBackground(new Color(3, 169, 244));
@@ -306,6 +336,10 @@ public class TrainingFrame2 extends JFrame {
 		epoc.setColumns(10);
 		
 		nb_de_passes = new JTextField();
+		nb_de_passes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { //TODO
+			}
+		});
 		nb_de_passes.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_31.add(nb_de_passes);
 		nb_de_passes.setColumns(10);
@@ -319,6 +353,10 @@ public class TrainingFrame2 extends JFrame {
 		batch_size.setColumns(10);
 		
 		valeur_nb_images = new JTextField();
+		valeur_nb_images.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  //TODO
+			}
+		});
 		valeur_nb_images.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_31.add(valeur_nb_images);
 		valeur_nb_images.setColumns(10);
@@ -332,6 +370,10 @@ public class TrainingFrame2 extends JFrame {
 		training_step.setColumns(10);
 		
 		nb_incrementations = new JTextField();
+		nb_incrementations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  //TODO
+			}
+		});
 		nb_incrementations.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_31.add(nb_incrementations);
 		nb_incrementations.setColumns(10);
@@ -341,16 +383,38 @@ public class TrainingFrame2 extends JFrame {
 		panel_32.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		bouton_validation = new JButton("VALIDER MODIFICATION");
-		bouton_validation.setBackground(new Color(255, 0, 51));
+		bouton_validation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  // TODO
+			}
+		});
+		bouton_validation.setBackground(new Color(0, 255, 127));
 		panel_32.add(bouton_validation);
 		
 		panel_33 = new JPanel();
 		panel_33.setBackground(Color.decode("#03a9f4"));
 		panel_1.add(panel_33);
+		panel_33.setLayout(new BorderLayout(0, 0));
+		
+		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage");
+		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  // TODO
+			}
+		});
+		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
+		panel_33.add(bouton_lancer_apprentissage);
 		
 		panel_36 = new JPanel();
 		panel_36.setBackground(new Color(3, 169, 244));
 		panel_1.add(panel_36);
+		panel_36.setLayout(new BorderLayout(0, 0));
+		
+		progressBar = new JProgressBar();   // Affiche l'évolution du stade d'apprentissage
+		panel_36.add(progressBar);
+		progressBar.setToolTipText("Avancement");
+		progressBar.setValue(2);
+		progressBar.setMaximum(3);
+		progressBar.setForeground(new Color(124, 252, 0));
+		progressBar.setBackground(new Color(220, 20, 60));
 		
 		panel_8 = new JPanel();
 		panel_8.setBackground(Color.decode("#01579b"));
@@ -392,6 +456,48 @@ public class TrainingFrame2 extends JFrame {
 		panel_25 = new JPanel();
 		panel_25.setBackground(Color.decode("#03a9f4"));
 		panel_20.add(panel_25, BorderLayout.CENTER);
+		panel_25.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		bouton_sauvegarder_modele = new JTextField();
+		bouton_sauvegarder_modele.setText("Sauvegarder sous");
+		bouton_sauvegarder_modele.setHorizontalAlignment(SwingConstants.CENTER);
+		bouton_sauvegarder_modele.setEditable(false);
+		bouton_sauvegarder_modele.setColumns(10);
+		bouton_sauvegarder_modele.setBackground(new Color(255, 183, 77));
+		panel_25.add(bouton_sauvegarder_modele);
+		
+		panel_37 = new JPanel();
+		panel_25.add(panel_37);
+		panel_37.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panel_34 = new JPanel();
+		panel_34.setBackground(Color.decode("#03a9f4"));
+		panel_37.add(panel_34);
+		
+		choix_nom = new JTextField();
+		choix_nom.setBackground(Color.decode("#b3e5fc"));
+		choix_nom.setEditable(false);
+		choix_nom.setText("Choisir le nom :");
+		choix_nom.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_34.add(choix_nom);
+		choix_nom.setColumns(10);
+		
+		panel_38 = new JPanel();
+		panel_38.setBackground(Color.decode("#03a9f4"));
+		panel_37.add(panel_38);
+		
+		textField_1 = new JTextField();
+		textField_1.setBackground(Color.decode("#b3e5fc"));
+		panel_38.add(textField_1);
+		textField_1.setColumns(10);
+		
+		bouton_valider_sauvegarde = new JButton("Valider la sauvegarde");
+		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {   //TODO
+			}
+		});
+		bouton_valider_sauvegarde.setBackground(new Color(0, 255, 127));
+		panel_25.add(bouton_valider_sauvegarde);
 		
 		panel_26 = new JPanel();
 		panel_26.setBackground(Color.decode("#01579b"));
@@ -400,6 +506,18 @@ public class TrainingFrame2 extends JFrame {
 		panel_21 = new JPanel();
 		panel_21.setBackground(Color.decode("#03a9f4"));
 		panel_17.add(panel_21);
+		panel_21.setLayout(new BorderLayout(0, 0));
+		
+		button = new JButton("Aide");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Aide frame = new Aide();
+				frame.setVisible(true);
+			}
+		});
+		button.setBackground(Color.decode("#03a9f4"));
+		button.setIcon(new ImageIcon(TrainingFrame2.class.getResource("/ressources/Sans titre.jpg")));
+		panel_21.add(button, BorderLayout.CENTER);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.decode("#03a9f4"));
@@ -430,6 +548,39 @@ public class TrainingFrame2 extends JFrame {
 		panel_30 = new JPanel();
 		panel_30.setBackground(Color.decode("#01579b"));
 		panel_28.add(panel_30, BorderLayout.SOUTH);
+		
+		panel_39 = new JPanel();
+		panel_39.setBackground(Color.decode("#01579b"));
+		panel_28.add(panel_39, BorderLayout.WEST);
+		
+		panel_40 = new JPanel();
+		panel_28.add(panel_40, BorderLayout.CENTER);
+		panel_40.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel_41 = new JPanel();
+		panel_40.add(panel_41);
+		panel_41.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		bouton_chargement = new JButton("Charger");
+		bouton_chargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {   // TODO
+			}
+		});
+		bouton_chargement.setBackground(new Color(255, 183, 77));
+		panel_41.add(bouton_chargement);
+		
+		panel_42 = new JPanel();
+		panel_42.setBackground(new Color(3, 169, 244));
+		panel_41.add(panel_42);
+		panel_42.setLayout(new BorderLayout(0, 0));
+		
+		bouton_validation_chargement = new JButton("Valider le chargement");
+		bouton_validation_chargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {  // TODO
+			}
+		});
+		bouton_validation_chargement.setBackground(new Color(0, 255, 127));
+		panel_42.add(bouton_validation_chargement, BorderLayout.CENTER);
 		
 		panel_29 = new JPanel();
 		panel_29.setBackground(Color.decode("#03a9f4"));
