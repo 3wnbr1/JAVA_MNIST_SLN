@@ -99,11 +99,15 @@ public class Dataset {
 		int test_images_number = (int) (this.test_proportion * images.size());
 		int bound = images.size();
 		
+		System.out.println("Spliting Dataset");
+		
 		// Take test_image_number from images. The rest is training images
 		for (int i=0; i < test_images_number; i++) {
 			test_images.add(images.remove(this.randomizer.nextInt(bound)));
 			bound -= 1;
 		}
+		
+		System.out.println("Dataset has been split");
 		
 		// Writeback results
 		this.testing_images_paths = test_images;
@@ -111,6 +115,7 @@ public class Dataset {
 		
 		// Create all images
 		this.imagesToMemory();
+		System.out.println("Images are now in memory");
 	}
 	
 	/*

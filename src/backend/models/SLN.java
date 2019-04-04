@@ -44,7 +44,7 @@ public class SLN extends Model {
 
 		for (int y=0; y<y_size; y++) {
 			for (int x=0; x<x_size; x++) {
-				flattened[y*y_size + x_size] = image.getPoint(x, y);
+				flattened[(y*y_size + x_size) - 1] = (double) image.getPoint(x, y) / 255;
 			}
 		}
 
@@ -122,10 +122,10 @@ public class SLN extends Model {
 	 * @param target_vector
 	 * @return loss for each cell
 	 */
-	private double[] loss(double[] input, int[] target_vector) {
+	private double[] loss(double[] output, double[] target_vector) {
 		double[] loss = new double[LABELS];
 		for (int label = 0; label<LABELS; label++) {
-			loss[label] = target_vector[label] - input[label];
+			loss[label] = target_vector[label] - output[label];
 		}
 		return loss;
 	}
@@ -135,8 +135,8 @@ public class SLN extends Model {
 	 * @param label
 	 * @return
 	 */
-	private int[] getTargetVector(int label) {
-		int[] vector = new int[LABELS];
+	private double[] getTargetVector(int label) {
+		double[] vector = new double[LABELS];
 		vector[label] = 1;
 		return vector;
 	}
@@ -187,9 +187,9 @@ public class SLN extends Model {
 	 * @return average loss
 	 */
 	private double trainStep(double learning_rate, double[] input, int label) {
-		int[] target_vector = this.getTargetVector(label);
+		double[] target_vector = this.getTargetVector(label);
 		double[] output = this.forwardPropagation(input);
-		double[] loss = this.loss(input, target_vector);
+		double[] loss = this.loss(output, target_vector);
 		this.backpropagation(input, loss, learning_rate);
 		return this.average(loss);
 	}
@@ -218,6 +218,14 @@ public class SLN extends Model {
 	public void saveToDisk() {
 		// TODO - implement Perceptron.saveToDisk
 		throw new UnsupportedOperationException();
+	}
+	
+	public void train(double learningRate, long epochs_number) {
+		this.train(this.dataset.getTraining_images().size(), learningRate, epochs_number);
+	}
+	
+	public void train(long epochs_number) {
+		this.train(0.05, epochs_number);
 	}
 
 	public void train(int batchsize, double learningRate, long epochs_number) {

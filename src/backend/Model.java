@@ -28,8 +28,8 @@ public class Model {
 	 * @param dataset
 	 */
 	public Model(String name, Dataset dataset) {
-		// TODO - implement Model.Model
-		throw new UnsupportedOperationException();
+		this.name = name;
+		this.dataset = dataset;
 	}
 
 	public void saveToDisk() {
@@ -48,9 +48,8 @@ public class Model {
 	 * @param trainingSteps
 	 * @param steps
 	 */
-	public void train(long batchSize, double trainingSteps, long steps) {
-		// TODO - implement Model.train
-		throw new UnsupportedOperationException();
+	public void train(int batchsize, double learningRate, long epochs_number) {
+		
 	}
 
 	/**
