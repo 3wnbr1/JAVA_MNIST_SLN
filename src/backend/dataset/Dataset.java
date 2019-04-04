@@ -183,5 +183,19 @@ public class Dataset {
 	public LinkedList<Image> getTesting_images() {
 		return testing_images;
 	}
+	
+	/*
+	 * Override Training Images
+	 */
+	public void overrideTrainingImages(LinkedList<Image> training_images) {
+		this.training_images = training_images;
+	}
+	
+	/*
+	 * Override Testing Images
+	 */
+	public void overrideTestingImages(LinkedList<Image> test_images) {
+		this.testing_images = test_images;
+	}
 
 }

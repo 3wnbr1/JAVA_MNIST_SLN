@@ -1,5 +1,7 @@
 package backend.dataset;
 
+import java.awt.image.BufferedImage;
+
 import backend.prof.ImageCalculs;
 import backend.prof.ImageNB;
 
@@ -9,6 +11,7 @@ public class Image {
 	private Features features;
 	private String label;
 	private String filename;
+	private double[] flattened;
 
 	/**
 	 * Construct a new image with only a filepath
@@ -66,4 +69,17 @@ public class Image {
 	public String toString() {
 		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: " + this.features.toString();
 	}
+
+	public double[] getFlattened() {
+		return flattened;
+	}
+
+	public void setFlattened(double[] flattened) {
+		this.flattened = flattened;
+	}
+	
+	public BufferedImage toBufferedImage() {
+		return ImageCalculs.imageNBToBuff(this.image_data);
+	}
+	
 }
