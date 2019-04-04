@@ -2,6 +2,13 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,6 +32,22 @@ public class MainFrame extends JFrame {
 	private JTextField texte_e2;
 	private JTextField txtEtape;
 	private JTextField nom_application;
+	
+	public String selectedName;
+	public String selectedPath;
+	public String fullName;
+	
+	public String getChosenImageName() {
+		return selectedName;
+	}
+	
+	public String getChosenImagePath() {
+		return selectedPath;
+	}
+	
+	public String getChosenImageFullName() {
+		return fullName;
+	}
 
 	
 	/**
@@ -94,9 +117,28 @@ public class MainFrame extends JFrame {
 		panel_27.setBackground(Color.decode("#03a9f4"));
 		panel_25.add(panel_27, BorderLayout.WEST);
 		choix_image.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   //TODO
+			public void actionPerformed(ActionEvent e) {   
+				//rajout d'un fileChoser 
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //initial dir
+				int result = fileChooser.showOpenDialog(choix_image);
+				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file					
+					File selectedFile = fileChooser.getSelectedFile();
+					selectedName = fileChooser.getSelectedFile().getName();					
+					selectedPath = fileChooser.getSelectedFile().getPath();
+					fullName = selectedFile.getAbsolutePath();	
+					ImageInserter PaintButton = new ImageInserter(selectedPath, panneau_image);	
+					PaintButton.rescale();
+					panel_5.add(PaintButton.getlabel());
+					choix_image.setVisible(false); //supprime le bouton	
+					boolean isChosen = true;
+					
+					//TODO rajouter un bouton pour changer d'image chargée
+				}
+				
 			}
-		});
+			}
+		);
 		
 		JPanel panneau_commande = new JPanel();
 		panneau_interactions.add(panneau_commande);
@@ -284,5 +326,6 @@ public class MainFrame extends JFrame {
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
 	}
+	
 
 }
