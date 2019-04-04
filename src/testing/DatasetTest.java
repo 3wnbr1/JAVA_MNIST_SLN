@@ -1,8 +1,8 @@
 package testing;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Assert;
+import org.junit.Test;
 import java.io.IOException;
-import org.junit.jupiter.api.Test;
 
 import backend.dataset.Dataset;
 import backend.dataset.Image;
@@ -14,16 +14,16 @@ public class DatasetTest {
 
 	
 	@Test
-	void test() {
+	public void test() {
 		
 		//Testing Dataset
 		this.dataset = new Dataset("Test", "testing", 0.1);
 		
 		this.dataset.setName("UT");
-		assertEquals("UT", this.dataset.getName());
+		Assert.assertEquals("UT", this.dataset.getName());
 		
 		this.dataset.setTestProportion(0.2);
-		assertEquals(0.2, this.dataset.getTestProportion());
+		Assert.assertEquals(0.2, this.dataset.getTestProportion(), 0);
 		
 		this.dataset.computeFeatures();
 		
