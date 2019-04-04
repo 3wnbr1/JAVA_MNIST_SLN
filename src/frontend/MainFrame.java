@@ -2,6 +2,13 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class MainFrame extends JFrame {
 
@@ -24,6 +32,22 @@ public class MainFrame extends JFrame {
 	private JTextField texte_e2;
 	private JTextField txtEtape;
 	private JTextField nom_application;
+	
+	public String selectedName;
+	public static String selectedPath;
+	public String fullName;
+	
+	public String getChosenImageName() {
+		return selectedName;
+	}
+	
+	public static String getChosenImagePath() {
+		return selectedPath;
+	}
+	
+	public String getChosenImageFullName() {
+		return fullName;
+	}
 
 	
 	/**
@@ -79,6 +103,7 @@ public class MainFrame extends JFrame {
 		panel_25.setLayout(new BorderLayout(0, 0));
 		
 		txtEtape = new JTextField();
+		txtEtape.setEditable(false);
 		panel_25.add(txtEtape);
 		txtEtape.setBackground(Color.decode("#b3e5fc"));
 		txtEtape.setText("ETAPE 1 : choix de l'image");
@@ -92,9 +117,28 @@ public class MainFrame extends JFrame {
 		panel_27.setBackground(Color.decode("#03a9f4"));
 		panel_25.add(panel_27, BorderLayout.WEST);
 		choix_image.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   //TODO
+			public void actionPerformed(ActionEvent e) {   
+				//rajout d'un fileChoser 
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //initial dir
+				int result = fileChooser.showOpenDialog(choix_image);
+				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file					
+					File selectedFile = fileChooser.getSelectedFile();
+					selectedName = fileChooser.getSelectedFile().getName();					
+					selectedPath = fileChooser.getSelectedFile().getPath();
+					fullName = selectedFile.getAbsolutePath();	
+					ImageInserter PaintButton = new ImageInserter(selectedPath, panneau_image);	
+					PaintButton.rescale();
+					panel_5.add(PaintButton.getlabel());
+					choix_image.setVisible(false); //supprime le bouton	
+					boolean isChosen = true;
+					
+					//TODO rajouter un bouton pour changer d'image chargée
+				}
+				
 			}
-		});
+			}
+		);
 		
 		JPanel panneau_commande = new JPanel();
 		panneau_interactions.add(panneau_commande);
@@ -110,6 +154,7 @@ public class MainFrame extends JFrame {
 		panneau_lancer_analyse.setLayout(new BorderLayout(0, 0));
 		
 		texte_e2 = new JTextField();
+		texte_e2.setEditable(false);
 		texte_e2.setBackground(Color.decode("#b3e5fc"));
 		texte_e2.setText("ETAPE 2 ");
 		panneau_lancer_analyse.add(texte_e2, BorderLayout.NORTH);
@@ -148,6 +193,7 @@ public class MainFrame extends JFrame {
 		panneau_resultats.setLayout(new BorderLayout(0, 0));
 		
 		txtLeRsultatEst = new JTextField();
+		txtLeRsultatEst.setEditable(false);
 		txtLeRsultatEst.setBackground(Color.decode("#b3e5fc"));
 		txtLeRsultatEst.setText("Le r\u00E9sultat est :");
 		panneau_resultats.add(txtLeRsultatEst, BorderLayout.NORTH);
@@ -261,13 +307,15 @@ public class MainFrame extends JFrame {
 		flowLayout.setVgap(10);
 		
 		nom_application = new JTextField();
+		nom_application.setEditable(false);
 		nom_application.setForeground(new Color(255, 255, 255));
 		nom_application.setBackground(new Color(0, 0, 255));
-		nom_application.setText("Nom Application");
+		nom_application.setText("TERMINOTRON");
 		paneau_titre.add(nom_application);
 		nom_application.setColumns(10);
 		
 		nom_fenetre = new JTextField();
+		nom_fenetre.setEditable(false);
 		nom_fenetre.setBackground(Color.decode("#b3e5fc"));
 		nom_fenetre.setHorizontalAlignment(SwingConstants.CENTER);
 		nom_fenetre.setText("Fen\u00EAtre Principale");
@@ -278,5 +326,6 @@ public class MainFrame extends JFrame {
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
 	}
+	
 
 }

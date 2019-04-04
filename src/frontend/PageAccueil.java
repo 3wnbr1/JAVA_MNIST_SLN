@@ -25,7 +25,7 @@ import java.awt.Font;
 public class PageAccueil extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtTerminotronNeuronal;
 
 
 	/**
@@ -39,9 +39,7 @@ public class PageAccueil extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		this.pack();
-		this.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		setSize(550,400); 
 		
 		JPanel vide = new JPanel();
 		vide.setBackground(Color.decode("#03a9f4"));
@@ -64,19 +62,19 @@ public class PageAccueil extends JFrame {
 		panneau.setLayout(new BorderLayout(0, 0));
 		
 		JPanel vide_4 = new JPanel();
-		vide_4.setBackground(Color.WHITE);
+		vide_4.setBackground(Color.decode("#01579b"));
 		panneau.add(vide_4, BorderLayout.NORTH);
 		
 		JPanel vide_5 = new JPanel();
-		vide_5.setBackground(Color.WHITE);
+		vide_5.setBackground(Color.decode("#01579b"));
 		panneau.add(vide_5, BorderLayout.SOUTH);
 		
 		JPanel vide_6 = new JPanel();
-		vide_6.setBackground(Color.WHITE);
+		vide_6.setBackground(Color.decode("#01579b"));
 		panneau.add(vide_6, BorderLayout.WEST);
 		
 		JPanel vide_7 = new JPanel();
-		vide_7.setBackground(Color.WHITE);
+		vide_7.setBackground(Color.decode("#01579b"));
 		panneau.add(vide_7, BorderLayout.EAST);
 		
 		JPanel panel_4 = new JPanel();
@@ -85,19 +83,19 @@ public class PageAccueil extends JFrame {
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Color.decode("#01579b"));
 		panel_4.add(panel, BorderLayout.NORTH);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
+		panel_1.setBackground(Color.decode("#01579b"));
 		panel_4.add(panel_1, BorderLayout.SOUTH);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
+		panel_2.setBackground(Color.decode("#01579b"));
 		panel_4.add(panel_2, BorderLayout.WEST);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
+		panel_3.setBackground(Color.decode("#01579b"));
 		panel_4.add(panel_3, BorderLayout.EAST);
 		
 		JPanel panel_5 = new JPanel();
@@ -105,28 +103,14 @@ public class PageAccueil extends JFrame {
 		panel_4.add(panel_5, BorderLayout.CENTER);
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBackground(Color.WHITE);
-		textField.setText("Nom Logiciel");
-		textField.setColumns(10);
-		panel_5.add(textField, BorderLayout.WEST);
-		
-		JPanel bouton_lancer_logiciel = new JPanel();
-		bouton_lancer_logiciel.setBackground(Color.WHITE);
-		panel_5.add(bouton_lancer_logiciel, BorderLayout.CENTER);
-		bouton_lancer_logiciel.setLayout(new BorderLayout(0, 0));
-		
-		JButton btnNewButton = new JButton("Lancer logiciel");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				MainFrame frame = new MainFrame();
-				frame.setVisible(true);
-			}
-		});
-		bouton_lancer_logiciel.add(btnNewButton);
+		txtTerminotronNeuronal = new JTextField();
+		txtTerminotronNeuronal.setEditable(false);
+		txtTerminotronNeuronal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+		txtTerminotronNeuronal.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTerminotronNeuronal.setBackground(new Color(255, 165, 0));
+		txtTerminotronNeuronal.setText("TERMINOTRON ");
+		txtTerminotronNeuronal.setColumns(10);
+		panel_5.add(txtTerminotronNeuronal, BorderLayout.CENTER);
 		
 		JPanel panel_7 = new JPanel();
 		panel_5.add(panel_7, BorderLayout.EAST);
@@ -137,6 +121,7 @@ public class PageAccueil extends JFrame {
 		panel_6.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(Color.decode("#01579b"));
 		panel_6.add(panel_8, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -145,6 +130,21 @@ public class PageAccueil extends JFrame {
 		
 		JPanel panel_9 = new JPanel();
 		panel_6.add(panel_9, BorderLayout.SOUTH);
+		
+		JPanel bouton_lancer_logiciel = new JPanel();
+		bouton_lancer_logiciel.setBackground(Color.WHITE);
+		panel_5.add(bouton_lancer_logiciel, BorderLayout.NORTH);
+		bouton_lancer_logiciel.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton = new JButton("Chercher Sara Conor");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				MainFrame frame = new MainFrame();
+				frame.setVisible(true);
+			}
+		});
+		bouton_lancer_logiciel.add(btnNewButton);
 		
 		
 	}
