@@ -29,4 +29,26 @@ public class Compute {
 		return output;
 	}
 	
+	/**
+	 * Sigmoid function for double arrays
+	 */
+	private double[] sigmoid(double[] x_array) {
+		double[] output = x_array;
+		for (int i=0; i<x_array.length; i++) {
+			output[i] = 1 / (1 - Math.exp(-x_array[i]));
+		}
+		return output;
+	}
+	
+	/**
+	 * Derivative of sigmoid function for double arrays
+	 */
+	private double[] sigmoid_derivative(double[] x_array) {
+		double[] output = x_array;
+		for (int i=0; i<x_array.length; i++) {
+			output[i] = x_array[i] * (1 - x_array[i]);
+		}
+		return output;
+	}
+	
 }

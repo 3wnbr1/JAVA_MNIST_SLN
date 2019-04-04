@@ -26,7 +26,7 @@ public class TrainingEngine extends Engine {
 	 * @param training_step
 	 * @param step
 	 */
-	public void train(long batchSize, double training_step, double step) {
+	public void train(long batchSize, double training_step, long NombreEpoch) {
 		// TODO - implement TrainingEngine.train
 		throw new UnsupportedOperationException();
 	}
@@ -43,6 +43,15 @@ public class TrainingEngine extends Engine {
 	 */
 	public void setDataset(Dataset dataset) {
 		this.dataset = dataset;
+	}
+	
+	/**
+	 * Return corresponding InferenceEngine
+	 * @return
+	 */
+	public InferenceEngine toInference() {
+		InferenceEngine inferer = new InferenceEngine();
+		return inferer;
 	}
 
 }

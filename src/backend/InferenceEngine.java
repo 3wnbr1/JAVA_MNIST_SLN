@@ -1,7 +1,9 @@
 package backend;
 
+import backend.TrainingEngine;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
+
 
 public class InferenceEngine extends Engine {
 	
@@ -24,6 +26,18 @@ public class InferenceEngine extends Engine {
 	 */
 	public double[] runInference(Image[] inputBatch) {
 		return null;
+	}
+	
+	
+	/**
+	 * Return corresponding TrainingEngine
+	 * @param dataset
+	 * @return
+	 */
+	public TrainingEngine toTraining(Dataset dataset) {
+		TrainingEngine trainer = new TrainingEngine();
+		trainer.setDataset(dataset);
+		return trainer;
 	}
 
 

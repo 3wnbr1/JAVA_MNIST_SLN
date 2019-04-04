@@ -13,6 +13,7 @@ public class Layer {
 	
 	public double[] feedforward(double[] input) {
 		assert this.weights.length==input.length : "Input size mismatch";
+		double[] output = 
 		return null;
 	}
 	
