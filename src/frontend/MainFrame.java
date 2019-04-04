@@ -34,14 +34,14 @@ public class MainFrame extends JFrame {
 	private JTextField nom_application;
 	
 	public String selectedName;
-	public String selectedPath;
+	public static String selectedPath;
 	public String fullName;
 	
 	public String getChosenImageName() {
 		return selectedName;
 	}
 	
-	public String getChosenImagePath() {
+	public static String getChosenImagePath() {
 		return selectedPath;
 	}
 	
