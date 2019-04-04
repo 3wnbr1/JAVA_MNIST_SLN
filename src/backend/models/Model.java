@@ -1,17 +1,22 @@
-package backend;
+package backend.models;
+
+import java.io.Serializable;
 
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
-public class Model {
+public class Model implements Serializable {
+
 
 	protected double accuracy;
 	protected long batch_size;
-	protected Dataset dataset;
 	protected String date;
 	protected String name;
 	protected double test_proportion;
 	protected double training_step;
+	protected transient Dataset dataset;
+	private static final long serialVersionUID = 1L;
+	
 
 	/**
 	 * 

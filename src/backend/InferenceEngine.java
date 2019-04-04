@@ -3,6 +3,7 @@ package backend;
 import backend.TrainingEngine;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
+import frontend.MainFrame;
 
 
 public class InferenceEngine extends Engine {
@@ -42,7 +43,7 @@ public class InferenceEngine extends Engine {
 	}
 
 	public void recupererImage() {
-		imagePath=MainFrame.getChosenImagePath();
+		imagePath = MainFrame.getChosenImagePath();
 
 	}
 

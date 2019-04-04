@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import backend.prof.LireDossier;
-import files.FileIO;
 
 
 public class Dataset {
@@ -21,12 +20,10 @@ public class Dataset {
 	private LinkedList<Image> training_images;
 	private LinkedList<Image> testing_images;
 	private LireDossier folder_reader;
-	private FileIO file;
-	
-	
+
 	private String[] features_maping = {"\"black pixels ratio\"", "\"entropy\"", "\"gradient average angle\"", "\"gradient average norm\""};
 
-	
+
 	/**
 	 * Constructs a new dataset
 	 * @param paramName
@@ -41,17 +38,6 @@ public class Dataset {
 		this.splitDataset();
 	}
 
-	/**
-	 * Constructs a dataset from a backup file with features already computed
-	 * @param dataset_file_path
-	 * @throws IOException 
-	 */
-
-	public Dataset(String dataset_file_path) {
-		this.randomizer = new Random();
-		this.file = new FileIO(this.path + "/dataset.yml");
-		
-	}
 
 	/**
 	 * Outputs only the *.JPG filenames in current folder
@@ -69,28 +55,6 @@ public class Dataset {
 	}
 
 	/**
-	 * Dumps a backup file on disk which we can use later for recreating the Dataset
-	 * @throws IOException 
-	 */
-	public void saveToDisk() throws IOException {
-		String writeBuffer = new String();
-		this.file = new FileIO(this.path + "/dataset.yml");
-		writeBuffer = writeBuffer.concat("version: 1\n\n" + "dataset: " + this.name + "\n\nfeatures:\n"); // Header
-		for (String feature : this.features_maping) {
-			writeBuffer = writeBuffer.concat("  - " + feature + "\n");
-		}
-		writeBuffer = writeBuffer.concat("\ntraining:\n");
-		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) { // Training images
-			writeBuffer = writeBuffer.concat("  " + i.next().toString() + "\n");
-		}
-		writeBuffer = writeBuffer.concat("\ntesting:\n");
-		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) { // Testing images
-			writeBuffer = writeBuffer.concat("  " + i.next().toString() + "\n");
-		}
-		this.file.write(writeBuffer);
-	}
-
-	/**
 	 * Splits the dataset
 	 */
 	public void splitDataset() {
@@ -98,42 +62,42 @@ public class Dataset {
 		LinkedList<String> images = this.datasetImages(this.test_proportion);
 		int test_images_number = (int) (this.test_proportion * images.size());
 		int bound = images.size();
-		
+
 		System.out.println("Spliting Dataset");
-		
+
 		// Take test_image_number from images. The rest is training images
 		for (int i=0; i < test_images_number; i++) {
 			test_images.add(images.remove(this.randomizer.nextInt(bound)));
 			bound -= 1;
 		}
-		
+
 		System.out.println("Dataset has been split");
-		
+
 		// Writeback results
 		this.testing_images_paths = test_images;
 		this.training_images_paths = images;
-		
+
 		// Create all images
 		this.imagesToMemory();
 		System.out.println("Images are now in memory");
 	}
-	
+
 	/*
 	 * Create all images in memory
 	 */
 	private void imagesToMemory() {
 		this.training_images = new LinkedList<Image>();
 		this.testing_images = new LinkedList<Image>();
-		
+
 		for (Iterator<String> i = this.training_images_paths.iterator(); i.hasNext();) {
 			this.training_images.add(new Image(this.path+"/"+i.next()));
 		}
-		
+
 		for (Iterator<String> i = this.testing_images_paths.iterator(); i.hasNext();) {
 			this.testing_images.add(new Image(this.path+"/"+i.next()));
 		}
 	}
-	
+
 	/*
 	 * Compute all images features
 	 */
@@ -188,14 +152,14 @@ public class Dataset {
 	public LinkedList<Image> getTesting_images() {
 		return testing_images;
 	}
-	
+
 	/*
 	 * Override Training Images
 	 */
 	public void overrideTrainingImages(LinkedList<Image> training_images) {
 		this.training_images = training_images;
 	}
-	
+
 	/*
 	 * Override Testing Images
 	 */

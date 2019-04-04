@@ -26,14 +26,7 @@ public class DatasetTest {
 		Assert.assertEquals(0.2, this.dataset.getTestProportion(), 0);
 		
 		this.dataset.computeFeatures();
-		
-		try {
-			this.dataset.saveToDisk();
-			
-			throw new IOException();
-		} catch (IOException e) {
-			
-		}
+	
 		
 		// Test images now
 		this.image = this.dataset.getTraining_images().getFirst();

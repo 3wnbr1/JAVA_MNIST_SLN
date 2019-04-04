@@ -2,6 +2,7 @@ package backend;
 
 import backend.dataset.Dataset;
 import backend.dataset.Image;
+import backend.models.Model;
 
 public class Perceptron extends Model {
 

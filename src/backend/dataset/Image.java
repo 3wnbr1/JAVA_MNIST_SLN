@@ -24,28 +24,28 @@ public class Image {
 		this.filename = path[path.length-1];
 		this.features = new Features(this);
 	}
-	
+
 	/**
 	 * Compute Image Features
 	 */
 	public void computeFeatures() {
 		this.features.compute();
 	}
-	
+
 	/**
 	 * The label of the current image
 	 */
 	public String getLabel() {
 		return this.label;
 	}
-	
+
 	/**
 	 * Return array of images features
 	 */
 	public double[] getFeatures() {
 		return this.features.getArray();
 	}
-	
+
 	/**
 	 * Flatten image to array line by line
 	 */
@@ -53,7 +53,7 @@ public class Image {
 		int size_x = this.image_data.getTailleX();
 		int size_y = this.image_data.getTailleY();
 		double[] flattened = new double[size_x * size_y];
-		
+
 		for (int y = 0; y < size_y; y++) {
 			for (int x = 0; x < size_x; x++) {
 				flattened[y * size_x + x] = this.image_data.getPoint(x, y);
@@ -61,7 +61,7 @@ public class Image {
 		}
 		return flattened;
 	}
-	
+
 	/**
 	 * toString method used to build backup files
 	 */
@@ -77,9 +77,9 @@ public class Image {
 	public void setFlattened(double[] flattened) {
 		this.flattened = flattened;
 	}
-	
+
 	public BufferedImage toBufferedImage() {
 		return ImageCalculs.imageNBToBuff(this.image_data);
 	}
-	
+
 }

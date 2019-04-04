@@ -1,8 +1,6 @@
 package frontend;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,25 +9,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
-import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
+import java.awt.Frame;
 
+import javax.swing.ButtonGroup;
 import java.awt.GridLayout;
 import javax.swing.JRadioButton;
-import javax.swing.JEditorPane;
 import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JLabel;
-import java.awt.Scrollbar;
 import javax.swing.JProgressBar;
 import javax.swing.ImageIcon;
+
 
 public class TrainingFrame2 extends JFrame {
 
@@ -130,8 +122,8 @@ public class TrainingFrame2 extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.pack();
-		this.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		
 		organisationPanneauTitre = new JPanel();
 		contentPane.add(organisationPanneauTitre, BorderLayout.NORTH);
@@ -408,7 +400,7 @@ public class TrainingFrame2 extends JFrame {
 		panel_1.add(panel_36);
 		panel_36.setLayout(new BorderLayout(0, 0));
 		
-		progressBar = new JProgressBar();   // Affiche l'évolution du stade d'apprentissage
+		progressBar = new JProgressBar();   // Affiche l'ï¿½volution du stade d'apprentissage
 		panel_36.add(progressBar);
 		progressBar.setToolTipText("Avancement");
 		progressBar.setValue(2);

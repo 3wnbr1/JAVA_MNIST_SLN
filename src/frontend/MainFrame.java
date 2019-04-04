@@ -1,27 +1,22 @@
 package frontend;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Frame;
+
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
+
 
 public class MainFrame extends JFrame {
 
@@ -62,8 +57,8 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.pack();
-		this.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		
 		JPanel panneau_interactions = new JPanel();
 		contentPane.add(panneau_interactions, BorderLayout.CENTER);
@@ -133,7 +128,7 @@ public class MainFrame extends JFrame {
 					choix_image.setVisible(false); //supprime le bouton	
 					boolean isChosen = true;
 					
-					//TODO rajouter un bouton pour changer d'image chargée
+					//TODO rajouter un bouton pour changer d'image chargï¿½e
 				}
 				
 			}
@@ -271,7 +266,7 @@ public class MainFrame extends JFrame {
 		JButton bouton_acces_reglages = new JButton("Acceder r\u00E9glages");
 		panel.add(bouton_acces_reglages, BorderLayout.CENTER);
 		bouton_acces_reglages.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  //  Ouvrir nouvelle fenêtre 
+			public void actionPerformed(ActionEvent e) {  //  Ouvrir nouvelle fenï¿½tre 
 				dispose();
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);

@@ -72,3 +72,13 @@ $RECYCLE.BIN/
 .Trash-*
 
 /bin/
+
+# DATASET
+imagesmanu*
+
+# Saves
+*.bin
+*.sln
+*.dtst
+*.data
+*.pct

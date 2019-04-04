@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-import backend.Model;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 import backend.prof.ImageCalculs;

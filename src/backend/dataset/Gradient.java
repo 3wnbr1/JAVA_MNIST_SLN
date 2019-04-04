@@ -1,5 +1,6 @@
 package backend.dataset;
 
+
 public class Gradient {
 	private double angle;
 	private double norme;

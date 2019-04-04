@@ -3,7 +3,6 @@ package backend.models;
 
 import java.util.LinkedList;
 
-import backend.Model;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
