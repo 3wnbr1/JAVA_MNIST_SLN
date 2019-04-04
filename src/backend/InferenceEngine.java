@@ -1,6 +1,6 @@
 package backend;
 
-
+import frontend.MainFrame;
 
 public class InferenceEngine extends Engine {
 	
