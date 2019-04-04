@@ -1,15 +1,9 @@
 package frontend;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-
+import backend.TrainingEngine;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,7 +15,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 
 public class MainFrame extends JFrame {
 
@@ -168,6 +161,10 @@ public class MainFrame extends JFrame {
 		panel_10.add(bouton_lance_analyse);
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //TODO
+				
+				
+				
+		
 			}
 		});
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));

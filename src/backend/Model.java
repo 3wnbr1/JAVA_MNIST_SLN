@@ -5,13 +5,14 @@ import backend.dataset.Image;
 
 public class Model {
 
-	protected double accuracy;
-	protected long batch_size;
+	protected double accuracy;	
 	protected Dataset dataset;
 	protected String date;
 	protected String name;
 	protected double test_proportion;
 	protected double training_step;
+	protected long epoc;
+	protected long batch_size;
 
 	/**
 	 * 

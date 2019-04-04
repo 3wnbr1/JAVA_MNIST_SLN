@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import backend.TrainingEngine;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -115,13 +118,27 @@ public class TrainingFrame2 extends JFrame {
 	private JButton bouton_lancer_apprentissage;
 	private JProgressBar progressBar;
 	private JButton button;
-
+	
+	/**
+	 * Static permet de reccuperer les valeurs en memoire sans les get et sans instancier la classe
+	 */
+	
+	public static double trainingStep; // = incrementation 
+	public static long batchSize;  // = nb d'images par passe
+	public static long nombreEpoch;  // = nb de passes
+	TrainingEngine TrainMe = new TrainingEngine();
+	
 
 
 	/**
 	 * Create the frame.
 	 */
+
+
+	
 	public TrainingFrame2() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -335,11 +352,8 @@ public class TrainingFrame2 extends JFrame {
 		epoc.setText("nombre de passes");
 		epoc.setColumns(10);
 		
+		
 		nb_de_passes = new JTextField();
-		nb_de_passes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { //TODO
-			}
-		});
 		nb_de_passes.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_31.add(nb_de_passes);
 		nb_de_passes.setColumns(10);
@@ -370,10 +384,6 @@ public class TrainingFrame2 extends JFrame {
 		training_step.setColumns(10);
 		
 		nb_incrementations = new JTextField();
-		nb_incrementations.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  //TODO
-			}
-		});
 		nb_incrementations.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_31.add(nb_incrementations);
 		nb_incrementations.setColumns(10);
@@ -382,10 +392,16 @@ public class TrainingFrame2 extends JFrame {
 		panel_1.add(panel_32);
 		panel_32.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		
+		
 		bouton_validation = new JButton("VALIDER MODIFICATION");
 		bouton_validation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  // TODO
+			public void actionPerformed(ActionEvent e) { 
+				nombreEpoch = Long.parseLong(nb_de_passes.getText());
+				batchSize = Long.parseLong(valeur_nb_images.getText());
+				trainingStep = Double.parseDouble(nb_incrementations.getText());				
 			}
+
 		});
 		bouton_validation.setBackground(new Color(0, 255, 127));
 		panel_32.add(bouton_validation);
@@ -395,9 +411,13 @@ public class TrainingFrame2 extends JFrame {
 		panel_1.add(panel_33);
 		panel_33.setLayout(new BorderLayout(0, 0));
 		
-		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage");
+		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentrées plus haut");
 		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  // TODO
+			public void actionPerformed(ActionEvent e) {	
+				nombreEpoch = Long.parseLong(nb_de_passes.getText());
+				batchSize = Long.parseLong(valeur_nb_images.getText());
+				trainingStep = Double.parseDouble(nb_incrementations.getText());
+				TrainMe.train(batchSize, trainingStep, nombreEpoch);		//lancement d'entrainement		
 			}
 		});
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
@@ -411,8 +431,9 @@ public class TrainingFrame2 extends JFrame {
 		progressBar = new JProgressBar();   // Affiche l'évolution du stade d'apprentissage
 		panel_36.add(progressBar);
 		progressBar.setToolTipText("Avancement");
-		progressBar.setValue(2);
-		progressBar.setMaximum(3);
+		progressBar.setValue(TrainMe.getProgressionStatus());
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(100);
 		progressBar.setForeground(new Color(124, 252, 0));
 		progressBar.setBackground(new Color(220, 20, 60));
 		
@@ -586,6 +607,8 @@ public class TrainingFrame2 extends JFrame {
 		panel_29.setBackground(Color.decode("#03a9f4"));
 		panel_27.add(panel_29);
 	}
+
+	
 
 	
 }
