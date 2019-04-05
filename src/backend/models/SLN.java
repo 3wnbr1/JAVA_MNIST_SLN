@@ -19,12 +19,6 @@ public class SLN extends Model {
 	private Random randomizer = new Random();
 	private double[][] weights = new double[LABELS][IMAGE_XSIZE*IMAGE_YSIZE];
 
-
-
-	public SLN(String model_file_path) {
-		super(model_file_path);
-		// TODO Auto-generated constructor stub
-	}
 	
 	public SLN(String name, Dataset dataset) {
 		super(name, dataset);
@@ -155,28 +149,6 @@ public class SLN extends Model {
 		}
 	}
 	
-	/**
-	 * Sum elements from an array
-	 * @param input
-	 * @return
-	 */
-	private double sum(double[] input) {
-		double output = 0;
-		for (double i : input) {
-			output += i;
-		}
-		return output;
-	}
-	
-	/**
-	 * Return average value of an array
-	 * @param input
-	 * @return
-	 */
-	private double average(double[] input) {
-		return this.sum(input) / (double) input.length;
-	}
-	
 	
 	/**
 	 * Run single training step
@@ -212,20 +184,6 @@ public class SLN extends Model {
 			return null;
 		}
 	}
-	
-
-	public void saveToDisk() {
-		// TODO - implement Perceptron.saveToDisk
-		throw new UnsupportedOperationException();
-	}
-	
-	public void train(double learningRate, long epochs_number) {
-		this.train(this.dataset.getTraining_images().size(), learningRate, epochs_number);
-	}
-	
-	public void train(long epochs_number) {
-		this.train(0.05, epochs_number);
-	}
 
 	public void train(int batchsize, double learningRate, long epochs_number) {
 		this.initWeights();
@@ -242,15 +200,14 @@ public class SLN extends Model {
 			System.out.printf("Average loss for epoch %f\n", this.average(losses));
 		}
 	}
-
-	public double evaluate() {
-		return accuracy;
-
+	
+	public double[] predict(Image image) {
+		return this.forwardPropagation(image.getFlattened());
 	}
 
-	public double run(Image image) {
-		return accuracy;
-
+	public double evaluate() {
+		// TODO
+		return 0;
 	}
 
 }

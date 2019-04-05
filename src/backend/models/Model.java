@@ -5,30 +5,41 @@ import java.io.Serializable;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
-public class Model implements Serializable {
+
+public abstract class Model implements Serializable {
 
 
-	protected double accuracy;
-	protected long batch_size;
-	protected String date;
 	protected String name;
-	protected double test_proportion;
-	protected double training_step;
 	protected transient Dataset dataset;
 	private static final long serialVersionUID = 1L;
 	
+	
+	public abstract double evaluate();
+	
+	public abstract double[] predict(Image image);
 
+	public abstract void train(int batchsize, double learningRate, long epochs_number);
+	
+	
 	/**
-	 * 
-	 * @param model_file_path
+	 * Provide default batchsize value
+	 * @param learningRate
+	 * @param epochs_number
 	 */
-	public Model(String model_file_path) {
-		// TODO - implement Model.Model
-		throw new UnsupportedOperationException();
+	public void train(double learningRate, long epochs_number) {
+		this.train(this.dataset.getTraining_images().size(), learningRate, epochs_number);
+	}
+	
+	/**
+	 * Provide default value for leaning_rate and batchsize
+	 * @param epochs_number
+	 */
+	public void train(long epochs_number) {
+		this.train(0.05, epochs_number);
 	}
 
 	/**
-	 * 
+	 * Generic model constructor
 	 * @param name
 	 * @param dataset
 	 */
@@ -36,43 +47,28 @@ public class Model implements Serializable {
 		this.name = name;
 		this.dataset = dataset;
 	}
-
-	public void saveToDisk() {
-		// TODO - implement Model.saveToDisk
-		throw new UnsupportedOperationException();
-	}
-
-	public double evaluate() {
-		// TODO - implement Model.evaluate
-		throw new UnsupportedOperationException();
-	}
-
+	
+	
 	/**
-	 * 
-	 * @param batchSize
-	 * @param trainingSteps
-	 * @param steps
+	 * Sum elements from an array
+	 * @param input
+	 * @return
 	 */
-	public void train(int batchsize, double learningRate, long epochs_number) {
-		
+	protected double sum(double[] input) {
+		double output = 0;
+		for (double i : input) {
+			output += i;
+		}
+		return output;
 	}
-
+	
 	/**
-	 * 
-	 * @param image
+	 * Return average value of an array
+	 * @param input
+	 * @return
 	 */
-	public double run(Image image) {
-		// TODO - implement Model.run
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param imageList
-	 */
-	public double runBatch(java.util.LinkedList<Image> imageList) {
-		// TODO - implement Model.runBatch
-		throw new UnsupportedOperationException();
+	protected double average(double[] input) {
+		return this.sum(input) / (double) input.length;
 	}
 
 }
