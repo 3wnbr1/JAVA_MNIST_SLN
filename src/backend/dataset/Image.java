@@ -17,12 +17,12 @@ public class Image {
 	 * Construct a new image with only a filepath
 	 * @param filepath
 	 */
-	public Image(String filepath) {
+	public Image(String filepath, int image_height, int image_width) {
 		String[] path = filepath.split("\\\\|/");  // Regex matching windows and unix paths
-		this.image_data = ImageCalculs.buffToImageNB(ImageCalculs.chargerImage(filepath));
+		this.image_data = ImageCalculs.buffToImageNB(ImageCalculs.redimensionnerImage(ImageCalculs.chargerImage(filepath), image_height, image_width));
 		this.label = path[path.length-1].substring(0, 1);
 		this.filename = path[path.length-1];
-		this.features = new Features(this);
+		// this.features = new Features(this);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Image {
 
 		for (int y = 0; y < size_y; y++) {
 			for (int x = 0; x < size_x; x++) {
-				flattened[y * size_x + x] = this.image_data.getPoint(x, y);
+				flattened[y * size_x + x] = 1 - (this.image_data.getPoint(x, y) / (double) 255);
 			}
 		}
 		return flattened;
@@ -68,14 +68,6 @@ public class Image {
 	@Override
 	public String toString() {
 		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: " + this.features.toString();
-	}
-
-	public double[] getFlattened() {
-		return flattened;
-	}
-
-	public void setFlattened(double[] flattened) {
-		this.flattened = flattened;
 	}
 
 	public BufferedImage toBufferedImage() {

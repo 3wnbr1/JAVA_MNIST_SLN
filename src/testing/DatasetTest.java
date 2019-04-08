@@ -17,7 +17,7 @@ public class DatasetTest {
 	public void test() {
 		
 		//Testing Dataset
-		this.dataset = new Dataset("Test", "testing", 0.1);
+		this.dataset = new Dataset("Test", "testing", 0.1, 12, 12);
 		
 		this.dataset.setName("UT");
 		Assert.assertEquals("UT", this.dataset.getName());

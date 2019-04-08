@@ -6,12 +6,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+import backend.prof.ImageNB;
 import backend.prof.LireDossier;
 
 
 public class Dataset {
 
 	private double test_proportion;
+	private int images_height;
+	private int images_width;
 	private String name;
 	private String path;
 	private Random randomizer;
@@ -29,9 +32,11 @@ public class Dataset {
 	 * @param paramName
 	 * @param paramPath
 	 */
-	public Dataset(String paramName, String paramPath, double test_proportion) {
-		this.name = paramName;
-		this.path = paramPath;
+	public Dataset(String name, String path, double test_proportion, int images_height, int images_width) {
+		this.name = name;
+		this.path = path;
+		this.images_height = images_height;
+		this.images_width = images_width;
 		this.test_proportion = test_proportion;
 		this.folder_reader = new LireDossier(this.path);
 		this.randomizer = new Random();
@@ -90,11 +95,11 @@ public class Dataset {
 		this.testing_images = new LinkedList<Image>();
 
 		for (Iterator<String> i = this.training_images_paths.iterator(); i.hasNext();) {
-			this.training_images.add(new Image(this.path+"/"+i.next()));
+			this.training_images.add(new Image(this.path+"/"+i.next(), this.images_height, this.images_width));
 		}
 
 		for (Iterator<String> i = this.testing_images_paths.iterator(); i.hasNext();) {
-			this.testing_images.add(new Image(this.path+"/"+i.next()));
+			this.testing_images.add(new Image(this.path+"/"+i.next(), this.images_height, this.images_width));
 		}
 	}
 
@@ -153,18 +158,13 @@ public class Dataset {
 		return testing_images;
 	}
 
-	/*
-	 * Override Training Images
-	 */
-	public void overrideTrainingImages(LinkedList<Image> training_images) {
-		this.training_images = training_images;
+
+	public int getImagesHeight() {
+		return images_height;
 	}
 
-	/*
-	 * Override Testing Images
-	 */
-	public void overrideTestingImages(LinkedList<Image> test_images) {
-		this.testing_images = test_images;
-	}
 
+	public int getImagesWidth() {
+		return images_width;
+	}
 }

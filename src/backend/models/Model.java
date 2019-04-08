@@ -35,7 +35,7 @@ public abstract class Model implements Serializable {
 	 * @param epochs_number
 	 */
 	public void train(long epochs_number) {
-		this.train(0.05, epochs_number);
+		this.train(0.005, epochs_number);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public abstract class Model implements Serializable {
 		}
 		return output;
 	}
-	
+
 	/**
 	 * Return average value of an array
 	 * @param input

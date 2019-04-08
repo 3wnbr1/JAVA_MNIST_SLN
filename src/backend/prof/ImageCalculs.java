@@ -2,6 +2,8 @@ package backend.prof;
 
 
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +32,7 @@ public class ImageCalculs {
 		return image;
 	}
 
-	public static BufferedImage redimensionnerImage(BufferedImage image, int iTailleFenX, int iTailleFenY) {
+	public static BufferedImage deprecatedRedimensionnerImage(BufferedImage image, int iTailleFenX, int iTailleFenY) {
 		BufferedImage imageRedim = new BufferedImage(iTailleFenX, iTailleFenY, image.getType());
 		int i, j, rgb;
 		int oldX, oldY;
@@ -43,6 +45,17 @@ public class ImageCalculs {
 			}
 		}
 		return imageRedim;
+	}
+	
+	public static BufferedImage redimensionnerImage(BufferedImage image, int iTailleFenX, int iTailleFenY) {
+		// From https://stackoverflow.com/questions/9417356/bufferedimage-resize
+		Image tmp = image.getScaledInstance(iTailleFenX, iTailleFenY, Image.SCALE_AREA_AVERAGING);
+		BufferedImage dimg = new BufferedImage(iTailleFenX, iTailleFenY, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2d = dimg.createGraphics();
+	    g2d.drawImage(tmp, 0, 0, null);
+	    g2d.dispose();
+	    return dimg;
+		
 	}
 
 	public static BufferedImage imageNBToBuff(ImageNB image) {
