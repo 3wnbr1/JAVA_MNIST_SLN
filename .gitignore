@@ -82,3 +82,6 @@ imagesmanu*
 *.dtst
 *.data
 *.pct
+
+# MNIST
+mnist/*
