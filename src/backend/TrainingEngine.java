@@ -1,5 +1,10 @@
 package backend;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import backend.dataset.Dataset;
 import frontend.TrainingFrame2;
 
@@ -18,9 +23,16 @@ public class TrainingEngine extends Engine {
 	/*
 	 * Save trained model
 	 */
-	public void saveModel() {
-		// TODO - implement TrainingEngine.saveModel
-		throw new UnsupportedOperationException();
+	public void saveModel(String path) {
+		try {
+			FileOutputStream file_output = new FileOutputStream(new File(path));
+			ObjectOutputStream object_output = new ObjectOutputStream(file_output);
+			object_output.writeObject(this.model);
+			object_output.close();
+			file_output.close();
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+		}
 	}
 
 	/**
@@ -36,12 +48,8 @@ public class TrainingEngine extends Engine {
 		System.out.println("les parametres selectionnees sont : ");
 		System.out.println("Epoch = " + TrainingFrame2.nombreEpoch);		
 		System.out.println("batchSize = " + TrainingFrame2.batchSize);
-		System.out.println("trainingStep = " + TrainingFrame2.trainingStep);
-		
-		
-		
-		
-		
+		System.out.println("trainingStep = " + TrainingFrame2.trainingStep);		
+		this.model.train(32);
 	}
 
 	/*
@@ -64,6 +72,7 @@ public class TrainingEngine extends Engine {
 	 */
 	public InferenceEngine toInference() {
 		InferenceEngine inferer = new InferenceEngine();
+		inferer.model = this.model;
 		return inferer;
 	}
 	
