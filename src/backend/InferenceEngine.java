@@ -14,13 +14,16 @@ import frontend.MainFrame;
 
 public class InferenceEngine extends Engine {
 
-	private String imagePath;
+	private Dataset dataset;
+	private static String imagePath;
+	private static int lancement;
+	private static int valeurLancement;
 
 	/*
 	 * Construct an Inference Engine
 	 */
 	public InferenceEngine() {
-		
+
 	}
 
 	/**
@@ -42,6 +45,8 @@ public class InferenceEngine extends Engine {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	/*
 	 * Run inference on an image batch
@@ -66,6 +71,19 @@ public class InferenceEngine extends Engine {
 	public void recupererImage() {
 		imagePath = MainFrame.getChosenImagePath();
 
+	}
+
+	public static void lancement(int valeurLancement) {
+
+		lancement=valeurLancement;
+		if (lancement == 1) {
+			// lancer l'analyse du nombre                          TODO
+		}
+
+	}
+
+	public static String getImagePath() {
+		return (imagePath);
 	}
 
 

@@ -3,7 +3,15 @@ package frontend;
 import java.awt.BorderLayout;
 import javax.swing.JFileChooser;
 import java.io.File;
-import backend.TrainingEngine;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import backend.Resultats;
+
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,6 +25,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class MainFrame extends JFrame {
 
@@ -57,8 +67,8 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.pack();
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(Frame.MAXIMIZED_BOTH);
+		this.setDefaultLookAndFeelDecorated(true);
+		this.setExtendedState(this.MAXIMIZED_BOTH);
 
 		JPanel panneau_interactions = new JPanel();
 		contentPane.add(panneau_interactions, BorderLayout.CENTER);
@@ -163,10 +173,7 @@ public class MainFrame extends JFrame {
 		panel_10.add(bouton_lance_analyse);
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //TODO
-
-
-
-
+				InferenceEngine.lancement(1);
 			}
 		});
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));
@@ -202,12 +209,10 @@ public class MainFrame extends JFrame {
 		panneau_resultats.add(panel_15, BorderLayout.CENTER);
 		panel_15.setLayout(new BorderLayout(0, 0));
 
-		textField = new JTextField();
+		textField = new JTextField(Integer.toString(Resultats.resultatTest()));
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setFont(new Font("Tahoma", Font.BOLD, 30));
 		panel_15.add(textField);
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  //TODO
-			}
-		});
 		textField.setColumns(10);
 
 		JPanel panel_16 = new JPanel();
