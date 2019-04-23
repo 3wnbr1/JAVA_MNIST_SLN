@@ -40,6 +40,7 @@ public class PageAccueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setSize(550,400); 
+		this.setLocationRelativeTo(null);
 		
 		JPanel vide = new JPanel();
 		vide.setBackground(Color.decode("#03a9f4"));

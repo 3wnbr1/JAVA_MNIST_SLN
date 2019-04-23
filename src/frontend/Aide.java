@@ -27,6 +27,7 @@ public class Aide extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,7 +52,8 @@ public class Aide extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
-		setSize(800,600); 
+		setSize(800,600);
+		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);   // permet d'éviter la fermeture du programme si l'utilisateur clique sur la croix de fermeture de la fenêtre d'aide
 		
 		
 		JPanel panel = new JPanel();
@@ -94,5 +96,6 @@ public class Aide extends JFrame {
 		JButton imageAide = new JButton("AJOUTER UNE AIDE SOUS FORME D'IMAGE");
 		panel_2.add(imageAide);
 	}
+
 
 }

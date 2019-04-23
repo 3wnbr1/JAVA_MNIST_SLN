@@ -9,7 +9,9 @@ import frontend.MainFrame;
 public class InferenceEngine extends Engine {
 
 	private Dataset dataset;
-	private String imagePath;
+	private static String imagePath;
+	private static int lancement;
+	private static int valeurLancement;
 
 	/*
 	 * Construct an Inference Engine
@@ -22,6 +24,8 @@ public class InferenceEngine extends Engine {
 		// TODO - implement InferenceEngine.loadModel
 		throw new UnsupportedOperationException();
 	}
+	
+	
 
 	/*
 	 * Run inference on an image batch
@@ -45,6 +49,19 @@ public class InferenceEngine extends Engine {
 	public void recupererImage() {
 		imagePath=MainFrame.getChosenImagePath();
 
+	}
+	
+	public static void lancement(int valeurLancement) {
+		
+		lancement=valeurLancement;
+		if (lancement == 1) {
+			// lancer l'analyse du nombre                          TODO
+		}
+		
+	}
+	
+	public static String getImagePath() {
+		return (imagePath);
 	}
 
 
