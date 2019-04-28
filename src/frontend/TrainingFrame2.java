@@ -166,13 +166,12 @@ public class TrainingFrame2 extends JFrame {
 		txtFentreRglages.setColumns(20);
 		txtFentreRglages.setBackground(Color.decode("#b3e5fc"));
 		panneau_titre.add(txtFentreRglages);
+		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);   // permet d'éviter la fermeture du programme si l'utilisateur clique sur la croix de fermeture de la fenêtre d'aide
 		
 		retoursMain = new JButton("Retour fen\u00EAtre principale");
 		retoursMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				MainFrame frame = new MainFrame();
-				frame.setVisible(true);
 			}
 		});
 		panneau_titre.add(retoursMain);

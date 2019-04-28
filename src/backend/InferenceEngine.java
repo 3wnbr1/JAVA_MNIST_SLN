@@ -76,9 +76,10 @@ public class InferenceEngine extends Engine {
 	public static void lancement(int valeurLancement) {
 
 		lancement=valeurLancement;
-		if (lancement == 1) {
-			// lancer l'analyse du nombre                          TODO
+		if (lancement == 1) {       // lancer l'analyse du nombre                          TODO
+		
 		}
+		
 
 	}
 

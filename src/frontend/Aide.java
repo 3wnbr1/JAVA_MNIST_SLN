@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 
 public class Aide extends JFrame {
@@ -51,6 +52,8 @@ public class Aide extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		setSize(800,600);
+		
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);   // permet d'éviter la fermeture du programme si l'utilisateur clique sur la croix de fermeture de la fenêtre d'aide
 		
 		
@@ -91,7 +94,12 @@ public class Aide extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JButton imageAide = new JButton("AJOUTER UNE AIDE SOUS FORME D'IMAGE");
+		JButton imageAide = new JButton("");
+		imageAide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		imageAide.setIcon(new ImageIcon(Aide.class.getResource("/ressources/imageAide2.jpg")));
 		panel_2.add(imageAide);
 	}
 

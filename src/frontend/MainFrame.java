@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import backend.InferenceEngine;
 import backend.Resultats;
 
 import java.awt.Toolkit;
@@ -28,6 +29,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
+import java.io.File;
+import javax.swing.JFileChooser;
+
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -41,6 +48,8 @@ public class MainFrame extends JFrame {
 	public String selectedName;
 	public static String selectedPath;
 	public String fullName;
+	int verifCode=0;
+	URL url;
 
 	public String getChosenImageName() {
 		return selectedName;
@@ -53,6 +62,12 @@ public class MainFrame extends JFrame {
 	public String getChosenImageFullName() {
 		return fullName;
 	}
+	public void setVerifCode(int code) {
+		this.verifCode=code;
+	}
+	public int getVerifCode() {
+      return verifCode;
+    }   
 
 
 	/**
@@ -69,7 +84,7 @@ public class MainFrame extends JFrame {
 		this.pack();
 		this.setDefaultLookAndFeelDecorated(true);
 		this.setExtendedState(this.MAXIMIZED_BOTH);
-
+		
 		JPanel panneau_interactions = new JPanel();
 		contentPane.add(panneau_interactions, BorderLayout.CENTER);
 		panneau_interactions.setLayout(new GridLayout(0, 2, 0, 0));
@@ -134,6 +149,7 @@ public class MainFrame extends JFrame {
 					fullName = selectedFile.getAbsolutePath();
 					ImageInserter PaintButton = new ImageInserter(selectedPath, panneau_image);
 					PaintButton.rescale();
+					setVerifCode(1);  // permet de verifier qu'une image a été chargée
 					panel_5.add(PaintButton.getlabel());
 					choix_image.setVisible(false); //supprime le bouton
 					boolean isChosen = true;
@@ -173,7 +189,14 @@ public class MainFrame extends JFrame {
 		panel_10.add(bouton_lance_analyse);
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //TODO
+				if(getVerifCode()!=1) {  //  si aucune image chargée, bloquer l'analyse et ouvrir WarningFrame1
+					WarningFrame1 frame = new WarningFrame1();
+					frame.setVisible(true);
+				}
+				else {       // lancer l'analyse sinon
 				InferenceEngine.lancement(1);
+				}
+				
 			}
 		});
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));
@@ -238,10 +261,18 @@ public class MainFrame extends JFrame {
 		JPanel panneau_erreur = new JPanel();
 		panel_7.add(panneau_erreur);
 		panneau_erreur.setLayout(new BorderLayout(0, 0));
-
+		
 		JButton bouton_erreur = new JButton("Signaler erreur");
 		bouton_erreur.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   //                      A FAIRE
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+			        url = getClass().getResource("/ressources/176.wav");
+			        AudioClip ac = Applet.newAudioClip(url);
+			        ac.play();
+			        } catch (Exception e) {
+			            System.out.println(e);
+			        }
+			        System.out.println(url);
 			}
 		});
 		bouton_erreur.setBackground(Color.decode("#d50000"));
@@ -276,7 +307,6 @@ public class MainFrame extends JFrame {
 		panel.add(bouton_acces_reglages, BorderLayout.CENTER);
 		bouton_acces_reglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {  //  Ouvrir nouvelle fenï¿½tre
-				dispose();
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);
 			}
