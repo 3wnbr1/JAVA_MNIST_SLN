@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import backend.InferenceEngine;
 import backend.Resultats;
 
 import java.awt.Toolkit;

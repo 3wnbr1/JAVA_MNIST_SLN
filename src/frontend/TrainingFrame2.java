@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import backend.InferenceEngine;
 import backend.TrainingEngine;
 
 import java.awt.Color;
@@ -14,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -22,6 +24,7 @@ import javax.swing.ButtonGroup;
 import java.awt.GridLayout;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JProgressBar;
 import javax.swing.ImageIcon;
 
@@ -94,7 +97,7 @@ public class TrainingFrame2 extends JFrame {
 	private JPanel panel_33;
 	private JPanel panel_35;
 	private JPanel panel_36;
-	private JTextField bouton_sauvegarder_modele;
+	private JButton bouton_sauvegarder_modele;
 	private JPanel panel_37;
 	private JPanel panel_34;
 	private JPanel panel_38;
@@ -115,17 +118,40 @@ public class TrainingFrame2 extends JFrame {
 	 * Static permet de reccuperer les valeurs en memoire sans les get et sans instancier la classe
 	 */
 	
+	static TrainingEngine trainer = new TrainingEngine();
+	private InferenceEngine inferer = new InferenceEngine();
+	
 	public static double trainingStep; // = incrementation 
-	public static long batchSize;  // = nb d'images par passe
-	public static long nombreEpoch;  // = nb de passes
-	TrainingEngine TrainMe = new TrainingEngine();
+	public static int batchSize;  // = nb d'images par passe
+	public static int nombreEpoch;  // = nb de passes
+	
+	String defaultPath = "user.home"; //path de sauvegarde du trainingmodel par defaut
+	String modelToLoadName;
+	String modelToLoadPath;
+	String modelToLoadfullName;
+	String saveDir;
+	String savePath;
+	String saveName;
+	
+	
 	
 
 
 	/**
 	 * Create the frame.
+	 * @return 
 	 */
-
+	
+	
+	private void saveModel() {
+		trainer.saveModel(savePath);
+		
+	}
+	
+	private void loadModel() {
+		inferer.loadModel(modelToLoadPath);
+		
+	}
 
 	
 	public TrainingFrame2() {
@@ -389,8 +415,8 @@ public class TrainingFrame2 extends JFrame {
 		bouton_validation = new JButton("VALIDER MODIFICATION");
 		bouton_validation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				nombreEpoch = Long.parseLong(nb_de_passes.getText());
-				batchSize = Long.parseLong(valeur_nb_images.getText());
+				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
+				batchSize = Integer.parseInt(valeur_nb_images.getText());
 				trainingStep = Double.parseDouble(nb_incrementations.getText());				
 			}
 
@@ -406,10 +432,10 @@ public class TrainingFrame2 extends JFrame {
 		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentrées plus haut");
 		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				nombreEpoch = Long.parseLong(nb_de_passes.getText());
-				batchSize = Long.parseLong(valeur_nb_images.getText());
+				nombreEpoch =Integer.parseInt(nb_de_passes.getText());
+				batchSize = Integer.parseInt(valeur_nb_images.getText());
 				trainingStep = Double.parseDouble(nb_incrementations.getText());
-				TrainMe.train(batchSize, trainingStep, nombreEpoch);		//lancement d'entrainement		
+				trainer.train(batchSize, trainingStep, nombreEpoch);		//lancement d'entrainement		
 			}
 		});
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
@@ -423,7 +449,7 @@ public class TrainingFrame2 extends JFrame {
 		progressBar = new JProgressBar();   // Affiche l'ï¿½volution du stade d'apprentissage
 		panel_36.add(progressBar);
 		progressBar.setToolTipText("Avancement");
-		progressBar.setValue(TrainMe.getProgressionStatus());
+		progressBar.setValue(trainer.getProgressionStatus());
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
 		progressBar.setForeground(new Color(124, 252, 0));
@@ -471,13 +497,37 @@ public class TrainingFrame2 extends JFrame {
 		panel_20.add(panel_25, BorderLayout.CENTER);
 		panel_25.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		bouton_sauvegarder_modele = new JTextField();
+		bouton_sauvegarder_modele = new JButton();
+		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		bouton_sauvegarder_modele.setText("Sauvegarder sous");
 		bouton_sauvegarder_modele.setHorizontalAlignment(SwingConstants.CENTER);
-		bouton_sauvegarder_modele.setEditable(false);
-		bouton_sauvegarder_modele.setColumns(10);
+		//bouton_sauvegarder_modele.setEditable(false);
+		//bouton_sauvegarder_modele.setColumns(10);
 		bouton_sauvegarder_modele.setBackground(new Color(255, 183, 77));
 		panel_25.add(bouton_sauvegarder_modele);
+		bouton_sauvegarder_modele.addActionListener(new ActionListener() {			
+				public void actionPerformed(ActionEvent e) {		
+					JFileChooser chooser = new JFileChooser();
+					chooser.setCurrentDirectory(new File(System.getProperty(defaultPath)));
+					chooser.setDialogTitle("dir sauvegarder modele");
+				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				    chooser.setAcceptAllFileFilterUsed(false);
+				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) { 
+				    	saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); //ne donne pass le nom
+				    	saveName = textField_1.toString();
+				        }
+				    System.out.println(saveDir);
+				    savePath = saveDir  + saveName;
+				    
+				    
+				       }
+				    
+				}
+			);
 		
 		panel_37 = new JPanel();
 		panel_25.add(panel_37);
@@ -506,7 +556,11 @@ public class TrainingFrame2 extends JFrame {
 		
 		bouton_valider_sauvegarde = new JButton("Valider la sauvegarde");
 		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   //TODO
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				saveModel();
+				
 			}
 		});
 		bouton_valider_sauvegarde.setBackground(new Color(0, 255, 127));
@@ -576,9 +630,25 @@ public class TrainingFrame2 extends JFrame {
 		
 		bouton_chargement = new JButton("Charger");
 		bouton_chargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   // TODO
+			public void actionPerformed(ActionEvent e) {
+				//rajout d'un fileChoser
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //initial dir
+				int result = fileChooser.showOpenDialog(bouton_chargement);
+				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
+					File selectedFile = fileChooser.getSelectedFile();
+					modelToLoadName = fileChooser.getSelectedFile().getName();
+					modelToLoadPath = fileChooser.getSelectedFile().getPath();
+					modelToLoadfullName = selectedFile.getAbsolutePath();
+					bouton_chargement.setText("Modèle choisi :  " + modelToLoadName);
+					//inference engine load model à utiliser
+					loadModel();
+
+				}
+
 			}
-		});
+			}
+		);
 		bouton_chargement.setBackground(new Color(255, 183, 77));
 		panel_41.add(bouton_chargement);
 		
@@ -599,6 +669,9 @@ public class TrainingFrame2 extends JFrame {
 		panel_29.setBackground(Color.decode("#03a9f4"));
 		panel_27.add(panel_29);
 	}
+	
+	
+	
 
 	
 
