@@ -9,6 +9,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import backend.InferenceEngine;
 import backend.Resultats;
+import backend.dataset.Image;
+import backend.models.SLN;
 
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -44,6 +46,11 @@ public class MainFrame extends JFrame {
 	private JTextField texte_e2;
 	private JTextField txtEtape;
 	private JTextField nom_application;
+	private InferenceEngine inference = new InferenceEngine();
+	private Image imageAnalyse;
+	private double[] resultTab;
+	private int resultatAnalyse;
+	private String resultatAffiche = "Analyse non lancée";
 
 	public String selectedName;
 	public static String selectedPath;
@@ -101,7 +108,7 @@ public class MainFrame extends JFrame {
 		JButton choix_image = new JButton("Choisir une image");
 		panel_5.add(choix_image);
 		choix_image.setBackground(new Color(255, 255, 255));
-
+		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.decode("#03a9f4"));
 		panel_5.add(panel_6, BorderLayout.WEST);
@@ -151,7 +158,10 @@ public class MainFrame extends JFrame {
 					PaintButton.rescale();
 					setVerifCode(1);  // permet de verifier qu'une image a été chargée
 					panel_5.add(PaintButton.getlabel());
-					choix_image.setVisible(false); //supprime le bouton
+					choix_image.setOpaque(false);
+					choix_image.setContentAreaFilled(false);
+					choix_image.setBorderPainted(false);
+					//choix_image.setVisible(false); //supprime le bouton
 					boolean isChosen = true;
 
 					//TODO rajouter un bouton pour changer d'image chargï¿½e
@@ -194,11 +204,17 @@ public class MainFrame extends JFrame {
 					frame.setVisible(true);
 				}
 				else {       // lancer l'analyse sinon
-				InferenceEngine.lancement(1);
+					inference.loadModel("sln.model");   
+					resultTab = inference.runInference(imageAnalyse = new Image(selectedPath,28,28));
+					resultatAnalyse = SLN.maxDetection(resultTab);
+					resultatAffiche = Integer.toString(resultatAnalyse);
+					System.out.print(resultatAffiche);
+					textField.setText(resultatAffiche);
 				}
 				
 			}
 		});
+		
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));
 
 		JPanel panel_11 = new JPanel();
@@ -231,8 +247,8 @@ public class MainFrame extends JFrame {
 		JPanel panel_15 = new JPanel();
 		panneau_resultats.add(panel_15, BorderLayout.CENTER);
 		panel_15.setLayout(new BorderLayout(0, 0));
-
-		textField = new JTextField(Integer.toString(Resultats.resultatTest()));
+		
+		textField = new JTextField(resultatAffiche);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font("Tahoma", Font.BOLD, 30));
 		panel_15.add(textField);

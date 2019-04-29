@@ -135,7 +135,7 @@ public class SLN extends Model {
 	 * @param output
 	 * @return
 	 */
-	private int maxDetection(double[] output) {
+	public static int maxDetection(double[] output) {
 		int max = 0;
 		for (int i = 0; i<output.length; i++) {
 			if (output[max] < output[i]) {
