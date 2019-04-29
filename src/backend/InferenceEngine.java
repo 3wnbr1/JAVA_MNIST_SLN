@@ -21,7 +21,7 @@ public class InferenceEngine extends Engine {
 	 * Construct an Inference Engine
 	 */
 	public InferenceEngine() {
-		
+
 	}
 
 	/**

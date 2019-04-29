@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import backend.InferenceEngine;
 import backend.Resultats;
 
 import java.awt.Toolkit;
@@ -28,7 +29,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.net.URL;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 public class MainFrame extends JFrame {
 
@@ -43,6 +48,8 @@ public class MainFrame extends JFrame {
 	public String selectedName;
 	public static String selectedPath;
 	public String fullName;
+	int verifCode=0;
+	URL url;
 
 	public String getChosenImageName() {
 		return selectedName;
@@ -55,6 +62,12 @@ public class MainFrame extends JFrame {
 	public String getChosenImageFullName() {
 		return fullName;
 	}
+	public void setVerifCode(int code) {
+		this.verifCode=code;
+	}
+	public int getVerifCode() {
+      return verifCode;
+    }
 
 
 	/**
@@ -69,6 +82,7 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.pack();
+		
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 
@@ -182,6 +196,8 @@ public class MainFrame extends JFrame {
 				}
 				else {       // lancer l'analyse sinon
 				InferenceEngine.lancement(1);
+				}
+
 			}
 		});
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));
@@ -249,7 +265,15 @@ public class MainFrame extends JFrame {
 
 		JButton bouton_erreur = new JButton("Signaler erreur");
 		bouton_erreur.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {   //                      A FAIRE
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+			        url = getClass().getResource("/ressources/176.wav");
+			        AudioClip ac = Applet.newAudioClip(url);
+			        ac.play();
+			        } catch (Exception e) {
+			            System.out.println(e);
+			        }
+			        System.out.println(url);
 			}
 		});
 		bouton_erreur.setBackground(Color.decode("#d50000"));
@@ -284,7 +308,6 @@ public class MainFrame extends JFrame {
 		panel.add(bouton_acces_reglages, BorderLayout.CENTER);
 		bouton_acces_reglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {  //  Ouvrir nouvelle fen�tre
-				dispose();
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);
 			}

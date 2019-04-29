@@ -129,7 +129,7 @@ public class PageAccueil extends JFrame {
 		panel_5.add(bouton_lancer_logiciel, BorderLayout.NORTH);
 		bouton_lancer_logiciel.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("Chercher Sara Conor");
+		JButton btnNewButton = new JButton("Chercher Sarah Connor");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
