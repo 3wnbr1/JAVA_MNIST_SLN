@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import backend.dataset.Dataset;
+import backend.models.SLN;
 import frontend.TrainingFrame2;
 
 public class TrainingEngine extends Engine {
@@ -17,7 +18,8 @@ public class TrainingEngine extends Engine {
 	
 	
 	public TrainingEngine() {
-		
+		this.dataset = new Dataset("mnist", "mnist", 0.2, 28, 28);
+		this.model = new SLN("SingleLayerNeuralNetwork v0.1", this.dataset);
 	}
 	
 	/*
