@@ -11,14 +11,14 @@ import backend.dataset.Image;
 
 public class SLN extends Model {
 
-	private int IMAGE_XSIZE;
-	private int IMAGE_YSIZE;
-	private int LABELS = 10;
-	private Random randomizer = new Random();
-	private double[][] weights;
-	private static final long serialVersionUID = 1L;
 
-	
+	protected int IMAGE_XSIZE;
+	protected int IMAGE_YSIZE;
+	protected int LABELS = 10;
+	protected Random randomizer = new Random();
+	protected double[][] weights;
+
+
 	public SLN(String name, Dataset dataset) {
 		super(name, dataset);
 		this.IMAGE_XSIZE = this.dataset.getImagesWidth();
@@ -30,7 +30,7 @@ public class SLN extends Model {
 	/**
 	 * Init cells weights
 	 */
-	private void initWeights() {
+	protected void initWeights() {
 		for (int index = 0; index < LABELS; index++) {
 			for (int i = 0; i<(IMAGE_XSIZE*IMAGE_YSIZE); i++) {
 				weights[index][i] = randomizer.nextDouble();
@@ -43,24 +43,25 @@ public class SLN extends Model {
 	 * Run forward propagation for alls cells
 	 * @return output
 	 */
-	private double[] forwardPropagation(double[] input) {
+	protected double[] forwardPropagation(double[] input) {
 		double[] output = new double[LABELS];
 		for (int label = 0; label<LABELS; label++) {
 			for (int i = 0; i < input.length; i++) {
 				output[label] += this.weights[label][i] * input[i];
 			}
+			output[label] = 1 / (1 + Math.exp(-output[label]));
 		}
 		return output;
 	}
-	
-	
+
+
 	/**
 	 * Loss function
 	 * @param input
 	 * @param target_vector
 	 * @return loss for each cell
 	 */
-	private double[] loss(double[] output, double[] target_vector) {
+	protected double[] loss(double[] output, double[] target_vector) {
 		double[] loss = new double[LABELS];
 		for (int label = 0; label<LABELS; label++) {
 			loss[label] = target_vector[label] - output[label];
@@ -73,28 +74,28 @@ public class SLN extends Model {
 	 * @param label
 	 * @return
 	 */
-	private double[] getTargetVector(int label) {
+	protected double[] getTargetVector(int label) {
 		double[] vector = new double[LABELS];
 		vector[label] = 1;
 		return vector;
 	}
-	
-	
+
+
 	/**
 	 * Backpropagate the error and update weights
 	 * @param input
 	 * @param loss
 	 * @param learning_rate
 	 */
-	private void backpropagation(double[] input, double loss[], double learning_rate) {
+	protected void backpropagation(double[] input, double loss[], double learning_rate) {
 		for (int label = 0; label<LABELS; label++) {
 			for (int i = 0; i < input.length; i++) {
 				this.weights[label][i] += learning_rate * input[i] * loss[label];
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Run single training step
 	 * @param learning_rate
@@ -102,22 +103,22 @@ public class SLN extends Model {
 	 * @param label
 	 * @return average loss
 	 */
-	private double trainStep(double learning_rate, double[] input, int label) {
+	protected double trainStep(double learning_rate, double[] input, int label) {
 		double[] target_vector = this.getTargetVector(label);
 		double[] output = this.forwardPropagation(input);
 		double[] loss = this.loss(output, target_vector);
 		this.backpropagation(input, loss, learning_rate);
 		return this.average(loss);
 	}
-	
-	
+
+
 	/**
 	 * get a dataset batch
 	 * @param images_set
 	 * @param batchsize
 	 * @return
 	 */
-	private LinkedList<Image> getBatch(LinkedList<Image> images_set, long batchsize) {
+	protected LinkedList<Image> getBatch(LinkedList<Image> images_set, long batchsize) {
 		int image_set_size = images_set.size();
 		if ((batchsize == 0) || (batchsize == image_set_size)) {
 			return images_set;
@@ -129,13 +130,13 @@ public class SLN extends Model {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return most probable result
 	 * @param output
 	 * @return
 	 */
-	private int maxDetection(double[] output) {
+	protected int maxDetection(double[] output) {
 		int max = 0;
 		for (int i = 0; i<output.length; i++) {
 			if (output[max] < output[i]) {
@@ -162,7 +163,7 @@ public class SLN extends Model {
 			System.out.printf("Success rate on testing is %f \n", this.evaluate() * 100);
 		}
 	}
-	
+
 	public double[] predict(Image image) {
 		return this.forwardPropagation(image.flatten());
 	}

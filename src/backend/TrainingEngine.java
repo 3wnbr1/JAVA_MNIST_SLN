@@ -43,15 +43,16 @@ public class TrainingEngine extends Engine {
 	 * @param training_step
 	 * @param step
 	 */
-	public void train(long batchSize, double training_step, long nombreEpoch) {
-		// TODO - implement TrainingEngine.train - VOIR TRAININGFRAME
-		//throw new UnsupportedOperationException();
-		System.out.println("lancement de la phase d'entrainement reussi avec succes");
-		System.out.println("les parametres selectionnees sont : ");
-		System.out.println("Epoch = " + TrainingFrame2.nombreEpoch);		
-		System.out.println("batchSize = " + TrainingFrame2.batchSize);
-		System.out.println("trainingStep = " + TrainingFrame2.trainingStep);		
-		this.model.train(32);
+	public void train(int batchSize, double training_step, long nombreEpoch) {	
+		this.model.train(batchSize, training_step, nombreEpoch);
+	}
+	
+	public void train(double training_step, long nombreEpoch) {	
+		this.model.train(training_step, nombreEpoch);
+	}
+	
+	public void train(long nombreEpoch) {	
+		this.model.train(nombreEpoch);
 	}
 
 	/*

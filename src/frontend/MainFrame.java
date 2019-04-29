@@ -28,6 +28,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
+import java.net.URL;
+
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -67,8 +69,8 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.pack();
-		this.setDefaultLookAndFeelDecorated(true);
-		this.setExtendedState(this.MAXIMIZED_BOTH);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		JPanel panneau_interactions = new JPanel();
 		contentPane.add(panneau_interactions, BorderLayout.CENTER);
@@ -134,6 +136,7 @@ public class MainFrame extends JFrame {
 					fullName = selectedFile.getAbsolutePath();
 					ImageInserter PaintButton = new ImageInserter(selectedPath, panneau_image);
 					PaintButton.rescale();
+					setVerifCode(1);  // permet de verifier qu'une image a �t� charg�e
 					panel_5.add(PaintButton.getlabel());
 					choix_image.setVisible(false); //supprime le bouton
 					boolean isChosen = true;
@@ -173,6 +176,11 @@ public class MainFrame extends JFrame {
 		panel_10.add(bouton_lance_analyse);
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //TODO
+				if(getVerifCode()!=1) {  //  si aucune image charg�e, bloquer l'analyse et ouvrir WarningFrame1
+					WarningFrame1 frame = new WarningFrame1();
+					frame.setVisible(true);
+				}
+				else {       // lancer l'analyse sinon
 				InferenceEngine.lancement(1);
 			}
 		});
