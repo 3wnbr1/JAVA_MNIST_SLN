@@ -1,6 +1,5 @@
 package backend.models;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -8,18 +7,16 @@ import java.util.Random;
 
 import backend.dataset.Dataset;
 import backend.dataset.Image;
-import backend.prof.ImageCalculs;
-import backend.prof.ImageNB;
 
 
 public class SLN extends Model {
-
 
 	private int IMAGE_XSIZE;
 	private int IMAGE_YSIZE;
 	private int LABELS = 10;
 	private Random randomizer = new Random();
 	private double[][] weights;
+	private static final long serialVersionUID = 1L;
 
 	
 	public SLN(String name, Dataset dataset) {

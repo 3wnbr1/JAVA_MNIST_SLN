@@ -14,7 +14,6 @@ import frontend.MainFrame;
 
 public class InferenceEngine extends Engine {
 
-	private Dataset dataset;
 	private static String imagePath;
 	private static int lancement;
 	private static int valeurLancement;
@@ -51,8 +50,8 @@ public class InferenceEngine extends Engine {
 	/*
 	 * Run inference on an image batch
 	 */
-	public double[] runInference(Image[] inputBatch) {
-		return null;
+	public double[] runInference(Image input_image) {
+		return this.model.predict(input_image);
 	}
 
 
@@ -67,25 +66,5 @@ public class InferenceEngine extends Engine {
 		trainer.setDataset(dataset);
 		return trainer;
 	}
-
-	public void recupererImage() {
-		imagePath = MainFrame.getChosenImagePath();
-
-	}
-
-	public static void lancement(int valeurLancement) {
-
-		lancement=valeurLancement;
-		if (lancement == 1) {       // lancer l'analyse du nombre                          TODO
-		
-		}
-		
-
-	}
-
-	public static String getImagePath() {
-		return (imagePath);
-	}
-
 
 }
