@@ -34,8 +34,10 @@ import java.awt.Font;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.URL;
+import java.util.Arrays;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JProgressBar;
 
 public class MainFrame extends JFrame {
 
@@ -51,12 +53,27 @@ public class MainFrame extends JFrame {
 	private double[] resultTab;
 	private int resultatAnalyse;
 	private String resultatAffiche = "Analyse non lancée";
+	private double [] tablResult;
+	private int proba0;
+	private int proba1;
+	private int proba2;
+	private int proba3;
+	private int proba4;
+	private int proba5;
+	private int proba6;
+	private int proba7;
+	private int proba8;
+	private int proba9;
+	
 
 	public String selectedName;
 	public static String selectedPath;
 	public String fullName;
 	int verifCode=0;
 	URL url;
+	private JTextField nb1;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 	public String getChosenImageName() {
 		return selectedName;
@@ -177,7 +194,7 @@ public class MainFrame extends JFrame {
 
 		JPanel panneau_boutons = new JPanel();
 		panneau_commande.add(panneau_boutons);
-		panneau_boutons.setLayout(new GridLayout(3, 0, 0, 0));
+		panneau_boutons.setLayout(new GridLayout(4, 0, 0, 0));
 
 		JPanel panneau_lancer_analyse = new JPanel();
 		panneau_lancer_analyse.setBackground(new Color(34, 139, 34));
@@ -205,11 +222,24 @@ public class MainFrame extends JFrame {
 				}
 				else {       // lancer l'analyse sinon
 					inference.loadModel("sln.model");   
-					resultTab = inference.runInference(imageAnalyse = new Image(selectedPath,28,28));
+					resultTab = inference.runInference(new Image(selectedPath,28,28));
 					resultatAnalyse = SLN.maxDetection(resultTab);
 					resultatAffiche = Integer.toString(resultatAnalyse);
 					System.out.print(resultatAffiche);
 					textField.setText(resultatAffiche);
+					tablResult = inference.runInference(new Image(selectedPath,28,28));
+					proba0 = (int) (tablResult[0] * 100);
+					proba1 = (int) (tablResult[1] * 100);
+					proba2 = (int) (tablResult[2] * 100);
+					proba3 = (int) (tablResult[3] * 100);
+					proba4 = (int) (tablResult[4] * 100);
+					proba5 = (int) (tablResult[5] * 100);
+					proba6 = (int) (tablResult[6] * 100);
+					proba7 = (int) (tablResult[7] * 100);
+					proba8 = (int) (tablResult[8] * 100);
+					proba9 = (int) (tablResult[9] * 100);
+					System.out.print(Arrays.toString(tablResult));
+					System.out.print(proba0);
 				}
 				
 			}
@@ -269,6 +299,82 @@ public class MainFrame extends JFrame {
 		JPanel panel_19 = new JPanel();
 		panel_19.setBackground(Color.decode("#03a9f4"));
 		panel_15.add(panel_19, BorderLayout.EAST);
+		
+		JPanel barGraph = new JPanel();
+		panneau_boutons.add(barGraph);
+		barGraph.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_29 = new JPanel();
+		panel_29.setBackground(new Color(3, 169, 244));
+		barGraph.add(panel_29, BorderLayout.NORTH);
+		
+		JPanel panel_30 = new JPanel();
+		panel_30.setBackground(new Color(3, 169, 244));
+		barGraph.add(panel_30, BorderLayout.SOUTH);
+		
+		JPanel panel_31 = new JPanel();
+		panel_31.setBackground(new Color(3, 169, 244));
+		barGraph.add(panel_31, BorderLayout.EAST);
+		
+		JPanel panel_32 = new JPanel();
+		panel_32.setBackground(new Color(3, 169, 244));
+		barGraph.add(panel_32, BorderLayout.WEST);
+		
+		JPanel panneauGraphs = new JPanel();
+		panneauGraphs.setBackground(new Color(3, 169, 244));
+		barGraph.add(panneauGraphs, BorderLayout.CENTER);
+		panneauGraphs.setLayout(new GridLayout(5, 2, 0, 0));
+		
+		JPanel panel_33 = new JPanel();
+		panneauGraphs.add(panel_33);
+		panel_33.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		nb1 = new JTextField();
+		nb1.setHorizontalAlignment(SwingConstants.CENTER);
+		nb1.setText("0");
+		nb1.setEditable(false);
+		panel_33.add(nb1);
+		nb1.setColumns(10);
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
+		progressBar.setValue(87);
+		progressBar.setForeground(Color.GREEN);
+		progressBar.setBackground(new Color(3, 169, 244));
+		panel_33.add(progressBar);
+		
+		JPanel panel_35 = new JPanel();
+		panneauGraphs.add(panel_35);
+		panel_35.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		textField_2 = new JTextField();
+		textField_2.setText("1");
+		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_2.setEditable(false);
+		textField_2.setColumns(10);
+		panel_35.add(textField_2);
+		
+		JProgressBar progressBar_2 = new JProgressBar();
+		progressBar_2.setStringPainted(true);
+		panel_35.add(progressBar_2);
+		
+		JPanel panel_34 = new JPanel();
+		panneauGraphs.add(panel_34);
+		panel_34.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		textField_1 = new JTextField();
+		textField_1.setText("2");
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_1.setEditable(false);
+		textField_1.setColumns(10);
+		panel_34.add(textField_1);
+		
+		JProgressBar progressBar_1 = new JProgressBar();
+		progressBar_1.setStringPainted(true);
+		progressBar.setValue(proba2*100);
+		panel_34.add(progressBar_1);
+		progressBar.setForeground(Color.GREEN);
+		progressBar.setBackground(new Color(3, 169, 244));
 
 		JPanel panel_7 = new JPanel();
 		panneau_boutons.add(panel_7);

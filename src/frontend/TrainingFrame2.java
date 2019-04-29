@@ -422,7 +422,6 @@ public class TrainingFrame2 extends JFrame {
 		progressBar = new JProgressBar();   // Affiche l'�volution du stade d'apprentissage
 		panel_36.add(progressBar);
 		progressBar.setToolTipText("Avancement");
-		progressBar.setValue(TrainMe.getProgressionStatus());
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
 		progressBar.setForeground(new Color(124, 252, 0));
