@@ -9,31 +9,31 @@ import javax.swing.*;
 
 public class ImageInserter extends JButton {
 	
-	private String path;
 	private int width;
 	private int height;
 	private JPanel panel = new JPanel();
 	private Image img;
-	private JLabel label;
+	private JLabel jlabel;
 	private Icon icon;
-	private Image scaleImage;
+	private Image scaledImage;
 	
 	
 	public ImageInserter(JPanel Ppanel) {
 		panel = Ppanel;
+		this.jlabel = new JLabel();
 	}
 	
 	void rescale(String path) {
-		panel.setVisible(true); 
-		width = (int) panel.getSize().getWidth();
-		height = (int) panel.getSize().getHeight();		
-		img = Toolkit.getDefaultToolkit().getImage(path); //TODO conserver proportions image
-		scaleImage = img.getScaledInstance(width, height,Image.SCALE_DEFAULT);
-		icon = new ImageIcon(scaleImage, "image choisie");
-		label = new JLabel(icon);
+		this.panel.setVisible(true); 
+		this.width = (int) panel.getSize().getWidth();
+		this.height = (int) panel.getSize().getHeight();		
+		this.img = Toolkit.getDefaultToolkit().getImage(path); //TODO conserver proportions image
+		this.scaledImage = img.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+		this.icon = new ImageIcon(scaledImage, "image choisie");
+		this.jlabel.setIcon(icon);
 	}
 	
-	public void set_path(String path) {
-		this.path = path;
+	public JLabel getJLabel() {
+		return this.jlabel;
 	}
 }
