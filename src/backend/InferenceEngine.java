@@ -10,7 +10,6 @@ import backend.TrainingEngine;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
-
 public class InferenceEngine extends Engine {
 
 	private static String imagePath;
@@ -26,6 +25,7 @@ public class InferenceEngine extends Engine {
 
 	/**
 	 * Restore a saved model
+	 * 
 	 * @param path
 	 */
 	public void loadModel(String path) {
@@ -44,8 +44,6 @@ public class InferenceEngine extends Engine {
 		}
 	}
 
-
-
 	/*
 	 * Run inference on an image batch
 	 */
@@ -53,9 +51,9 @@ public class InferenceEngine extends Engine {
 		return this.model.predict(input_image);
 	}
 
-
 	/**
 	 * Return corresponding TrainingEngine
+	 * 
 	 * @param dataset
 	 * @return
 	 */

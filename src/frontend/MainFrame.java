@@ -35,8 +35,6 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.URL;
 import java.util.Arrays;
-import java.io.File;
-import javax.swing.JFileChooser;
 import javax.swing.JProgressBar;
 
 public class MainFrame extends JFrame {
@@ -53,7 +51,7 @@ public class MainFrame extends JFrame {
 	private double[] resultTab;
 	private int resultatAnalyse;
 	private String resultatAffiche = "Analyse non lancée";
-	private double [] tablResult;
+	private double[] tablResult;
 	private int proba0;
 	private int proba1;
 	private int proba2;
@@ -65,12 +63,11 @@ public class MainFrame extends JFrame {
 	private int proba8;
 	private int proba9;
 
-
-	public String selectedName;
-	public static String selectedPath;
-	public String fullName;
-	int verifCode=0;
-	URL url;
+	private String selectedName;
+	private String selectedPath;
+	private String fullName;
+	private int verifCode = 0;
+	private URL url;
 	private JTextField nb1;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -86,13 +83,14 @@ public class MainFrame extends JFrame {
 	public String getChosenImageFullName() {
 		return fullName;
 	}
-	public void setVerifCode(int code) {
-		this.verifCode=code;
-	}
-	public int getVerifCode() {
-      return verifCode;
-    }
 
+	public void setVerifCode(int code) {
+		this.verifCode = code;
+	}
+
+	public int getVerifCode() {
+		return verifCode;
+	}
 
 	/**
 	 * Create the frame.
@@ -166,9 +164,9 @@ public class MainFrame extends JFrame {
 
 		choix_image.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//rajout d'un fileChoser
+				// rajout d'un fileChoser
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //initial dir
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); // initial dir
 				int result = fileChooser.showOpenDialog(choix_image);
 				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
 					File selectedFile = fileChooser.getSelectedFile();
@@ -176,18 +174,17 @@ public class MainFrame extends JFrame {
 					selectedPath = fileChooser.getSelectedFile().getPath();
 					fullName = selectedFile.getAbsolutePath();
 					PaintButton.rescale(selectedPath);
-					setVerifCode(1);  // permet de verifier qu'une image a �t� charg�e
+					setVerifCode(1); // permet de verifier qu'une image a �t� charg�e
 					panel_5.add(PaintButton.getJLabel());
 					choix_image.setOpaque(false);
 					choix_image.setContentAreaFilled(false);
 					choix_image.setBorderPainted(false);
-					//choix_image.setVisible(false); //supprime le bouton
+					// choix_image.setVisible(false); //supprime le bouton
 					boolean isChosen = true;
 				}
 
 			}
-			}
-		);
+		});
 
 		JPanel panneau_commande = new JPanel();
 		panneau_interactions.add(panneau_commande);
@@ -216,19 +213,18 @@ public class MainFrame extends JFrame {
 		JButton bouton_lance_analyse = new JButton("Lancer analyse");
 		panel_10.add(bouton_lance_analyse);
 		bouton_lance_analyse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { //TODO
-				if(getVerifCode()!=1) {  //  si aucune image charg�e, bloquer l'analyse et ouvrir WarningFrame1
+			public void actionPerformed(ActionEvent e) { // TODO
+				if (getVerifCode() != 1) { // si aucune image charg�e, bloquer l'analyse et ouvrir WarningFrame1
 					WarningFrame1 frame = new WarningFrame1();
 					frame.setVisible(true);
-				}
-				else {       // lancer l'analyse sinon
+				} else { // lancer l'analyse sinon
 					inference.loadModel("sln.model");
-					resultTab = inference.runInference(new Image(selectedPath,28,28));
+					resultTab = inference.runInference(new Image(selectedPath, 28, 28));
 					resultatAnalyse = SLN.maxDetection(resultTab);
 					resultatAffiche = Integer.toString(resultatAnalyse);
 					System.out.print(resultatAffiche);
 					textField.setText(resultatAffiche);
-					tablResult = inference.runInference(new Image(selectedPath,28,28));
+					tablResult = inference.runInference(new Image(selectedPath, 28, 28));
 					proba0 = (int) (tablResult[0] * 100);
 					proba1 = (int) (tablResult[1] * 100);
 					proba2 = (int) (tablResult[2] * 100);
@@ -372,7 +368,7 @@ public class MainFrame extends JFrame {
 
 		JProgressBar progressBar_1 = new JProgressBar();
 		progressBar_1.setStringPainted(true);
-		progressBar.setValue(proba2*100);
+		progressBar.setValue(proba2 * 100);
 		panel_34.add(progressBar_1);
 		progressBar.setForeground(Color.GREEN);
 		progressBar.setBackground(new Color(3, 169, 244));
@@ -389,13 +385,13 @@ public class MainFrame extends JFrame {
 		bouton_erreur.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {
-			        url = getClass().getResource("/ressources/176.wav");
-			        AudioClip ac = Applet.newAudioClip(url);
-			        ac.play();
-			        } catch (Exception e) {
-			            System.out.println(e);
-			        }
-			        System.out.println(url);
+					url = getClass().getResource("/ressources/176.wav");
+					AudioClip ac = Applet.newAudioClip(url);
+					ac.play();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				System.out.println(url);
 			}
 		});
 		bouton_erreur.setBackground(Color.decode("#d50000"));
@@ -429,7 +425,7 @@ public class MainFrame extends JFrame {
 		JButton bouton_acces_reglages = new JButton("Acceder r\u00E9glages");
 		panel.add(bouton_acces_reglages, BorderLayout.CENTER);
 		bouton_acces_reglages.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  //  Ouvrir nouvelle fen�tre
+			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fen�tre
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);
 			}
@@ -455,7 +451,6 @@ public class MainFrame extends JFrame {
 		JPanel organisationPanneauTitre = new JPanel();
 		contentPane.add(organisationPanneauTitre, BorderLayout.NORTH);
 		organisationPanneauTitre.setLayout(new BorderLayout(0, 0));
-
 
 		JPanel paneau_titre = new JPanel();
 		organisationPanneauTitre.add(paneau_titre, BorderLayout.CENTER);
@@ -483,6 +478,5 @@ public class MainFrame extends JFrame {
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
 	}
-
 
 }
