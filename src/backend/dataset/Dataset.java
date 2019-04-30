@@ -24,8 +24,6 @@ public class Dataset {
 	private LinkedList<Image> testing_images;
 	private LireDossier folder_reader;
 
-	private String[] features_maping = {"\"black pixels ratio\"", "\"entropy\"", "\"gradient average angle\"", "\"gradient average norm\""};
-
 
 	/**
 	 * Constructs a new dataset
@@ -100,18 +98,6 @@ public class Dataset {
 
 		for (Iterator<String> i = this.testing_images_paths.iterator(); i.hasNext();) {
 			this.testing_images.add(new Image(this.path+"/"+i.next(), this.images_height, this.images_width));
-		}
-	}
-
-	/*
-	 * Compute all images features
-	 */
-	public void computeFeatures() {
-		for (Iterator<Image> i = this.training_images.iterator(); i.hasNext();) {
-			i.next().computeFeatures();
-		}
-		for (Iterator<Image> i = this.testing_images.iterator(); i.hasNext();) {
-			i.next().computeFeatures();
 		}
 	}
 
