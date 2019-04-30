@@ -162,30 +162,6 @@ public class MainFrame extends JFrame {
 
 		ImageInserter PaintButton = new ImageInserter(panneau_image);
 
-		choix_image.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// rajout d'un fileChoser
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); // initial dir
-				int result = fileChooser.showOpenDialog(choix_image);
-				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
-					File selectedFile = fileChooser.getSelectedFile();
-					selectedName = fileChooser.getSelectedFile().getName();
-					selectedPath = fileChooser.getSelectedFile().getPath();
-					fullName = selectedFile.getAbsolutePath();
-					PaintButton.rescale(selectedPath);
-					setVerifCode(1); // permet de verifier qu'une image a �t� charg�e
-					panel_5.add(PaintButton.getJLabel());
-					choix_image.setOpaque(false);
-					choix_image.setContentAreaFilled(false);
-					choix_image.setBorderPainted(false);
-					// choix_image.setVisible(false); //supprime le bouton
-					boolean isChosen = true;
-				}
-
-			}
-		});
-
 		JPanel panneau_commande = new JPanel();
 		panneau_interactions.add(panneau_commande);
 		panneau_commande.setLayout(new GridLayout(0, 2, 0, 0));
@@ -212,36 +188,6 @@ public class MainFrame extends JFrame {
 
 		JButton bouton_lance_analyse = new JButton("Lancer analyse");
 		panel_10.add(bouton_lance_analyse);
-		bouton_lance_analyse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
-				if (getVerifCode() != 1) { // si aucune image charg�e, bloquer l'analyse et ouvrir WarningFrame1
-					WarningFrame1 frame = new WarningFrame1();
-					frame.setVisible(true);
-				} else { // lancer l'analyse sinon
-					inference.loadModel("sln.model");
-					resultTab = inference.runInference(new Image(selectedPath, 28, 28));
-					resultatAnalyse = SLN.maxDetection(resultTab);
-					resultatAffiche = Integer.toString(resultatAnalyse);
-					System.out.print(resultatAffiche);
-					textField.setText(resultatAffiche);
-					tablResult = inference.runInference(new Image(selectedPath, 28, 28));
-					proba0 = (int) (tablResult[0] * 100);
-					proba1 = (int) (tablResult[1] * 100);
-					proba2 = (int) (tablResult[2] * 100);
-					proba3 = (int) (tablResult[3] * 100);
-					proba4 = (int) (tablResult[4] * 100);
-					proba5 = (int) (tablResult[5] * 100);
-					proba6 = (int) (tablResult[6] * 100);
-					proba7 = (int) (tablResult[7] * 100);
-					proba8 = (int) (tablResult[8] * 100);
-					proba9 = (int) (tablResult[9] * 100);
-					System.out.print(Arrays.toString(tablResult));
-					System.out.print(proba0);
-				}
-
-			}
-		});
-
 		bouton_lance_analyse.setBackground(Color.decode("#00c853"));
 
 		JPanel panel_11 = new JPanel();
@@ -333,12 +279,10 @@ public class MainFrame extends JFrame {
 		panel_33.add(nb1);
 		nb1.setColumns(10);
 
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setStringPainted(true);
-		progressBar.setValue(87);
-		progressBar.setForeground(Color.GREEN);
-		progressBar.setBackground(new Color(3, 169, 244));
-		panel_33.add(progressBar);
+		JProgressBar progressBarProba0 = new JProgressBar();
+		progressBarProba0.setStringPainted(true);
+		progressBarProba0.setValue(proba0);
+		panel_33.add(progressBarProba0);
 
 		JPanel panel_35 = new JPanel();
 		panneauGraphs.add(panel_35);
@@ -351,9 +295,9 @@ public class MainFrame extends JFrame {
 		textField_2.setColumns(10);
 		panel_35.add(textField_2);
 
-		JProgressBar progressBar_2 = new JProgressBar();
-		progressBar_2.setStringPainted(true);
-		panel_35.add(progressBar_2);
+		JProgressBar progressBarProba1 = new JProgressBar();
+		progressBarProba1.setStringPainted(true);
+		panel_35.add(progressBarProba1);
 
 		JPanel panel_34 = new JPanel();
 		panneauGraphs.add(panel_34);
@@ -366,12 +310,12 @@ public class MainFrame extends JFrame {
 		textField_1.setColumns(10);
 		panel_34.add(textField_1);
 
-		JProgressBar progressBar_1 = new JProgressBar();
-		progressBar_1.setStringPainted(true);
-		progressBar.setValue(proba2 * 100);
-		panel_34.add(progressBar_1);
-		progressBar.setForeground(Color.GREEN);
-		progressBar.setBackground(new Color(3, 169, 244));
+		JProgressBar progressBarProba2 = new JProgressBar();
+		progressBarProba2.setStringPainted(true);
+		progressBarProba0.setValue(proba2 * 100);
+		panel_34.add(progressBarProba2);
+		progressBarProba0.setForeground(Color.GREEN);
+		progressBarProba0.setBackground(new Color(3, 169, 244));
 
 		JPanel panel_7 = new JPanel();
 		panneau_boutons.add(panel_7);
@@ -382,18 +326,6 @@ public class MainFrame extends JFrame {
 		panneau_erreur.setLayout(new BorderLayout(0, 0));
 
 		JButton bouton_erreur = new JButton("Signaler erreur");
-		bouton_erreur.addActionListener(new ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				try {
-					url = getClass().getResource("/ressources/176.wav");
-					AudioClip ac = Applet.newAudioClip(url);
-					ac.play();
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-				System.out.println(url);
-			}
-		});
 		bouton_erreur.setBackground(Color.decode("#d50000"));
 		panneau_erreur.add(bouton_erreur);
 
@@ -424,12 +356,6 @@ public class MainFrame extends JFrame {
 
 		JButton bouton_acces_reglages = new JButton("Acceder r\u00E9glages");
 		panel.add(bouton_acces_reglages, BorderLayout.CENTER);
-		bouton_acces_reglages.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fen�tre
-				TrainingFrame2 frame = new TrainingFrame2();
-				frame.setVisible(true);
-			}
-		});
 		bouton_acces_reglages.setBackground(Color.decode("#f57f17"));
 
 		JPanel panel_1 = new JPanel();
@@ -477,6 +403,72 @@ public class MainFrame extends JFrame {
 		JPanel panel_28 = new JPanel();
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
+
+		bouton_lance_analyse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // TODO
+				if (getVerifCode() != 1) { // si aucune image charg�e, bloquer l'analyse et ouvrir WarningFrame1
+					WarningFrame1 frame = new WarningFrame1();
+					frame.setVisible(true);
+				} else { // lancer l'analyse sinon
+					inference.loadModel("sln.model");
+					resultTab = inference.runInference(new Image(selectedPath, 28, 28));
+					resultatAnalyse = SLN.maxDetection(resultTab);
+					resultatAffiche = Integer.toString(resultatAnalyse);
+					textField.setText(resultatAffiche);
+					tablResult = inference.runInference(new Image(selectedPath, 28, 28));
+					progressBarProba0.setValue((int) (tablResult[0] * 100));
+					progressBarProba1.setValue((int) (tablResult[1] * 100));
+					progressBarProba2.setValue((int) (tablResult[2] * 100));
+					// TODO Continue
+				}
+
+			}
+		});
+
+		choix_image.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// rajout d'un fileChoser
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); // initial dir
+				int result = fileChooser.showOpenDialog(choix_image);
+				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
+					File selectedFile = fileChooser.getSelectedFile();
+					selectedName = fileChooser.getSelectedFile().getName();
+					selectedPath = fileChooser.getSelectedFile().getPath();
+					fullName = selectedFile.getAbsolutePath();
+					PaintButton.rescale(selectedPath);
+					setVerifCode(1); // permet de verifier qu'une image a �t� charg�e
+					panel_5.add(PaintButton.getJLabel());
+					choix_image.setOpaque(false);
+					choix_image.setContentAreaFilled(false);
+					choix_image.setBorderPainted(false);
+					// choix_image.setVisible(false); //supprime le bouton
+					boolean isChosen = true;
+				}
+
+			}
+		});
+
+		bouton_acces_reglages.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fen�tre
+				TrainingFrame2 frame = new TrainingFrame2();
+				frame.setVisible(true);
+			}
+		});
+		
+		bouton_erreur.addActionListener(new ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try {
+					url = getClass().getResource("/ressources/176.wav");
+					AudioClip ac = Applet.newAudioClip(url);
+					ac.play();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				System.out.println(url);
+			}
+		});
+
 	}
 
 }
