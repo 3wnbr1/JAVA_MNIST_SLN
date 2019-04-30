@@ -36,9 +36,9 @@ public class InferenceEngine extends Engine {
 			object_input.close();
 			file_input.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("Model : File not found");
 		} catch (IOException e) {
-			System.out.println("Object stream error");
+			System.out.println("Model : Object stream error");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

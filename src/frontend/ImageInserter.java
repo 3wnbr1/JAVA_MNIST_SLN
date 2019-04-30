@@ -19,16 +19,11 @@ public class ImageInserter extends JButton {
 	private Image scaleImage;
 	
 	
-	
-	public ImageInserter(String Ppath, JPanel Ppanel) {
-		
-		path = Ppath;
-		panel = Ppanel;				
+	public ImageInserter(JPanel Ppanel) {
+		panel = Ppanel;
 	}
 	
-	
-	void rescale() {
-		
+	void rescale(String path) {
 		panel.setVisible(true); 
 		width = (int) panel.getSize().getWidth();
 		height = (int) panel.getSize().getHeight();		
@@ -38,19 +33,7 @@ public class ImageInserter extends JButton {
 		label = new JLabel(icon);
 	}
 	
-	//experimental: rescale each time the mouse button is released
-	public void mouseReleased(MouseEvent e) {
-		rescale();
+	public void set_path(String path) {
+		this.path = path;
 	}
-	//end
-
-	
-	public JLabel getlabel() {
-		
-		return label;
-		
-	}
-	
-
-
 }
