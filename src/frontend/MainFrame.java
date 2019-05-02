@@ -381,6 +381,7 @@ public class MainFrame extends JFrame {
 		panel_38.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		textField_4 = new JTextField();
+		textField_4.setEditable(false);
 		textField_4.setText("5");
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setBackground(Color.LIGHT_GRAY);
@@ -399,6 +400,7 @@ public class MainFrame extends JFrame {
 		panel_39.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		textField_5 = new JTextField();
+		textField_5.setEditable(false);
 		textField_5.setText("6");
 		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setBackground(Color.LIGHT_GRAY);
@@ -417,6 +419,7 @@ public class MainFrame extends JFrame {
 		panel_40.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		textField_6 = new JTextField();
+		textField_6.setEditable(false);
 		textField_6.setText("7");
 		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setBackground(Color.LIGHT_GRAY);
@@ -435,6 +438,7 @@ public class MainFrame extends JFrame {
 		panel_41.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		textField_7 = new JTextField();
+		textField_7.setEditable(false);
 		textField_7.setText("8");
 		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_7.setBackground(Color.LIGHT_GRAY);
@@ -453,6 +457,7 @@ public class MainFrame extends JFrame {
 		panel_42.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		textField_8 = new JTextField();
+		textField_8.setEditable(false);
 		textField_8.setText("9");
 		textField_8.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_8.setBackground(Color.LIGHT_GRAY);

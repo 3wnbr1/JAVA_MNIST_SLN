@@ -98,7 +98,7 @@ public class Aide extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		imageAide.setIcon(new ImageIcon(Aide.class.getResource("/ressources/imageAide2.jpg")));
+		imageAide.setIcon(new ImageIcon(Aide.class.getResource("/ressources/imageAide3.jpg")));
 		panel_2.add(imageAide);
 	}
 

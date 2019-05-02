@@ -57,11 +57,12 @@ public class WarningFrame1 extends JFrame {
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 165, 0));
+		panel_1.setBackground(Color.RED);
 		panel.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		txtAttention = new JTextField();
+		txtAttention.setEditable(false);
 		txtAttention.setBackground(Color.RED);
 		txtAttention.setText("Attention");
 		txtAttention.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,6 +70,7 @@ public class WarningFrame1 extends JFrame {
 		txtAttention.setColumns(10);
 
 		txtIlSembleQue = new JTextField();
+		txtIlSembleQue.setEditable(false);
 		txtIlSembleQue.setBackground(Color.RED);
 		txtIlSembleQue.setHorizontalAlignment(SwingConstants.CENTER);
 		txtIlSembleQue.setText("Il me semble que vous n'avez pas charg\u00E9 d'image");
@@ -76,6 +78,8 @@ public class WarningFrame1 extends JFrame {
 		txtIlSembleQue.setColumns(10);
 
 		txtVeuillezChargerUen = new JTextField();
+		txtVeuillezChargerUen.setForeground(Color.BLACK);
+		txtVeuillezChargerUen.setEditable(false);
 		txtVeuillezChargerUen.setBackground(Color.RED);
 		txtVeuillezChargerUen.setHorizontalAlignment(SwingConstants.CENTER);
 		txtVeuillezChargerUen.setText("Veuillez en charger une et recommencer");
