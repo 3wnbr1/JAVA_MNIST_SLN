@@ -129,10 +129,11 @@ public class Dataset {
 		this.test_proportion = test_proportion;
 		this.splitDataset();
 	}
-
+	
 	/*
 	 * Returns Dataset Name
 	 */
+	
 	public String getName() {
 		return name;
 	}
@@ -140,6 +141,7 @@ public class Dataset {
 	/*
 	 * Method that can be used to change Dataset name
 	 */
+	
 	public void setName(String name) {
 		this.name = name;
 	}

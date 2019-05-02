@@ -124,15 +124,16 @@ public class TrainingFrame2 extends JFrame {
 	public static double trainingStep; // = incrementation 
 	public static int batchSize;  // = nb d'images par passe
 	public static int nombreEpoch;  // = nb de passes
+	private int modelnumber = 0;
 	
-	String defaultPath = "user.home"; //path de sauvegarde du trainingmodel par defaut
+	
 	String modelToLoadName;
 	String modelToLoadPath;
 	String modelToLoadfullName;
 	String saveDir;
-	String savePath;
+	String savePath = "user.home"; //by default
 	String saveName;
-	
+	String defaultPath = "user.home";
 	
 	
 
@@ -143,14 +144,50 @@ public class TrainingFrame2 extends JFrame {
 	 */
 	
 	
-	private void saveModel() {
+	private void saveModel(String name) {
 		trainer.saveModel(savePath);
-		
+		System.out.println("Saved on "+savePath);
 	}
+	
 	
 	private void loadModel() {
 		inferer.loadModel(modelToLoadPath);
-		
+		System.out.println("model loaded from "+ modelToLoadPath);	
+	}
+	
+	
+	public String getSavePath() {
+		return savePath;
+	}	
+	
+	
+	public String getLoadPath() {
+		return modelToLoadPath;
+	}
+	
+	private void trainModel() {
+		/**
+		 * 1=perceptron
+		 * 2=SLN
+		 * 3=perceptron2?
+		 */
+		if (modelnumber==1) {
+			//choisir modele perceptron
+			trainer.trainPerceptron(batchSize, trainingStep, nombreEpoch);
+			System.out.println("perceptron entrainé");
+		} else {
+			if (modelnumber==2) {
+				//choisir SLN
+				trainer.trainSLN(batchSize, trainingStep, nombreEpoch);
+				System.out.println("SLN entrainé");
+			} else {
+				if (modelnumber ==3 ) {
+					//choisir perceptron 2
+				} else { System.out.println("type de modele non selectionné");
+				}
+				
+			}
+		}
 	}
 
 	
@@ -266,16 +303,13 @@ public class TrainingFrame2 extends JFrame {
 		neuronne.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(neuronne);
 		neuronne.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  //TODO
+			public void actionPerformed(ActionEvent e) {  
+				modelnumber=2;
 			}
 		});
 		panel_6.add(neuronne);
 		
-			
-		
-		
-			
-		
+	
 		
 		panel_7 = new JPanel();
 		panel_7.setBackground(Color.decode("#03a9f4"));
@@ -283,7 +317,9 @@ public class TrainingFrame2 extends JFrame {
 		
 		perceptron = new JRadioButton("Choisir le Perceptron");
 		perceptron.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
+			public void actionPerformed(ActionEvent e) {
+				modelnumber=1;
+				System.out.println("perceptron choisi");
 			}
 		});
 		perceptron.setBackground(Color.decode("#b3e5fc"));
@@ -432,11 +468,18 @@ public class TrainingFrame2 extends JFrame {
 		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentrées plus haut");
 		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				nombreEpoch =Integer.parseInt(nb_de_passes.getText());
-				batchSize = Integer.parseInt(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
-				trainer.train(batchSize, trainingStep, nombreEpoch);		//lancement d'entrainement		
+				//try {
+					nombreEpoch =Integer.parseInt(nb_de_passes.getText());
+					batchSize = Integer.parseInt(valeur_nb_images.getText());
+					trainingStep = Double.parseDouble(nb_incrementations.getText());                
+					trainModel();
+				//} catch (Exception a) {
+				//	System.out.println("ERREUR");
+				//}
+				
+					
 			}
+			
 		});
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
 		panel_33.add(bouton_lancer_apprentissage);
@@ -516,16 +559,11 @@ public class TrainingFrame2 extends JFrame {
 					chooser.setDialogTitle("dir sauvegarder modele");
 				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				    chooser.setAcceptAllFileFilterUsed(false);
-				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) { 
+				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) { 				    	
 				    	saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); //ne donne pass le nom
-				    	saveName = textField_1.toString();
-				        }
-				    System.out.println(saveDir);
-				    savePath = saveDir  + saveName;
-				    
-				    
-				       }
-				    
+				        }				    
+				    System.out.println(saveName);				    
+				       }				    
 				}
 			);
 		
@@ -558,8 +596,12 @@ public class TrainingFrame2 extends JFrame {
 		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				saveName = textField_1.getText();
 				
-				saveModel();
+				savePath = saveDir  +"\\"+ saveName;
+				
+				saveModel(saveName);
+				
 				
 			}
 		});
@@ -640,9 +682,8 @@ public class TrainingFrame2 extends JFrame {
 					modelToLoadName = fileChooser.getSelectedFile().getName();
 					modelToLoadPath = fileChooser.getSelectedFile().getPath();
 					modelToLoadfullName = selectedFile.getAbsolutePath();
-					bouton_chargement.setText("Modèle choisi :  " + modelToLoadName);
-					//inference engine load model à utiliser
-					loadModel();
+					bouton_chargement.setText("Modèle choisi :  " + modelToLoadPath);
+					
 
 				}
 
@@ -659,7 +700,8 @@ public class TrainingFrame2 extends JFrame {
 		
 		bouton_validation_chargement = new JButton("Valider le chargement");
 		bouton_validation_chargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {  // TODO
+			public void actionPerformed(ActionEvent e) { 
+				loadModel();
 			}
 		});
 		bouton_validation_chargement.setBackground(new Color(0, 255, 127));
