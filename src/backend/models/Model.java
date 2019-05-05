@@ -18,7 +18,7 @@ public abstract class Model implements Serializable {
 	
 	public abstract double[] predict(Image image);
 
-	public abstract void train(int batchsize, double learningRate, int epochs_number);
+	public abstract void train(int batchsize, double learningRate, long epochs_number);
 	
 	
 	/**
@@ -26,7 +26,7 @@ public abstract class Model implements Serializable {
 	 * @param learningRate
 	 * @param epochs_number
 	 */
-	public void train(double learningRate, int epochs_number) {
+	public void train(double learningRate, long epochs_number) {
 		this.train(this.dataset.getTraining_images().size(), learningRate, epochs_number);
 	}
 	

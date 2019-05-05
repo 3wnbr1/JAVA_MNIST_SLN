@@ -186,12 +186,4 @@ public class SLN extends Model {
 		}
 		return sucess / (double) total;
 	}
-
-
-	@Override
-	public void train(int batchsize, double learningRate, int epochs_number) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

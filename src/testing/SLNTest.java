@@ -18,7 +18,7 @@ public class SLNTest {
 		// Create SLN
 		this.sln = new SLN("SingleLayerNeuralNetwork v0.1", this.dataset);
 		
-		this.sln.train(0.005, 25);
+		this.sln.train(0.01, 10);
 	}
 
 }

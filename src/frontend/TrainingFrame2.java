@@ -11,6 +11,7 @@ import backend.TrainingEngine;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -117,64 +118,42 @@ public class TrainingFrame2 extends JFrame {
 	 * Static permet de reccuperer les valeurs en memoire sans les get et sans
 	 * instancier la classe
 	 */
-<<<<<<< HEAD
-=======
-	
-	static TrainingEngine trainer = new TrainingEngine();
+
+	private TrainingEngine trainer = new TrainingEngine();
 	private InferenceEngine inferer = new InferenceEngine();
-	
-	public static double trainingStep; // = incrementation 
-	public static int batchSize;  // = nb d'images par passe
-	public static int nombreEpoch;  // = nb de passes
+
+	private double trainingStep; // = incrementation
+	private int batchSize;  // = nb d'images par passe
+	private int nombreEpoch;  // = nb de passes
 	private int modelnumber = 0;
-	
-	
-	String modelToLoadName;
-	String modelToLoadPath;
-	String modelToLoadfullName;
-	String saveDir;
-	String savePath = "user.home"; //by default
-	String saveName;
-	String defaultPath = "user.home";
-	
-	
->>>>>>> Igot/integrtraining
+	private String modelToLoadPath;
+	private String saveDir;
+	private String savePath = "user.home"; //by default
+	private String saveName;
+	private String defaultPath = "user.home";
 
-	public static double trainingStep; // = incrementation
-	public static long batchSize; // = nb d'images par passe
-	public static long nombreEpoch; // = nb de passes
-	TrainingEngine TrainMe = new TrainingEngine();
 
-	/**
-	 * Create the frame.
-	 * @return 
-	 */
-<<<<<<< HEAD
-
-=======
-	
-	
 	private void saveModel(String name) {
 		trainer.saveModel(savePath);
 		System.out.println("Saved on "+savePath);
 	}
-	
-	
+
+
 	private void loadModel() {
 		inferer.loadModel(modelToLoadPath);
-		System.out.println("model loaded from "+ modelToLoadPath);	
+		System.out.println("model loaded from "+ modelToLoadPath);
 	}
-	
-	
+
+
 	public String getSavePath() {
 		return savePath;
-	}	
-	
-	
+	}
+
+
 	public String getLoadPath() {
 		return modelToLoadPath;
 	}
-	
+
 	private void trainModel() {
 		/**
 		 * 1=perceptron
@@ -183,25 +162,20 @@ public class TrainingFrame2 extends JFrame {
 		 */
 		if (modelnumber==1) {
 			//choisir modele perceptron
-			trainer.trainPerceptron(batchSize, trainingStep, nombreEpoch);
-			System.out.println("perceptron entrainé");
+			trainer.train(batchSize, trainingStep, nombreEpoch);
+			System.out.println("perceptron entrainï¿½");
 		} else {
 			if (modelnumber==2) {
 				//choisir SLN
-				trainer.trainSLN(batchSize, trainingStep, nombreEpoch);
-				System.out.println("SLN entrainé");
+				trainer.train(batchSize, trainingStep, nombreEpoch);
+				System.out.println("SLN entrainï¿½");
+				throw new UnsupportedOperationException();
 			} else {
-				if (modelnumber ==3 ) {
-					//choisir perceptron 2
-				} else { System.out.println("type de modele non selectionné");
-				}
-				
+				throw new UnsupportedOperationException();
 			}
 		}
 	}
 
-	
->>>>>>> Igot/integrtraining
 	public TrainingFrame2() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -238,7 +212,7 @@ public class TrainingFrame2 extends JFrame {
 		txtFentreRglages.setColumns(20);
 		txtFentreRglages.setBackground(Color.decode("#b3e5fc"));
 		panneau_titre.add(txtFentreRglages);
-		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE); // permet d'ï¿½viter la fermeture du programme si
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // permet d'ï¿½viter la fermeture du programme si
 																// l'utilisateur clique sur la croix de fermeture de la
 																// fenï¿½tre d'aide
 
@@ -313,22 +287,13 @@ public class TrainingFrame2 extends JFrame {
 		neuronne.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(neuronne);
 		neuronne.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-			public void actionPerformed(ActionEvent e) { // TODO
-			}
-		});
-		panel_6.add(neuronne);
-
-=======
-			public void actionPerformed(ActionEvent e) {  
+			public void actionPerformed(ActionEvent e) {
 				modelnumber=2;
 			}
 		});
 		panel_6.add(neuronne);
-		
-	
-		
->>>>>>> Igot/integrtraining
+
+
 		panel_7 = new JPanel();
 		panel_7.setBackground(Color.decode("#03a9f4"));
 		panel.add(panel_7, BorderLayout.CENTER);
@@ -464,17 +429,10 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_validation = new JButton("VALIDER MODIFICATION");
 		bouton_validation.addActionListener(new ActionListener() {
-<<<<<<< HEAD
 			public void actionPerformed(ActionEvent e) {
-				nombreEpoch = Long.parseLong(nb_de_passes.getText());
-				batchSize = Long.parseLong(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
-=======
-			public void actionPerformed(ActionEvent e) { 
 				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
 				batchSize = Integer.parseInt(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());				
->>>>>>> Igot/integrtraining
+				trainingStep = Double.parseDouble(nb_incrementations.getText());
 			}
 
 		});
@@ -488,27 +446,17 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentrï¿½es plus haut");
 		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
-<<<<<<< HEAD
 			public void actionPerformed(ActionEvent e) {
-				nombreEpoch = Long.parseLong(nb_de_passes.getText());
-				batchSize = Long.parseLong(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
-				TrainMe.train(batchSize, trainingStep, nombreEpoch); // lancement d'entrainement
-=======
-			public void actionPerformed(ActionEvent e) {	
 				//try {
 					nombreEpoch =Integer.parseInt(nb_de_passes.getText());
 					batchSize = Integer.parseInt(valeur_nb_images.getText());
-					trainingStep = Double.parseDouble(nb_incrementations.getText());                
+					trainingStep = Double.parseDouble(nb_incrementations.getText());
 					trainModel();
 				//} catch (Exception a) {
 				//	System.out.println("ERREUR");
 				//}
-				
-					
->>>>>>> Igot/integrtraining
 			}
-			
+
 		});
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
 		panel_33.add(bouton_lancer_apprentissage);
@@ -521,10 +469,8 @@ public class TrainingFrame2 extends JFrame {
 		progressBar = new JProgressBar(); // Affiche l'ï¿½volution du stade d'apprentissage
 		panel_36.add(progressBar);
 		progressBar.setToolTipText("Avancement");
-<<<<<<< HEAD
-=======
+
 		progressBar.setValue(trainer.getProgressionStatus());
->>>>>>> Igot/integrtraining
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
 		progressBar.setForeground(new Color(124, 252, 0));
@@ -571,43 +517,38 @@ public class TrainingFrame2 extends JFrame {
 		panel_25.setBackground(Color.decode("#03a9f4"));
 		panel_20.add(panel_25, BorderLayout.CENTER);
 		panel_25.setLayout(new GridLayout(0, 1, 0, 0));
-<<<<<<< HEAD
 
-		bouton_sauvegarder_modele = new JTextField();
-=======
-		
 		bouton_sauvegarder_modele = new JButton();
 		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 			}
 		});
->>>>>>> Igot/integrtraining
+
 		bouton_sauvegarder_modele.setText("Sauvegarder sous");
 		bouton_sauvegarder_modele.setHorizontalAlignment(SwingConstants.CENTER);
 		//bouton_sauvegarder_modele.setEditable(false);
 		//bouton_sauvegarder_modele.setColumns(10);
 		bouton_sauvegarder_modele.setBackground(new Color(255, 183, 77));
 		panel_25.add(bouton_sauvegarder_modele);
-<<<<<<< HEAD
 
-=======
-		bouton_sauvegarder_modele.addActionListener(new ActionListener() {			
-				public void actionPerformed(ActionEvent e) {		
+
+
+		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
 					JFileChooser chooser = new JFileChooser();
 					chooser.setCurrentDirectory(new File(System.getProperty(defaultPath)));
 					chooser.setDialogTitle("dir sauvegarder modele");
 				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				    chooser.setAcceptAllFileFilterUsed(false);
-				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) { 				    	
+				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) {
 				    	saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); //ne donne pass le nom
-				        }				    
-				    System.out.println(saveName);				    
-				       }				    
+				        }
+				    System.out.println(saveName);
+				       }
 				}
 			);
-		
->>>>>>> Igot/integrtraining
+
 		panel_37 = new JPanel();
 		panel_25.add(panel_37);
 		panel_37.setLayout(new GridLayout(0, 2, 0, 0));
@@ -635,19 +576,14 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_valider_sauvegarde = new JButton("Valider la sauvegarde");
 		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-			public void actionPerformed(ActionEvent e) { // TODO
-=======
-			
 			public void actionPerformed(ActionEvent e) {
 				saveName = textField_1.getText();
-				
+
 				savePath = saveDir  +"\\"+ saveName;
-				
+
 				saveModel(saveName);
-				
-				
->>>>>>> Igot/integrtraining
+
+
 			}
 		});
 		bouton_valider_sauvegarde.setBackground(new Color(0, 255, 127));
@@ -717,9 +653,6 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_chargement = new JButton("Charger");
 		bouton_chargement.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-			public void actionPerformed(ActionEvent e) { // TODO
-=======
 			public void actionPerformed(ActionEvent e) {
 				//rajout d'un fileChoser
 				JFileChooser fileChooser = new JFileChooser();
@@ -730,12 +663,10 @@ public class TrainingFrame2 extends JFrame {
 					modelToLoadName = fileChooser.getSelectedFile().getName();
 					modelToLoadPath = fileChooser.getSelectedFile().getPath();
 					modelToLoadfullName = selectedFile.getAbsolutePath();
-					bouton_chargement.setText("Modèle choisi :  " + modelToLoadPath);
-					
+					bouton_chargement.setText("Modï¿½le choisi :  " + modelToLoadPath);
+
 
 				}
-
->>>>>>> Igot/integrtraining
 			}
 			}
 		);
@@ -749,12 +680,8 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_validation_chargement = new JButton("Valider le chargement");
 		bouton_validation_chargement.addActionListener(new ActionListener() {
-<<<<<<< HEAD
-			public void actionPerformed(ActionEvent e) { // TODO
-=======
-			public void actionPerformed(ActionEvent e) { 
+			public void actionPerformed(ActionEvent e) {
 				loadModel();
->>>>>>> Igot/integrtraining
 			}
 		});
 		bouton_validation_chargement.setBackground(new Color(0, 255, 127));
@@ -764,8 +691,8 @@ public class TrainingFrame2 extends JFrame {
 		panel_29.setBackground(Color.decode("#03a9f4"));
 		panel_27.add(panel_29);
 	}
-	
-	
-	
+
+
+
 
 }
