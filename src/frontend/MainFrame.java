@@ -333,11 +333,11 @@ public class MainFrame extends JFrame {
 		panel_34.add(progressBarProba2);
 		progressBarProba2.setBackground(new Color(3, 169, 244));
 		panel_34.add(progressBarProba2);
-		
+
 		JPanel panel_36 = new JPanel();
 		panneauGraphs.add(panel_36);
 		panel_36.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setBackground(Color.LIGHT_GRAY);
@@ -345,7 +345,7 @@ public class MainFrame extends JFrame {
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_36.add(textField_3);
 		textField_3.setColumns(10);
-		
+
 		JProgressBar progressBarProba3 = new JProgressBar();
 		progressBarProba3.setStringPainted(true);
 		panel_36.add(progressBarProba3);
@@ -353,13 +353,13 @@ public class MainFrame extends JFrame {
 		progressBarProba3.setBackground(new Color(3, 169, 244));
 		progressBarProba3.setValue(proba3);
 		panel_36.add(progressBarProba3);
-		
-		
-		
+
+
+
 		JPanel panel_37 = new JPanel();
 		panneauGraphs.add(panel_37);
 		panel_37.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setBackground(Color.LIGHT_GRAY);
@@ -367,19 +367,19 @@ public class MainFrame extends JFrame {
 		textField.setText("4");
 		panel_37.add(textField);
 		textField.setColumns(10);
-		
+
 		JProgressBar progressBarProba4 = new JProgressBar();
 		progressBarProba4.setStringPainted(true);
 		progressBarProba4.setForeground(Color.GREEN);
 		progressBarProba4.setBackground(new Color(3, 169, 244));
 		progressBarProba4.setValue(proba4);
 		panel_37.add(progressBarProba4);
-		
-		
+
+
 		JPanel panel_38 = new JPanel();
 		panneauGraphs.add(panel_38);
 		panel_38.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setText("5");
@@ -387,18 +387,18 @@ public class MainFrame extends JFrame {
 		textField_4.setBackground(Color.LIGHT_GRAY);
 		panel_38.add(textField_4);
 		textField_4.setColumns(10);
-		
+
 		JProgressBar progressBarProba5 = new JProgressBar();
 		progressBarProba5.setStringPainted(true);
 		progressBarProba5.setForeground(Color.GREEN);
 		progressBarProba5.setBackground(new Color(3, 169, 244));
 		progressBarProba5.setValue(proba5);
 		panel_38.add(progressBarProba5);
-		
+
 		JPanel panel_39 = new JPanel();
 		panneauGraphs.add(panel_39);
 		panel_39.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
 		textField_5.setText("6");
@@ -406,18 +406,18 @@ public class MainFrame extends JFrame {
 		textField_5.setBackground(Color.LIGHT_GRAY);
 		panel_39.add(textField_5);
 		textField_5.setColumns(10);
-		
+
 		JProgressBar progressBarProba6 = new JProgressBar();
 		progressBarProba6.setStringPainted(true);
 		progressBarProba6.setForeground(Color.GREEN);
 		progressBarProba6.setBackground(new Color(3, 169, 244));
 		progressBarProba6.setValue(proba6);
 		panel_39.add(progressBarProba6);
-		
+
 		JPanel panel_40 = new JPanel();
 		panneauGraphs.add(panel_40);
 		panel_40.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
 		textField_6.setText("7");
@@ -425,18 +425,18 @@ public class MainFrame extends JFrame {
 		textField_6.setBackground(Color.LIGHT_GRAY);
 		panel_40.add(textField_6);
 		textField_6.setColumns(10);
-		
+
 		JProgressBar progressBarProba7 = new JProgressBar();
 		progressBarProba7.setStringPainted(true);
 		progressBarProba7.setForeground(Color.GREEN);
 		progressBarProba7.setBackground(new Color(3, 169, 244));
 		progressBarProba7.setValue(proba3);
 		panel_40.add(progressBarProba7);
-		
+
 		JPanel panel_41 = new JPanel();
 		panneauGraphs.add(panel_41);
 		panel_41.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
 		textField_7.setText("8");
@@ -444,18 +444,18 @@ public class MainFrame extends JFrame {
 		textField_7.setBackground(Color.LIGHT_GRAY);
 		panel_41.add(textField_7);
 		textField_7.setColumns(10);
-		
+
 		JProgressBar progressBarProba8 = new JProgressBar();
 		progressBarProba8.setStringPainted(true);
 		progressBarProba8.setForeground(Color.GREEN);
 		progressBarProba8.setBackground(new Color(3, 169, 244));
 		progressBarProba8.setValue(proba3);
 		panel_41.add(progressBarProba8);
-		
+
 		JPanel panel_42 = new JPanel();
 		panneauGraphs.add(panel_42);
 		panel_42.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textField_8 = new JTextField();
 		textField_8.setEditable(false);
 		textField_8.setText("9");
@@ -463,7 +463,7 @@ public class MainFrame extends JFrame {
 		textField_8.setBackground(Color.LIGHT_GRAY);
 		panel_42.add(textField_8);
 		textField_8.setColumns(10);
-		
+
 		JProgressBar progressBarProba9 = new JProgressBar();
 		progressBarProba9.setStringPainted(true);
 		progressBarProba9.setForeground(Color.GREEN);
@@ -580,7 +580,7 @@ public class MainFrame extends JFrame {
 					progressBarProba7.setValue((int) (tablResult[7] * 100));
 					progressBarProba8.setValue((int) (tablResult[8] * 100));
 					progressBarProba9.setValue((int) (tablResult[9] * 100));
-					
+
 				}
 
 			}
@@ -614,7 +614,7 @@ public class MainFrame extends JFrame {
 				frame.setVisible(true);
 			}
 		});
-		
+
 		bouton_erreur.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				try {

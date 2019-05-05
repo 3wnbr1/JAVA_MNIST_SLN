@@ -6,22 +6,23 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import backend.dataset.Dataset;
+import backend.models.FeaturesPerceptron;
 import backend.models.SLN;
 import frontend.TrainingFrame2;
 
 public class TrainingEngine extends Engine {
-	
-	
+
+
 	private Dataset dataset;
 	private int progressStatus; //etat d'avancement d'entrainement
 	// TODO implementer progressStatus dans la barre d'avancement dans trainingFrame
-	
-	
+
+
 	public TrainingEngine() {
 		this.dataset = new Dataset("mnist", "mnist", 0.2, 28, 28);
-		this.model = new SLN("SingleLayerNeuralNetwork v0.1", this.dataset);
+
 	}
-	
+
 	/*
 	 * Save trained model
 	 */
@@ -38,20 +39,20 @@ public class TrainingEngine extends Engine {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param batchSize
 	 * @param training_step
 	 * @param step
 	 */
-	public void train(int batchSize, double training_step, long nombreEpoch) {	
+	public void train(int batchSize, double training_step, long nombreEpoch) {
 		this.model.train(batchSize, training_step, nombreEpoch);
 	}
-	
-	public void train(double training_step, long nombreEpoch) {	
+
+	public void train(double training_step, long nombreEpoch) {
 		this.model.train(training_step, nombreEpoch);
 	}
-	
-	public void train(long nombreEpoch) {	
+
+	public void train(long nombreEpoch) {
 		this.model.train(nombreEpoch);
 	}
 
@@ -68,7 +69,7 @@ public class TrainingEngine extends Engine {
 	public void setDataset(Dataset dataset) {
 		this.dataset = dataset;
 	}
-	
+
 	/**
 	 * Return corresponding InferenceEngine
 	 * @return
@@ -78,11 +79,11 @@ public class TrainingEngine extends Engine {
 		inferer.model = this.model;
 		return inferer;
 	}
-	
+
 	public void setProgressionStatus(int a) {
 		progressStatus = 42;
 	}
-	
+
 	public int getProgressionStatus() {
 		return progressStatus;
 	}
