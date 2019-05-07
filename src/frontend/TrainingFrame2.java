@@ -28,6 +28,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JProgressBar;
 import javax.swing.ImageIcon;
+import javax.swing.JSpinner;
 
 public class TrainingFrame2 extends JFrame {
 
@@ -49,14 +50,8 @@ public class TrainingFrame2 extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JPanel panel;
 	private JPanel panel_4;
-	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
-	private JMenuBar menuPerceptron;
-	private JMenu mnNewMenu;
-	private JCheckBox reg1;
-	private JCheckBox reg2;
-	private JCheckBox reg3;
 	private JRadioButton perceptron;
 	private JRadioButton neuronne;
 	private JTextField parametres;
@@ -90,9 +85,6 @@ public class TrainingFrame2 extends JFrame {
 	private JTextField training_step;
 	private JPanel panel_31;
 	private JPanel panel_32;
-	private JTextField nb_de_passes;
-	private JTextField valeur_nb_images;
-	private JTextField nb_incrementations;
 	private JButton bouton_validation;
 	private JPanel panel_33;
 	private JPanel panel_35;
@@ -123,32 +115,31 @@ public class TrainingFrame2 extends JFrame {
 	private InferenceEngine inferer = new InferenceEngine();
 
 	private double trainingStep; // = incrementation
-	private int batchSize;  // = nb d'images par passe
-	private int nombreEpoch;  // = nb de passes
+	private int batchSize; // = nb d'images par passe
+	private int nombreEpoch; // = nb de passes
 	private int modelnumber = 0;
 	private String modelToLoadPath;
 	private String saveDir;
-	private String savePath = "user.home"; //by default
+	private String savePath = "user.home"; // by default
 	private String saveName;
 	private String defaultPath = "user.home";
-
+	private JSpinner spinner;
+	private JSpinner spinner_1;
+	private JSpinner spinner_2;
 
 	private void saveModel(String name) {
 		trainer.saveModel(savePath);
-		System.out.println("Saved on "+savePath);
+		System.out.println("Saved on " + savePath);
 	}
-
 
 	private void loadModel() {
 		inferer.loadModel(modelToLoadPath);
-		System.out.println("model loaded from "+ modelToLoadPath);
+		System.out.println("model loaded from " + modelToLoadPath);
 	}
-
 
 	public String getSavePath() {
 		return savePath;
 	}
-
 
 	public String getLoadPath() {
 		return modelToLoadPath;
@@ -156,17 +147,15 @@ public class TrainingFrame2 extends JFrame {
 
 	private void trainModel() {
 		/**
-		 * 1=perceptron
-		 * 2=SLN
-		 * 3=perceptron2?
+		 * 1=perceptron 2=SLN 3=perceptron2?
 		 */
-		if (modelnumber==1) {
-			//choisir modele perceptron
+		if (modelnumber == 1) {
+			// choisir modele perceptron
 			trainer.train(batchSize, trainingStep, nombreEpoch);
 			System.out.println("perceptron entrain�");
 		} else {
-			if (modelnumber==2) {
-				//choisir SLN
+			if (modelnumber == 2) {
+				// choisir SLN
 				trainer.train(batchSize, trainingStep, nombreEpoch);
 				System.out.println("SLN entrain�");
 				throw new UnsupportedOperationException();
@@ -213,15 +202,10 @@ public class TrainingFrame2 extends JFrame {
 		txtFentreRglages.setBackground(Color.decode("#b3e5fc"));
 		panneau_titre.add(txtFentreRglages);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // permet d'�viter la fermeture du programme si
-																// l'utilisateur clique sur la croix de fermeture de la
-																// fen�tre d'aide
+		// l'utilisateur clique sur la croix de fermeture de la
+		// fen�tre d'aide
 
 		retoursMain = new JButton("Retour fen\u00EAtre principale");
-		retoursMain.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-			}
-		});
 		panneau_titre.add(retoursMain);
 
 		panel_11 = new JPanel();
@@ -286,62 +270,17 @@ public class TrainingFrame2 extends JFrame {
 		neuronne = new JRadioButton("Choisir le r\u00E9seau de neuronnes");
 		neuronne.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(neuronne);
-		neuronne.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modelnumber=2;
-			}
-		});
 		panel_6.add(neuronne);
-
 
 		panel_7 = new JPanel();
 		panel_7.setBackground(Color.decode("#03a9f4"));
 		panel.add(panel_7, BorderLayout.CENTER);
 
 		perceptron = new JRadioButton("Choisir le Perceptron");
-		perceptron.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modelnumber=1;
-				System.out.println("perceptron choisi");
-			}
-		});
+
 		perceptron.setBackground(Color.decode("#b3e5fc"));
 		buttonGroup.add(perceptron);
 		panel_7.add(perceptron);
-
-		panel_5 = new JPanel();
-		general.add(panel_5);
-		panel_5.setBackground(new Color(3, 169, 244));
-		FlowLayout flowLayout_1 = (FlowLayout) panel_5.getLayout();
-
-		menuPerceptron = new JMenuBar();
-		panel_5.add(menuPerceptron);
-
-		mnNewMenu = new JMenu("R\u00E9glages Perceptron");
-		mnNewMenu.setBackground(Color.decode("#b3e5fc"));
-		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		menuPerceptron.add(mnNewMenu);
-
-		reg1 = new JCheckBox("Reglage1");
-		reg1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
-			}
-		});
-		mnNewMenu.add(reg1);
-
-		reg2 = new JCheckBox("Reglage2");
-		reg2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
-			}
-		});
-		mnNewMenu.add(reg2);
-
-		reg3 = new JCheckBox("Reglage3");
-		reg3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
-			}
-		});
-		mnNewMenu.add(reg3);
 
 		panel_35 = new JPanel();
 		panel_35.setBackground(new Color(3, 169, 244));
@@ -388,10 +327,9 @@ public class TrainingFrame2 extends JFrame {
 		epoc.setText("nombre de passes");
 		epoc.setColumns(10);
 
-		nb_de_passes = new JTextField();
-		nb_de_passes.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_31.add(nb_de_passes);
-		nb_de_passes.setColumns(10);
+		spinner = new JSpinner();
+		spinner.setValue(25);
+		panel_31.add(spinner);
 
 		batch_size = new JTextField();
 		batch_size.setBackground(Color.decode("#03a9f4"));
@@ -401,14 +339,9 @@ public class TrainingFrame2 extends JFrame {
 		batch_size.setText("nombre d'images par passe");
 		batch_size.setColumns(10);
 
-		valeur_nb_images = new JTextField();
-		valeur_nb_images.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // TODO
-			}
-		});
-		valeur_nb_images.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_31.add(valeur_nb_images);
-		valeur_nb_images.setColumns(10);
+		spinner_1 = new JSpinner();
+		spinner_1.setValue("default");
+		panel_31.add(spinner_1);
 
 		training_step = new JTextField();
 		training_step.setBackground(Color.decode("#03a9f4"));
@@ -418,24 +351,15 @@ public class TrainingFrame2 extends JFrame {
 		training_step.setText("incr\u00E9mentation");
 		training_step.setColumns(10);
 
-		nb_incrementations = new JTextField();
-		nb_incrementations.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_31.add(nb_incrementations);
-		nb_incrementations.setColumns(10);
+		spinner_2 = new JSpinner();
+		spinner_2.setValue(0.05);
+		panel_31.add(spinner_2);
 
 		panel_32 = new JPanel();
 		panel_1.add(panel_32);
 		panel_32.setLayout(new GridLayout(0, 1, 0, 0));
 
 		bouton_validation = new JButton("VALIDER MODIFICATION");
-		bouton_validation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
-				batchSize = Integer.parseInt(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
-			}
-
-		});
 		bouton_validation.setBackground(new Color(0, 255, 127));
 		panel_32.add(bouton_validation);
 
@@ -445,19 +369,6 @@ public class TrainingFrame2 extends JFrame {
 		panel_33.setLayout(new BorderLayout(0, 0));
 
 		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentr�es plus haut");
-		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//try {
-					nombreEpoch =Integer.parseInt(nb_de_passes.getText());
-					batchSize = Integer.parseInt(valeur_nb_images.getText());
-					trainingStep = Double.parseDouble(nb_incrementations.getText());
-					trainModel();
-				//} catch (Exception a) {
-				//	System.out.println("ERREUR");
-				//}
-			}
-
-		});
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
 		panel_33.add(bouton_lancer_apprentissage);
 
@@ -519,35 +430,12 @@ public class TrainingFrame2 extends JFrame {
 		panel_25.setLayout(new GridLayout(0, 1, 0, 0));
 
 		bouton_sauvegarder_modele = new JButton();
-		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
-
 		bouton_sauvegarder_modele.setText("Sauvegarder sous");
 		bouton_sauvegarder_modele.setHorizontalAlignment(SwingConstants.CENTER);
-		//bouton_sauvegarder_modele.setEditable(false);
-		//bouton_sauvegarder_modele.setColumns(10);
+		// bouton_sauvegarder_modele.setEditable(false);
+		// bouton_sauvegarder_modele.setColumns(10);
 		bouton_sauvegarder_modele.setBackground(new Color(255, 183, 77));
 		panel_25.add(bouton_sauvegarder_modele);
-
-
-
-		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JFileChooser chooser = new JFileChooser();
-					chooser.setCurrentDirectory(new File(System.getProperty(defaultPath)));
-					chooser.setDialogTitle("dir sauvegarder modele");
-				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				    chooser.setAcceptAllFileFilterUsed(false);
-				    if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) {
-				    	saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); //ne donne pass le nom
-				        }
-				    System.out.println(saveName);
-				       }
-				}
-			);
 
 		panel_37 = new JPanel();
 		panel_25.add(panel_37);
@@ -575,17 +463,6 @@ public class TrainingFrame2 extends JFrame {
 		textField_1.setColumns(10);
 
 		bouton_valider_sauvegarde = new JButton("Valider la sauvegarde");
-		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveName = textField_1.getText();
-
-				savePath = saveDir  +"\\"+ saveName;
-
-				saveModel(saveName);
-
-
-			}
-		});
 		bouton_valider_sauvegarde.setBackground(new Color(0, 255, 127));
 		panel_25.add(bouton_valider_sauvegarde);
 
@@ -599,12 +476,6 @@ public class TrainingFrame2 extends JFrame {
 		panel_21.setLayout(new BorderLayout(0, 0));
 
 		button = new JButton("Aide");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Aide frame = new Aide();
-				frame.setVisible(true);
-			}
-		});
 		button.setBackground(Color.decode("#03a9f4"));
 		button.setIcon(new ImageIcon(TrainingFrame2.class.getResource("/ressources/Sans titre.jpg")));
 		panel_21.add(button, BorderLayout.CENTER);
@@ -652,24 +523,6 @@ public class TrainingFrame2 extends JFrame {
 		panel_41.setLayout(new GridLayout(0, 1, 0, 0));
 
 		bouton_chargement = new JButton("Charger");
-		bouton_chargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//rajout d'un fileChoser
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //initial dir
-				int result = fileChooser.showOpenDialog(bouton_chargement);
-				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
-					File selectedFile = fileChooser.getSelectedFile();
-					modelToLoadName = fileChooser.getSelectedFile().getName();
-					modelToLoadPath = fileChooser.getSelectedFile().getPath();
-					modelToLoadfullName = selectedFile.getAbsolutePath();
-					bouton_chargement.setText("Mod�le choisi :  " + modelToLoadPath);
-
-
-				}
-			}
-			}
-		);
 		bouton_chargement.setBackground(new Color(255, 183, 77));
 		panel_41.add(bouton_chargement);
 
@@ -679,20 +532,104 @@ public class TrainingFrame2 extends JFrame {
 		panel_42.setLayout(new BorderLayout(0, 0));
 
 		bouton_validation_chargement = new JButton("Valider le chargement");
-		bouton_validation_chargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadModel();
-			}
-		});
 		bouton_validation_chargement.setBackground(new Color(0, 255, 127));
 		panel_42.add(bouton_validation_chargement, BorderLayout.CENTER);
 
 		panel_29 = new JPanel();
 		panel_29.setBackground(Color.decode("#03a9f4"));
 		panel_27.add(panel_29);
+
+		bouton_validation_chargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadModel();
+			}
+		});
+
+		bouton_chargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// rajout d'un fileChoser
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); // initial dir
+				int result = fileChooser.showOpenDialog(bouton_chargement);
+				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
+					File selectedFile = fileChooser.getSelectedFile();
+					modelToLoadName = fileChooser.getSelectedFile().getName();
+					modelToLoadPath = fileChooser.getSelectedFile().getPath();
+					modelToLoadfullName = selectedFile.getAbsolutePath();
+					bouton_chargement.setText("Mod�le choisi :  " + modelToLoadPath);
+
+				}
+			}
+		});
+
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Aide frame = new Aide();
+				frame.setVisible(true);
+			}
+		});
+
+		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveName = textField_1.getText();
+				savePath = saveDir + "\\" + saveName;
+				saveModel(saveName);
+			}
+		});
+
+		bouton_sauvegarder_modele.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty(defaultPath)));
+				chooser.setDialogTitle("dir sauvegarder modele");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setAcceptAllFileFilterUsed(false);
+				if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) {
+					saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); // ne
+				}
+				System.out.println(saveName);
+			}
+		});
+
+		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// try {
+				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
+				batchSize = Integer.parseInt(valeur_nb_images.getText());
+				trainingStep = Double.parseDouble(nb_incrementations.getText());
+				trainModel();
+				// } catch (Exception a) {
+				// System.out.println("ERREUR");
+				// }
+			}
+		});
+
+		perceptron.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modelnumber = 1;
+				System.out.println("perceptron choisi");
+			}
+		});
+
+		retoursMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+
+		neuronne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modelnumber = 2;
+			}
+		});
+
+		bouton_validation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
+				batchSize = Integer.parseInt(valeur_nb_images.getText());
+				trainingStep = Double.parseDouble(nb_incrementations.getText());
+			}
+		});
 	}
-
-
-
 
 }
