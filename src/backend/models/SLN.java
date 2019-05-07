@@ -8,16 +8,13 @@ import java.util.Random;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
-
 public class SLN extends Model {
-
 
 	protected int IMAGE_XSIZE;
 	protected int IMAGE_YSIZE;
 	protected int LABELS = 10;
 	protected Random randomizer = new Random();
 	protected double[][] weights;
-
 
 	public SLN(String name, Dataset dataset) {
 		super(name, dataset);
@@ -26,26 +23,25 @@ public class SLN extends Model {
 		this.weights = new double[LABELS][IMAGE_XSIZE * IMAGE_YSIZE];
 	}
 
-
 	/**
 	 * Init cells weights
 	 */
 	protected void initWeights() {
 		for (int index = 0; index < LABELS; index++) {
-			for (int i = 0; i<(IMAGE_XSIZE*IMAGE_YSIZE); i++) {
+			for (int i = 0; i < (IMAGE_XSIZE * IMAGE_YSIZE); i++) {
 				weights[index][i] = randomizer.nextDouble();
 			}
 		}
 	}
 
-
 	/**
 	 * Run forward propagation for alls cells
+	 * 
 	 * @return output
 	 */
 	protected double[] forwardPropagation(double[] input) {
 		double[] output = new double[LABELS];
-		for (int label = 0; label<LABELS; label++) {
+		for (int label = 0; label < LABELS; label++) {
 			for (int i = 0; i < input.length; i++) {
 				output[label] += this.weights[label][i] * input[i];
 			}
@@ -54,16 +50,16 @@ public class SLN extends Model {
 		return output;
 	}
 
-
 	/**
 	 * Loss function
+	 * 
 	 * @param input
 	 * @param target_vector
 	 * @return loss for each cell
 	 */
 	protected double[] loss(double[] output, double[] target_vector) {
 		double[] loss = new double[LABELS];
-		for (int label = 0; label<LABELS; label++) {
+		for (int label = 0; label < LABELS; label++) {
 			loss[label] = target_vector[label] - output[label];
 		}
 		return loss;
@@ -71,6 +67,7 @@ public class SLN extends Model {
 
 	/**
 	 * Return the output vector corresponding to label
+	 * 
 	 * @param label
 	 * @return
 	 */
@@ -80,24 +77,24 @@ public class SLN extends Model {
 		return vector;
 	}
 
-
 	/**
 	 * Backpropagate the error and update weights
+	 * 
 	 * @param input
 	 * @param loss
 	 * @param learning_rate
 	 */
 	protected void backpropagation(double[] input, double loss[], double learning_rate) {
-		for (int label = 0; label<LABELS; label++) {
+		for (int label = 0; label < LABELS; label++) {
 			for (int i = 0; i < input.length; i++) {
 				this.weights[label][i] += learning_rate * input[i] * loss[label];
 			}
 		}
 	}
 
-
 	/**
 	 * Run single training step
+	 * 
 	 * @param learning_rate
 	 * @param input
 	 * @param label
@@ -111,9 +108,9 @@ public class SLN extends Model {
 		return this.average(loss);
 	}
 
-
 	/**
 	 * get a dataset batch
+	 * 
 	 * @param images_set
 	 * @param batchsize
 	 * @return
@@ -133,12 +130,13 @@ public class SLN extends Model {
 
 	/**
 	 * Return most probable result
+	 * 
 	 * @param output
 	 * @return
 	 */
 	public static int maxDetection(double[] output) {
 		int max = 0;
-		for (int i = 0; i<output.length; i++) {
+		for (int i = 0; i < output.length; i++) {
 			if (output[max] < output[i]) {
 				max = i;
 			}
@@ -179,7 +177,7 @@ public class SLN extends Model {
 			image = itr.next();
 			label = Integer.parseInt(image.getLabel());
 			output = this.predict(image);
-			if (this.maxDetection(output) == label) {
+			if (SLN.maxDetection(output) == label) {
 				sucess++;
 			}
 			total++;

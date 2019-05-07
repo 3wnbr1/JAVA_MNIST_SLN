@@ -3,16 +3,10 @@ package frontend;
 import java.awt.BorderLayout;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import backend.InferenceEngine;
 import backend.dataset.Image;
 import backend.models.SLN;
-
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,15 +19,15 @@ import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.net.URL;
-import java.util.Arrays;
 import javax.swing.JProgressBar;
 
 public class MainFrame extends JFrame {
@@ -46,22 +40,10 @@ public class MainFrame extends JFrame {
 	private JTextField txtEtape;
 	private JTextField nom_application;
 	private InferenceEngine inference = new InferenceEngine();
-	private Image imageAnalyse;
 	private double[] resultTab;
 	private int resultatAnalyse;
 	private String resultatAffiche = "Analyse non lancee";
 	private double[] tablResult;
-	private int proba0;
-	private int proba1;
-	private int proba2;
-	private int proba3;
-	private int proba4;
-	private int proba5;
-	private int proba6;
-	private int proba7;
-	private int proba8;
-	private int proba9;
-	private boolean isChosen = false;
 	private File selectedFile;
 
 	private String selectedName;
@@ -229,7 +211,7 @@ public class MainFrame extends JFrame {
 		panneau_resultats.add(panel_15, BorderLayout.CENTER);
 		panel_15.setLayout(new BorderLayout(0, 0));
 
-		txtAnalyseNonLancee = new JTextField("Analyse non lancee");
+		txtAnalyseNonLancee = new JTextField("Analyse non lanc\u00E9e");
 		txtAnalyseNonLancee.setHorizontalAlignment(SwingConstants.CENTER);
 		txtAnalyseNonLancee.setFont(new Font("Tahoma", Font.BOLD, 30));
 		panel_15.add(txtAnalyseNonLancee);
@@ -292,7 +274,6 @@ public class MainFrame extends JFrame {
 		progressBarProba0.setStringPainted(true);
 		progressBarProba0.setForeground(Color.GREEN);
 		progressBarProba0.setBackground(new Color(3, 169, 244));
-		progressBarProba0.setValue(proba0);
 		panel_33.add(progressBarProba0);
 
 		JPanel panel_35 = new JPanel();
@@ -311,7 +292,6 @@ public class MainFrame extends JFrame {
 		progressBarProba1.setStringPainted(true);
 		progressBarProba1.setForeground(Color.GREEN);
 		progressBarProba1.setBackground(new Color(3, 169, 244));
-		progressBarProba1.setValue(proba0);
 		panel_35.add(progressBarProba1);
 
 		JPanel panel_34 = new JPanel();
@@ -329,7 +309,6 @@ public class MainFrame extends JFrame {
 		JProgressBar progressBarProba2 = new JProgressBar();
 		progressBarProba2.setForeground(Color.GREEN);
 		progressBarProba2.setStringPainted(true);
-		progressBarProba2.setValue(proba2);
 		panel_34.add(progressBarProba2);
 		progressBarProba2.setBackground(new Color(3, 169, 244));
 		panel_34.add(progressBarProba2);
@@ -351,10 +330,7 @@ public class MainFrame extends JFrame {
 		panel_36.add(progressBarProba3);
 		progressBarProba3.setForeground(Color.GREEN);
 		progressBarProba3.setBackground(new Color(3, 169, 244));
-		progressBarProba3.setValue(proba3);
 		panel_36.add(progressBarProba3);
-
-
 
 		JPanel panel_37 = new JPanel();
 		panneauGraphs.add(panel_37);
@@ -372,9 +348,7 @@ public class MainFrame extends JFrame {
 		progressBarProba4.setStringPainted(true);
 		progressBarProba4.setForeground(Color.GREEN);
 		progressBarProba4.setBackground(new Color(3, 169, 244));
-		progressBarProba4.setValue(proba4);
 		panel_37.add(progressBarProba4);
-
 
 		JPanel panel_38 = new JPanel();
 		panneauGraphs.add(panel_38);
@@ -392,7 +366,6 @@ public class MainFrame extends JFrame {
 		progressBarProba5.setStringPainted(true);
 		progressBarProba5.setForeground(Color.GREEN);
 		progressBarProba5.setBackground(new Color(3, 169, 244));
-		progressBarProba5.setValue(proba5);
 		panel_38.add(progressBarProba5);
 
 		JPanel panel_39 = new JPanel();
@@ -411,7 +384,6 @@ public class MainFrame extends JFrame {
 		progressBarProba6.setStringPainted(true);
 		progressBarProba6.setForeground(Color.GREEN);
 		progressBarProba6.setBackground(new Color(3, 169, 244));
-		progressBarProba6.setValue(proba6);
 		panel_39.add(progressBarProba6);
 
 		JPanel panel_40 = new JPanel();
@@ -430,7 +402,6 @@ public class MainFrame extends JFrame {
 		progressBarProba7.setStringPainted(true);
 		progressBarProba7.setForeground(Color.GREEN);
 		progressBarProba7.setBackground(new Color(3, 169, 244));
-		progressBarProba7.setValue(proba3);
 		panel_40.add(progressBarProba7);
 
 		JPanel panel_41 = new JPanel();
@@ -449,7 +420,6 @@ public class MainFrame extends JFrame {
 		progressBarProba8.setStringPainted(true);
 		progressBarProba8.setForeground(Color.GREEN);
 		progressBarProba8.setBackground(new Color(3, 169, 244));
-		progressBarProba8.setValue(proba3);
 		panel_41.add(progressBarProba8);
 
 		JPanel panel_42 = new JPanel();
@@ -468,7 +438,6 @@ public class MainFrame extends JFrame {
 		progressBarProba9.setStringPainted(true);
 		progressBarProba9.setForeground(Color.GREEN);
 		progressBarProba9.setBackground(new Color(3, 169, 244));
-		progressBarProba9.setValue(proba3);
 		panel_42.add(progressBarProba9);
 
 		JPanel panel_7 = new JPanel();
@@ -558,6 +527,8 @@ public class MainFrame extends JFrame {
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
 
+		ModalProgressBar modalBar = new ModalProgressBar();
+
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedFile == null) { // si aucune image chargee, bloquer l'analyse et ouvrir WarningFrame1
@@ -580,9 +551,7 @@ public class MainFrame extends JFrame {
 					progressBarProba7.setValue((int) (tablResult[7] * 100));
 					progressBarProba8.setValue((int) (tablResult[8] * 100));
 					progressBarProba9.setValue((int) (tablResult[9] * 100));
-
 				}
-
 			}
 		});
 
@@ -610,8 +579,12 @@ public class MainFrame extends JFrame {
 
 		bouton_acces_reglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fenetre
+				modalBar.setVisible(true);
+				modalBar.revalidate();
+				modalBar.repaint();
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);
+				modalBar.setVisible(false);
 			}
 		});
 

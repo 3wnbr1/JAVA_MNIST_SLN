@@ -52,7 +52,7 @@ public class Aide extends JFrame {
 		setSize(800, 600);
 
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE); // permet d'�viter la fermeture du programme si
+		this.setDefaultCloseOperation(Aide.DISPOSE_ON_CLOSE); // permet d'�viter la fermeture du programme si
 																// l'utilisateur clique sur la croix de fermeture de la
 																// fen�tre d'aide
 

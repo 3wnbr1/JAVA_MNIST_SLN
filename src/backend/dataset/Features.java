@@ -9,7 +9,6 @@ public class Features {
 	private Gradient[][] gradient;
 	private Image image;
 
-	
 	/*
 	 * Array of features
 	 */
@@ -27,7 +26,8 @@ public class Features {
 	}
 
 	/**
-	 * Run all compute features 
+	 * Run all compute features
+	 * 
 	 * @return Void, saves to this.array for efficiency.
 	 */
 	public void compute() {
@@ -38,17 +38,17 @@ public class Features {
 		this.array[3] = this.computeFeatureGradientAverageNorm();
 	}
 
-	
 	/**
 	 * Ratio of black pixels in image,
+	 * 
 	 * @return double in range 0 to 1
 	 */
 	private double computeFeatureBlackPixelsRatio() {
 		int counter = 0;
 		int rows = this.image.image_data.getTailleX();
 		int columns = this.image.image_data.getTailleY();
-		for (int y = 0; y<rows; y++) {
-			for (int x = 0; x<columns; x++) {
+		for (int y = 0; y < rows; y++) {
+			for (int x = 0; x < columns; x++) {
 				if (this.image.image_data.estNoir(this.image.image_data.getPoint(x, y))) {
 					counter += 1;
 				}
@@ -56,15 +56,15 @@ public class Features {
 		}
 		return counter / (double) (rows * columns);
 	}
-	
+
 	/*
 	 * Compute grayscale histogram for entropy computation
 	 */
 	private void computeHistogram() {
 		long[] histogram = new long[256];
-		
-		for (int y = 0; y<this.image.image_data.getTailleY(); y++) {
-			for (int x = 0; x<this.image.image_data.getTailleX(); x++) {
+
+		for (int y = 0; y < this.image.image_data.getTailleY(); y++) {
+			for (int x = 0; x < this.image.image_data.getTailleX(); x++) {
 				histogram[this.image.image_data.getPoint(x, y)] += 1;
 			}
 		}
@@ -73,40 +73,41 @@ public class Features {
 
 	/**
 	 * Compute entropy of image using MATLAB Formulation
+	 * 
 	 * @return
 	 */
 	private double computeFeatureEntropy() {
 		long sum = 0;
 		double p;
-		for (int i = 0; i<this.histogram.length; i++) {
+		for (int i = 0; i < this.histogram.length; i++) {
 			p = this.histogram[i];
 			sum += p * Math.log(p) / Math.log(2);
 		}
-		return -1*sum;
+		return -1 * sum;
 	}
-	
+
 	/*
 	 * Compute the average gradient angle
 	 */
 	private double computeFeatureGradientAverageAngle() {
 		long sum = 0;
-		
-		for (int y = 0; y<this.image.image_data.getTailleY(); y++) {
-			for (int x = 0; x<this.image.image_data.getTailleX(); x++) {
+
+		for (int y = 0; y < this.image.image_data.getTailleY(); y++) {
+			for (int x = 0; x < this.image.image_data.getTailleX(); x++) {
 				sum += this.gradient[y][x].getAngle();
 			}
 		}
 		return sum / (double) (this.image.image_data.getTailleY() * this.image.image_data.getTailleX());
 	}
-	
+
 	/*
 	 * Compute the average gradient norm
 	 */
 	private double computeFeatureGradientAverageNorm() {
 		long sum = 0;
-		
-		for (int y = 0; y<this.image.image_data.getTailleY(); y++) {
-			for (int x = 0; x<this.image.image_data.getTailleX(); x++) {
+
+		for (int y = 0; y < this.image.image_data.getTailleY(); y++) {
+			for (int x = 0; x < this.image.image_data.getTailleX(); x++) {
 				sum += this.gradient[y][x].getNorme();
 			}
 		}
@@ -125,13 +126,13 @@ public class Features {
 		boolean computable;
 		double norme;
 		double angle;
-		
+
 		for (int x = 0; x < image.image_data.getTailleX(); x++) {
 			for (int y = 0; y < image.image_data.getTailleY(); y++) {
 				computable = true;
-				
+
 				if ((x > 0) && (x < image.image_data.getTailleX() - 1)) {
-					dx = Math.abs((image.image_data.getPoint(x-1, y) - image.image_data.getPoint(x+1, y)) / 255);
+					dx = Math.abs((image.image_data.getPoint(x - 1, y) - image.image_data.getPoint(x + 1, y)) / 255);
 					if (dx == 0) {
 						dx = 0.0001;
 					}
@@ -139,27 +140,27 @@ public class Features {
 					dx = 0.0001;
 					computable = false;
 				}
-				
-				if ((y>0) && (y < this.image.image_data.getTailleY() - 1)) {
-					dy = Math.abs((image.image_data.getPoint(x, y-1) - image.image_data.getPoint(x, y+1)) / 255);
+
+				if ((y > 0) && (y < this.image.image_data.getTailleY() - 1)) {
+					dy = Math.abs((image.image_data.getPoint(x, y - 1) - image.image_data.getPoint(x, y + 1)) / 255);
 				} else {
 					dy = 0;
 					computable = false;
 				}
-											
+
 				if (!computable) {
-					gradient[x][y] = new Gradient(0.0,0.0);
-					
+					gradient[x][y] = new Gradient(0.0, 0.0);
+
 				} else {
-					norme = 255 - Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))*0.7;
-					angle = (Math.atan(dy/dx) + Math.PI/2)*255/Math.PI;
-					gradient[x][y] = new Gradient(angle,norme);
+					norme = 255 - Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) * 0.7;
+					angle = (Math.atan(dy / dx) + Math.PI / 2) * 255 / Math.PI;
+					gradient[x][y] = new Gradient(angle, norme);
 				}
-				
+
 			}
 		}
 		this.gradient = gradient;
-		
+
 	}
 
 	/*

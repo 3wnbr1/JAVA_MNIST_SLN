@@ -5,33 +5,31 @@ import java.io.Serializable;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
 
-
 public abstract class Model implements Serializable {
-
 
 	protected String name;
 	protected transient Dataset dataset;
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public abstract double evaluate();
-	
+
 	public abstract double[] predict(Image image);
 
-	public abstract void train(int batchsize, double learningRate, long epochs_number);
-	
-	
+	protected abstract void train(int batchsize, double learningRate, long epochs_number);
+
 	/**
 	 * Provide default batchsize value
+	 * 
 	 * @param learningRate
 	 * @param epochs_number
 	 */
 	public void train(double learningRate, long epochs_number) {
 		this.train(this.dataset.getTraining_images().size(), learningRate, epochs_number);
 	}
-	
+
 	/**
 	 * Provide default value for leaning_rate and batchsize
+	 * 
 	 * @param epochs_number
 	 */
 	public void train(int epochs_number) {
@@ -40,6 +38,7 @@ public abstract class Model implements Serializable {
 
 	/**
 	 * Generic model constructor
+	 * 
 	 * @param name
 	 * @param dataset
 	 */
@@ -47,10 +46,10 @@ public abstract class Model implements Serializable {
 		this.name = name;
 		this.dataset = dataset;
 	}
-	
-	
+
 	/**
 	 * Sum elements from an array
+	 * 
 	 * @param input
 	 * @return
 	 */
@@ -64,6 +63,7 @@ public abstract class Model implements Serializable {
 
 	/**
 	 * Return average value of an array
+	 * 
 	 * @param input
 	 * @return
 	 */

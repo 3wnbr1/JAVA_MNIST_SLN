@@ -81,7 +81,6 @@ public class TrainingFrame2 extends JFrame {
 	private JPanel panel_29;
 	private JPanel panel_30;
 	private JTextField epoc;
-	private JTextField batch_size;
 	private JTextField training_step;
 	private JPanel panel_31;
 	private JPanel panel_32;
@@ -115,16 +114,13 @@ public class TrainingFrame2 extends JFrame {
 	private InferenceEngine inferer = new InferenceEngine();
 
 	private double trainingStep; // = incrementation
-	private int batchSize; // = nb d'images par passe
 	private int nombreEpoch; // = nb de passes
-	private int modelnumber = 0;
 	private String modelToLoadPath;
 	private String saveDir;
 	private String savePath = "user.home"; // by default
 	private String saveName;
 	private String defaultPath = "user.home";
 	private JSpinner spinner;
-	private JSpinner spinner_1;
 	private JSpinner spinner_2;
 
 	private void saveModel(String name) {
@@ -143,26 +139,6 @@ public class TrainingFrame2 extends JFrame {
 
 	public String getLoadPath() {
 		return modelToLoadPath;
-	}
-
-	private void trainModel() {
-		/**
-		 * 1=perceptron 2=SLN 3=perceptron2?
-		 */
-		if (modelnumber == 1) {
-			// choisir modele perceptron
-			trainer.train(batchSize, trainingStep, nombreEpoch);
-			System.out.println("perceptron entrain�");
-		} else {
-			if (modelnumber == 2) {
-				// choisir SLN
-				trainer.train(batchSize, trainingStep, nombreEpoch);
-				System.out.println("SLN entrain�");
-				throw new UnsupportedOperationException();
-			} else {
-				throw new UnsupportedOperationException();
-			}
-		}
 	}
 
 	public TrainingFrame2() {
@@ -269,6 +245,7 @@ public class TrainingFrame2 extends JFrame {
 
 		neuronne = new JRadioButton("Choisir le r\u00E9seau de neuronnes");
 		neuronne.setBackground(Color.decode("#b3e5fc"));
+		neuronne.setSelected(true);
 		buttonGroup.add(neuronne);
 		panel_6.add(neuronne);
 
@@ -331,24 +308,12 @@ public class TrainingFrame2 extends JFrame {
 		spinner.setValue(25);
 		panel_31.add(spinner);
 
-		batch_size = new JTextField();
-		batch_size.setBackground(Color.decode("#03a9f4"));
-		batch_size.setHorizontalAlignment(SwingConstants.CENTER);
-		batch_size.setEditable(false);
-		panel_31.add(batch_size);
-		batch_size.setText("nombre d'images par passe");
-		batch_size.setColumns(10);
-
-		spinner_1 = new JSpinner();
-		spinner_1.setValue("default");
-		panel_31.add(spinner_1);
-
 		training_step = new JTextField();
 		training_step.setBackground(Color.decode("#03a9f4"));
 		training_step.setHorizontalAlignment(SwingConstants.CENTER);
 		training_step.setEditable(false);
 		panel_31.add(training_step);
-		training_step.setText("incr\u00E9mentation");
+		training_step.setText("pas d'entrainement");
 		training_step.setColumns(10);
 
 		spinner_2 = new JSpinner();
@@ -368,7 +333,7 @@ public class TrainingFrame2 extends JFrame {
 		panel_1.add(panel_33);
 		panel_33.setLayout(new BorderLayout(0, 0));
 
-		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs rentr�es plus haut");
+		bouton_lancer_apprentissage = new JButton("Lancer l'apprentissage avec les valeurs\n rentr\u00E9es plus haut");
 		bouton_lancer_apprentissage.setBackground(new Color(0, 255, 127));
 		panel_33.add(bouton_lancer_apprentissage);
 
@@ -553,10 +518,8 @@ public class TrainingFrame2 extends JFrame {
 				int result = fileChooser.showOpenDialog(bouton_chargement);
 				if (result == JFileChooser.APPROVE_OPTION) { // user selects a file
 					File selectedFile = fileChooser.getSelectedFile();
-					modelToLoadName = fileChooser.getSelectedFile().getName();
-					modelToLoadPath = fileChooser.getSelectedFile().getPath();
-					modelToLoadfullName = selectedFile.getAbsolutePath();
-					bouton_chargement.setText("Mod�le choisi :  " + modelToLoadPath);
+					modelToLoadPath = selectedFile.getAbsolutePath();
+					bouton_chargement.setText("Mod\u00E9le choisi :  " + modelToLoadPath);
 
 				}
 			}
@@ -593,41 +556,22 @@ public class TrainingFrame2 extends JFrame {
 
 		bouton_lancer_apprentissage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// try {
-				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
-				batchSize = Integer.parseInt(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
-				trainModel();
-				// } catch (Exception a) {
-				// System.out.println("ERREUR");
-				// }
-			}
-		});
-
-		perceptron.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modelnumber = 1;
-				System.out.println("perceptron choisi");
+				if (neuronne.isSelected()) {
+					System.out.println("SLN choisi");
+					trainer.createNewSLN();
+				} else {
+					System.out.println("Perceptron choisi");
+					trainer.createNewPerceptron();
+				}
+				nombreEpoch = Integer.parseInt(spinner.getValue().toString());
+				trainingStep = Double.parseDouble(spinner_2.getValue().toString());
+				trainer.train(trainingStep, (long) nombreEpoch);
 			}
 		});
 
 		retoursMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-			}
-		});
-
-		neuronne.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modelnumber = 2;
-			}
-		});
-
-		bouton_validation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				nombreEpoch = Integer.parseInt(nb_de_passes.getText());
-				batchSize = Integer.parseInt(valeur_nb_images.getText());
-				trainingStep = Double.parseDouble(nb_incrementations.getText());
 			}
 		});
 	}

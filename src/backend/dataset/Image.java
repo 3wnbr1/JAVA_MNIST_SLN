@@ -15,13 +15,15 @@ public class Image {
 
 	/**
 	 * Construct a new image with only a filepath
+	 * 
 	 * @param filepath
 	 */
 	public Image(String filepath, int image_height, int image_width) {
-		String[] path = filepath.split("\\\\|/");  // Regex matching windows and unix paths
-		this.image_data = ImageCalculs.buffToImageNB(ImageCalculs.redimensionnerImage(ImageCalculs.chargerImage(filepath), image_height, image_width));
-		this.label = path[path.length-1].substring(0, 1);
-		this.filename = path[path.length-1];
+		String[] path = filepath.split("\\\\|/"); // Regex matching windows and unix paths
+		this.image_data = ImageCalculs.buffToImageNB(
+				ImageCalculs.redimensionnerImage(ImageCalculs.chargerImage(filepath), image_height, image_width));
+		this.label = path[path.length - 1].substring(0, 1);
+		this.filename = path[path.length - 1];
 		// this.features = new Features(this);
 	}
 
@@ -67,7 +69,8 @@ public class Image {
 	 */
 	@Override
 	public String toString() {
-		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: " + this.features.toString();
+		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: "
+				+ this.features.toString();
 	}
 
 	public BufferedImage toBufferedImage() {

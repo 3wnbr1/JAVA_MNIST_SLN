@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 public class WarningFrame1 extends JFrame {
 
@@ -46,9 +47,9 @@ public class WarningFrame1 extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		this.setLocationRelativeTo(null);
 		setSize(400, 200);
-		this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE); // permet d'�viter la fermeture du programme si
-																// l'utilisateur clique sur la croix de fermeture de la
-																// fen�tre d'aide
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // permet d'�viter la fermeture du programme si
+		// l'utilisateur clique sur la croix de fermeture de la
+		// fen�tre d'aide
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
