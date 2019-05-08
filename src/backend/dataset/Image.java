@@ -8,10 +8,8 @@ import backend.prof.ImageNB;
 public class Image {
 
 	protected ImageNB image_data;
-	private Features features;
 	private String label;
 	private String filename;
-	private double[] flattened;
 
 	/**
 	 * Construct a new image with only a filepath
@@ -24,14 +22,6 @@ public class Image {
 				ImageCalculs.redimensionnerImage(ImageCalculs.chargerImage(filepath), image_height, image_width));
 		this.label = path[path.length - 1].substring(0, 1);
 		this.filename = path[path.length - 1];
-		// this.features = new Features(this);
-	}
-
-	/**
-	 * Compute Image Features
-	 */
-	public void computeFeatures() {
-		this.features.compute();
 	}
 
 	/**
@@ -39,13 +29,6 @@ public class Image {
 	 */
 	public String getLabel() {
 		return this.label;
-	}
-
-	/**
-	 * Return array of images features
-	 */
-	public double[] getFeatures() {
-		return this.features.getArray();
 	}
 
 	/**
@@ -69,8 +52,7 @@ public class Image {
 	 */
 	@Override
 	public String toString() {
-		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: "
-				+ this.features.toString();
+		return "image:\n    name: " + this.filename + "\n    label: " + this.label + "\n    features: ";
 	}
 
 	public BufferedImage toBufferedImage() {

@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import backend.dataset.Dataset;
-import backend.models.FeaturesPerceptron;
 import backend.models.SLN;
-import frontend.TrainingFrame2;
 
-public class TrainingEngine extends Engine {
 
+public class TrainingEngine {
+
+	protected SLN model;
 	private Dataset dataset;
 	private int progressStatus; // etat d'avancement d'entrainement
 	// TODO implementer progressStatus dans la barre d'avancement dans trainingFrame

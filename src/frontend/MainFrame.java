@@ -527,8 +527,6 @@ public class MainFrame extends JFrame {
 		panel_28.setBackground(Color.decode("#03a9f4"));
 		organisationPanneauTitre.add(panel_28, BorderLayout.SOUTH);
 
-		ModalProgressBar modalBar = new ModalProgressBar();
-
 		bouton_lance_analyse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedFile == null) { // si aucune image chargee, bloquer l'analyse et ouvrir WarningFrame1
@@ -579,12 +577,8 @@ public class MainFrame extends JFrame {
 
 		bouton_acces_reglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fenetre
-				modalBar.setVisible(true);
-				modalBar.revalidate();
-				modalBar.repaint();
 				TrainingFrame2 frame = new TrainingFrame2();
 				frame.setVisible(true);
-				modalBar.setVisible(false);
 			}
 		});
 

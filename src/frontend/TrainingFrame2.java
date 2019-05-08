@@ -548,7 +548,9 @@ public class TrainingFrame2 extends JFrame {
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				chooser.setAcceptAllFileFilterUsed(false);
 				if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) {
-					saveDir = chooser.getCurrentDirectory().toString() + "\\" + chooser.getSelectedFile().getName(); // ne
+					String save_path = chooser.getCurrentDirectory().toString() + System.getProperty("file.separator") + chooser.getSelectedFile().getName();
+					System.out.println(save_path);
+					trainer.saveModel(save_path);
 				}
 				System.out.println(saveName);
 			}

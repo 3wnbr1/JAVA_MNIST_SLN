@@ -9,12 +9,11 @@ import java.io.ObjectInputStream;
 import backend.TrainingEngine;
 import backend.dataset.Dataset;
 import backend.dataset.Image;
+import backend.models.SLN;
 
-public class InferenceEngine extends Engine {
+public class InferenceEngine {
 
-	private static String imagePath;
-	private static int lancement;
-	private static int valeurLancement;
+	protected SLN model;
 
 	/*
 	 * Construct an Inference Engine
@@ -32,7 +31,7 @@ public class InferenceEngine extends Engine {
 		try {
 			FileInputStream file_input = new FileInputStream(new File(path));
 			ObjectInputStream object_input = new ObjectInputStream(file_input);
-			this.model = (backend.models.Model) object_input.readObject();
+			this.model = (SLN) object_input.readObject();
 			object_input.close();
 			file_input.close();
 		} catch (FileNotFoundException e) {
