@@ -520,7 +520,7 @@ public class TrainingFrame2 extends JFrame {
 					File selectedFile = fileChooser.getSelectedFile();
 					modelToLoadPath = selectedFile.getAbsolutePath();
 					bouton_chargement.setText("Mod\u00E9le choisi :  " + modelToLoadPath);
-
+					inferer.loadModel(modelToLoadPath);
 				}
 			}
 		});
@@ -535,8 +535,8 @@ public class TrainingFrame2 extends JFrame {
 		bouton_valider_sauvegarde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				saveName = textField_1.getText();
-				savePath = saveDir + "\\" + saveName;
-				saveModel(saveName);
+				System.out.println(savePath + System.getProperty("file.separator") + saveName);
+				trainer.saveModel(savePath + System.getProperty("file.separator") + saveName);
 			}
 		});
 
@@ -544,15 +544,11 @@ public class TrainingFrame2 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				chooser.setCurrentDirectory(new File(System.getProperty(defaultPath)));
-				chooser.setDialogTitle("dir sauvegarder modele");
+				chooser.setDialogTitle("sauvegarder modele");
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				chooser.setAcceptAllFileFilterUsed(false);
 				if (chooser.showOpenDialog(bouton_sauvegarder_modele) == JFileChooser.APPROVE_OPTION) {
-					String save_path = chooser.getCurrentDirectory().toString() + System.getProperty("file.separator") + chooser.getSelectedFile().getName();
-					System.out.println(save_path);
-					trainer.saveModel(save_path);
+					savePath = chooser.getSelectedFile().getAbsolutePath();
 				}
-				System.out.println(saveName);
 			}
 		});
 
