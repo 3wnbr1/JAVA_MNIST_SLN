@@ -577,7 +577,7 @@ public class MainFrame extends JFrame {
 
 		bouton_acces_reglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // Ouvrir nouvelle fenetre
-				TrainingFrame2 frame = new TrainingFrame2();
+				TrainingFrame2 frame = new TrainingFrame2(inference);
 				frame.setVisible(true);
 			}
 		});

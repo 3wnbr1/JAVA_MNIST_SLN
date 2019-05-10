@@ -111,7 +111,6 @@ public class TrainingFrame2 extends JFrame {
 	 */
 
 	private TrainingEngine trainer = new TrainingEngine();
-	private InferenceEngine inferer = new InferenceEngine();
 
 	private double trainingStep; // = incrementation
 	private int nombreEpoch; // = nb de passes
@@ -122,6 +121,7 @@ public class TrainingFrame2 extends JFrame {
 	private String defaultPath = "user.home";
 	private JSpinner spinner;
 	private JSpinner spinner_2;
+	protected InferenceEngine inferer;
 
 	private void saveModel(String name) {
 		trainer.saveModel(savePath);
@@ -141,8 +141,9 @@ public class TrainingFrame2 extends JFrame {
 		return modelToLoadPath;
 	}
 
-	public TrainingFrame2() {
+	public TrainingFrame2(InferenceEngine inferer) {
 
+		this.inferer = inferer;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
